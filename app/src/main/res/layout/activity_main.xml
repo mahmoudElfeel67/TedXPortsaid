@@ -1,19 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/white"
+    android:fitsSystemWindows="false"
+    tools:context=".Activity.MainActivity"
+    tools:targetApi="jelly_bean_mr1">
 
-    <TextView
+
+
+    <ImageView
+        android:id="@+id/portsaid_logo"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:paddingEnd="70dp"
+        android:paddingTop="13dp"
+        android:src="@drawable/png_logo"
+        tools:ignore="ContentDescription"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/co"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/portsaid_logo"
+
+
+
+        >
+        <android.support.design.widget.AppBarLayout
+
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@color/transparent"
+            android:fitsSystemWindows="false"
+            >
+
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+
+                <com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    app:pstsIndicatorColor="@color/colorAccent"
+                    app:pstsIndicatorHeight="2dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/drop_shadow"
+                    android:layout_gravity="bottom"
+                    />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:background="@color/frag_background"/>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/question_mark"
+        app:fabSize="normal"
+        tools:ignore="RtlHardcoded"/>
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

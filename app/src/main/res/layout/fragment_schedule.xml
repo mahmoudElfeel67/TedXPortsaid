@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+    >
+
+
+    <LinearLayout
+        android:id="@+id/text_cont"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+
+            android:id="@+id/schedule_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="49"
+            android:gravity="center"
+            android:text="الجدول"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:background="#d6898989"
+            />
+
+        <TextView
+            android:id="@+id/get_there_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="49"
+            android:gravity="center"
+            android:text="أوصل ازاي ؟"
+            android:textColor="#dd585858"
+            android:textSize="16sp"
+            />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/text_cont"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#d6898989"
+        />
+
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/xex"
+        />
+
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/frag"
+       android:layout_below="@+id/text_cont"
+       >
+
+
+   </RelativeLayout>
+
+
+</RelativeLayout>

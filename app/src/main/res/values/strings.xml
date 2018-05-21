@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TEDxPortSaid</string>
+    <string name="articles">Articles</string>
+    <string name="videos">Videos</string>
+    <string name="speakers">Speakers</string>
+    <string name="schedule">Schedule</string>
+    <string name="about_us">About Us</string>
 </resources>

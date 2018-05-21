@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:layout_margin="15dp"
+        >
+
+
+    </com.google.android.gms.maps.MapView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/map_view"
+        android:layout_height="180dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:text="التفاعليه هتقام في كذا كذا  اللي جمب كذا وكذاوهتبدا الساعه 5 الفجر باذن الله"
+        android:textSize="14sp"
+
+        />
+
+
+
+</RelativeLayout>
