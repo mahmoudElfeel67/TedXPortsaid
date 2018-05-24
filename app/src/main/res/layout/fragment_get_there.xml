@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+    >
 
 
     <com.google.android.gms.maps.MapView
@@ -25,6 +26,81 @@
         android:textSize="14sp"
 
         />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/map_view"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="#d6898989"
+        android:layout_marginTop="30dp"
+        />
+    
+    <ImageView
+        android:id="@+id/round_arrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/careem_container"
+        android:src="@drawable/arrow_round"
+        android:rotation="90"
+        android:scaleX="-1"
+        android:scaleY="-1"
+        android:layout_margin="35dp"
+        android:padding="5dp"
+
+        />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@+id/round_arrow"
+        android:textColor="@color/colorAccent"
+        android:layout_above="@+id/careem_container"
+        android:layout_marginBottom="25dp"
+        android:textSize="14sp"
+        android:layout_marginLeft="-20dp"
+        android:text="استخدم الكود ده يوم الايفينت في كريم وهتاخد الرحله بنص التمن !"
+
+        />
+
+
+    <LinearLayout
+        android:id="@+id/careem_container"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/careem_voucher"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/copy"
+            android:padding="5dp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="54as43a"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="8dp"
+
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/careem"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
 
 
 

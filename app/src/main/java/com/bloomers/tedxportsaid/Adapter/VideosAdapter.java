@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bloomers.tedxportsaid.Dialog.YoutubeFragment;
 import com.bloomers.tedxportsaid.R;
+import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 
 import java.lang.ref.WeakReference;
+
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleItemRowHolder> {
 
@@ -24,7 +28,7 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
     @NonNull
     @Override
     public VideosAdapter.SingleItemRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video, parent, false);
+        View view = LayoutInflater.from(mContext.get()).inflate(R.layout.item_video, parent, false);
         return new VideosAdapter.SingleItemRowHolder(view);
     }
 
@@ -51,9 +55,10 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
 
 
 
+        @OnClick(R.id.card)
         public void onClick() {
 
-
+            HeavilyUsed.callSaveDialog(mContext.get(),new YoutubeFragment(),null);
 
         }
 

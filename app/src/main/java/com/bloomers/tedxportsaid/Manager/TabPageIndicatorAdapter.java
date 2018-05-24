@@ -6,17 +6,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip;
+import com.bloomers.tedxportsaid.Fragment.AboutUsFragment;
 import com.bloomers.tedxportsaid.Fragment.ArticleFragment;
 import com.bloomers.tedxportsaid.Fragment.ScheduleFragment;
 import com.bloomers.tedxportsaid.Fragment.SpeakerFragment;
+import com.bloomers.tedxportsaid.Fragment.TeamFragment;
 import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.R;
 
 public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
 
-    public TabPageIndicatorAdapter(FragmentManager fm) {
+    private TeamFragment.onCLick onCLick;
+    public TabPageIndicatorAdapter(FragmentManager fm,TeamFragment.onCLick onCLick) {
         super(fm);
+        this.onCLick = onCLick;
     }
 
 
@@ -24,17 +28,16 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements Pag
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return ScheduleFragment.newInstance();
+                return ArticleFragment.newInstance();
             case 1:
                 return VideosFragment.newInstance();
             case 2:
                 return SpeakerFragment.newInstance();
             case 3:
                 return ScheduleFragment.newInstance();
-            case 4:
-                return ArticleFragment.newInstance();
+            default:
+                return AboutUsFragment.newInstance(onCLick);
         }
-        return ArticleFragment.newInstance();
     }
 
     @Override

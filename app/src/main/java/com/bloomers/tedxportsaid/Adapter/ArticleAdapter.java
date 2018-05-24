@@ -1,6 +1,7 @@
 package com.bloomers.tedxportsaid.Adapter;
 
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -9,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 public class ArticleAdapter  extends RecyclerView.Adapter<ArticleAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
@@ -55,8 +59,15 @@ public class ArticleAdapter  extends RecyclerView.Adapter<ArticleAdapter.SingleI
 
 
 
+        @OnClick(R.id.card)
         public void onClick() {
-
+            new FinestWebView.Builder(mContext.get())
+                 .iconDefaultColor(Color.WHITE)
+                 .titleColor(Color.WHITE)
+                 .urlColor(Color.WHITE)
+                 .statusBarColor(AppController.easyColor(mContext.get(),R.color.statusBarColor))
+                 .toolbarColor(AppController.easyColor(mContext.get(),R.color.colorAccent))
+                 .show("https://www.youtube.com/watch?v=dARAN1z2KqY");
 
 
         }

@@ -26,32 +26,38 @@
         android:scaleY="-1"
         />
 
-    <ImageView
-        android:id="@+id/event_time"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="50dp"
+   <RelativeLayout
+       android:id="@+id/event_container"
+       android:layout_width="120dp"
+       android:layout_height="120dp"
+       android:layout_marginLeft="50dp"
+       >
 
-        />
+       <ImageView
+           android:id="@+id/event_time"
+           android:layout_width="120dp"
+           android:layout_height="120dp"
 
-    <View
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="50dp"
-        android:background="@drawable/red_stroke"
 
-        />
+           />
 
-    <TextView
-        android:id="@+id/sch_desc"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="50dp"
-        android:text="فتح البوابات"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:padding="5dp"
+       <View
+           android:layout_width="120dp"
+           android:layout_height="120dp"
+           android:background="@drawable/red_stroke"
 
-        />
+           />
 
+       <TextView
+           android:id="@+id/sch_desc"
+           android:layout_width="120dp"
+           android:layout_height="120dp"
+           android:text="فتح البوابات"
+           android:textColor="@color/white"
+           android:gravity="center"
+           android:padding="5dp"
+
+           />
+
+   </RelativeLayout>
 </RelativeLayout>

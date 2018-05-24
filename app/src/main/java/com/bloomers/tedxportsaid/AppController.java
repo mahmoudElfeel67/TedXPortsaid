@@ -15,14 +15,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
-import com.bloomers.tedxportsaid.Utitltes.other.LinearLayoutManagerEXT;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -34,9 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -65,15 +64,6 @@ public class AppController extends Application {
 
     public static Boolean isntRecycled(Bitmap bitmap) {
         return bitmap != null && !bitmap.isRecycled();
-    }
-
-    public static boolean isImageFile(String path) {
-        if (path != null) {
-            String mimeType = URLConnection.guessContentTypeFromName(path);
-            return mimeType != null && mimeType.startsWith("image");
-        } else {
-            return false;
-        }
     }
 
     public static void avoidMultiTouch(final View v) {
@@ -111,8 +101,6 @@ public class AppController extends Application {
 
     }
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -120,7 +108,6 @@ public class AppController extends Application {
             return;
         }
         LeakCanary.install(this);
-
 
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
              .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
@@ -133,11 +120,8 @@ public class AppController extends Application {
              .setFontAttrId(R.attr.fontPath)
              .build());
 
-
         Timber.plant(new Timber.DebugTree());
     }
-
-
 
     public DatabaseReference firebaseInstance() {
         if (database == null) {
@@ -159,7 +143,6 @@ public class AppController extends Application {
 
     }
 
-
     public FirebaseAnalytics getAnalytics(Context context) {
         return FirebaseAnalytics.getInstance(context);
     }
@@ -178,7 +161,6 @@ public class AppController extends Application {
         }
     }
 
-
     public void removeView(@Nullable View view) {
         if (view != null && view.getParent() != null) {
             try {
@@ -189,22 +171,9 @@ public class AppController extends Application {
         }
     }
 
-
-
-
-    public ArrayList<String> getWords(@NonNull String text) {
-        ArrayList<String> words = new ArrayList<>();
-        String[] arr = text.split(" ");
-        Collections.addAll(words, arr);
-        return words;
-    }
-
-
     public Boolean isArabic(Context mContext) {
         return mContext == null || mContext.getSharedPreferences("My App", MODE_PRIVATE).getString("language", Locale.getDefault().getLanguage()).equals("ar");
     }
-
-
 
     public void deleteItem(int index, RecyclerView.Adapter adapter, ArrayList arrayList) {
         try {
@@ -260,11 +229,10 @@ public class AppController extends Application {
         }
     }
 
-    private boolean hasNavBar(@NonNull Resources resources) {
+    public boolean hasNavBar(@NonNull Resources resources) {
         int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
         return id > 0 && resources.getBoolean(id);
     }
-
 
     public boolean isAppInstalled(String packageName, Context context) {
         if (context == null) {
@@ -288,7 +256,7 @@ public class AppController extends Application {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                  //  AppController.getInstance().showErrorToast(activity);
+                    //  AppController.getInstance().showErrorToast(activity);
                 }
 
             } else {
@@ -358,17 +326,6 @@ public class AppController extends Application {
         }
     }
 
-    public LinearLayoutManagerEXT getRightHorizontalManager(Activity activity) {
-        LinearLayoutManagerEXT layoutManager = new LinearLayoutManagerEXT(this, LinearLayoutManagerEXT.HORIZONTAL, false);
-        if (isArabic(activity)) {
-            layoutManager.setStackFromEnd(true);
-            layoutManager = new LinearLayoutManagerEXT(this, LinearLayoutManagerEXT.HORIZONTAL, true);
-        }
-        return layoutManager;
-
-    }
-
-
     public boolean isReleaseON() {
         return !BuildConfig.DEBUG;
     }
@@ -380,4 +337,7 @@ public class AppController extends Application {
         context.sendBroadcast(mediaScanIntent);
     }
 
+    public void showErrorToast(FragmentActivity activity) {
+        Toast.makeText(activity, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+    }
 }
