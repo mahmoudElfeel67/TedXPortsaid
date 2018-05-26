@@ -22,7 +22,7 @@
         android:layout_height="180dp"
         android:padding="5dp"
         android:gravity="center"
-        android:text="التفاعليه هتقام في كذا كذا  اللي جمب كذا وكذاوهتبدا الساعه 5 الفجر باذن الله"
+        android:text="@string/get_there_desc"
         android:textSize="14sp"
 
         />
@@ -37,7 +37,7 @@
         android:background="#d6898989"
         android:layout_marginTop="30dp"
         />
-    
+
     <ImageView
         android:id="@+id/round_arrow"
         android:layout_width="50dp"
@@ -61,7 +61,7 @@
         android:layout_marginBottom="25dp"
         android:textSize="14sp"
         android:layout_marginLeft="-20dp"
-        android:text="استخدم الكود ده يوم الايفينت في كريم وهتاخد الرحله بنص التمن !"
+        android:text="@string/careem_code"
 
         />
 

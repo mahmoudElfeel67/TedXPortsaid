@@ -19,7 +19,6 @@
 
 
     <ImageView
-        android:id="@+id/article_image"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:src="@drawable/rickmorty"
@@ -28,7 +27,6 @@
         />
 
     <TextView
-        android:id="@+id/video_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -40,7 +38,6 @@
         />
 
     <TextView
-        android:id="@+id/video_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -50,7 +47,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="40dp"
         fontPath="GE_SS_Two_Light.otf"
-        />
+        tools:ignore="MissingPrefix"/>
 
 
 

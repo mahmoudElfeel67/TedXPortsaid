@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
 
 
@@ -25,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="49"
             android:gravity="center"
-            android:text="الجدول"
+            android:text="@string/Schedule"
             android:textColor="@color/black"
             android:textSize="16sp"
             />
@@ -44,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="49"
             android:gravity="center"
-            android:text="أوصل ازاي ؟"
+            android:text="@string/how_to_get_there"
             android:textColor="#dd585858"
             android:textSize="16sp"
             />
@@ -68,7 +67,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/xex"
-        android:alpha=".70"
+        android:alpha=".20"
         />
 
 

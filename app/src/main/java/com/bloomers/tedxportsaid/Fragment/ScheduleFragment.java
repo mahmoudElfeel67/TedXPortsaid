@@ -46,7 +46,7 @@ public class ScheduleFragment extends Fragment {
              R.anim.fade_out,
              R.anim.fade_in,
              R.anim.fade_out);
-        ft.replace(R.id.frag, isAtTimeline ? EventTimeLineFragment.newInstance() : GetThereFragment.newInstance()).addToBackStack("as").commit();
+        ft.replace(R.id.frag, isAtTimeline ? EventTimeLineFragment.newInstance() : GetThereFragment.newInstance()).addToBackStack("as").commitAllowingStateLoss();
 
     }
 

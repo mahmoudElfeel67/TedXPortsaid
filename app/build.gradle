@@ -6,19 +6,17 @@ android {
 
     defaultConfig {
         applicationId "com.bloomers.tedxportsaid"
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        renderscriptTargetApi 17
         resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
         dexOptions {
             preDexLibraries = false
-            javaMaxHeapSize "4g"
+            javaMaxHeapSize "3g"
         }
 
 
-        renderscriptSupportModeEnabled true
         resConfigs "en", "ar"
     }
 
@@ -26,7 +24,6 @@ android {
     buildTypes {
         buildTypes {
             release {
-                renderscriptDebuggable false
                 debuggable false
                 jniDebuggable false
                 minifyEnabled true
@@ -37,8 +34,6 @@ android {
             }
             debug {
                 ext.alwaysUpdateBuildId = false
-                minifyEnabled false
-                shrinkResources false
                 debuggable true
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 

@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.lang.reflect.InvocationTargetException;
+@SuppressWarnings("ConstantConditions")
 public class GetThereFragment extends Fragment {
 
     public static GetThereFragment newInstance() {
@@ -103,6 +104,7 @@ public class GetThereFragment extends Fragment {
         return size;
     }
 
+    @SuppressWarnings("JavaReflectionMemberAccess")
     public static Point getRealScreenSize(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -110,14 +112,29 @@ public class GetThereFragment extends Fragment {
 
         if (Build.VERSION.SDK_INT >= 17) {
             display.getRealSize(size);
-        } else if (Build.VERSION.SDK_INT >= 14) {
+        } else {
             try {
                 size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                 size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-            } catch (IllegalAccessException e) {} catch (InvocationTargetException e) {} catch (NoSuchMethodException e) {}
+            } catch (IllegalAccessException ignored) {} catch (InvocationTargetException ignored) {} catch (NoSuchMethodException ignored) {}
         }
 
         return size;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mMapView!=null){
+            mMapView.onDestroy();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mMapView!=null){
+            mMapView.onPause();
+        }
+    }
 }

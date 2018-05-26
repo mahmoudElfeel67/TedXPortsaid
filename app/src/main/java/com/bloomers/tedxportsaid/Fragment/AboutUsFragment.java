@@ -35,7 +35,6 @@ public class AboutUsFragment extends Fragment {
 
 
 
-    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -52,7 +51,7 @@ public class AboutUsFragment extends Fragment {
              R.anim.fade_out,
              R.anim.fade_out,
              R.anim.fade_out);
-        ft.replace(R.id.frag,fragment).addToBackStack("as").commit();
+        ft.replace(R.id.frag,fragment).addToBackStack("as").commitAllowingStateLoss();
     }
 
     @Override

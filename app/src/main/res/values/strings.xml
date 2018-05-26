@@ -1,9 +1,20 @@
 <resources>
     <string name="app_name">TEDxPortSaid</string>
-    <string name="articles">Articles</string>
-    <string name="videos">Videos</string>
-    <string name="speakers">Speakers</string>
-    <string name="schedule">Schedule</string>
-    <string name="about_us">About Us</string>
     <string name="something_wrong">في حاجه غلط حصلت !</string>
+    <string name="About_us">عنا</string>
+    <string name="Partners">الشركاء</string>
+    <string name="Follow_us">تابعونا</string>
+    <string name="Developer">المطور</string>
+    <string name="follow_us_tedx">تابعونا علي السوشيال ميديا !</string>
+    <string name="TED_INTRO">TED     هي كذا وكذا وكذا</string>
+    <string name="TEDx_INTOR">TEDx     هي كذا وكذا وكذا</string>
+    <string name="developer">تم تطوير البرنامج من محمود الفيل</string>
+    <string name="Schedule">الجدول</string>
+    <string name="how_to_get_there">أوصل ازاي ؟</string>
+    <string name="get_there_desc">التفاعليه هتقام في كذا كذا اللي جمب كذا وكذاوهتبدا الساعه 5 الفجر باذن الله</string>
+    <string name="careem_code">استخدم الكود ده يوم الايفينت في كريم وهتاخد الرحله بنص التمن !</string>
+    <string name="ask_hint">إسأل سؤال للمتحدثيين لفرصه ان السؤال يتجاوب حي في الايفينت</string>
+    <string name="form_que_gint">خلي السؤال في نطاق موضوع المتحدت ... ع الهادي يازبادي</string>
+    <string name="form_edit_text_hint">تحب الدحيح يجاوب علي ايه ؟</string>
+    <string name="ask">إسئل</string>
 </resources>

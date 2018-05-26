@@ -21,7 +21,7 @@ import butterknife.OnClick;
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
-    private TeamFragment.onCLick onCLick;
+    private final TeamFragment.onCLick onCLick;
 
     public TeamAdapter(AppCompatActivity editActivity, TeamFragment.onCLick clicked) {
         this.mContext = new WeakReference<>(editActivity);

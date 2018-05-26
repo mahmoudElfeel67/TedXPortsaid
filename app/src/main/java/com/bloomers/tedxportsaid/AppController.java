@@ -33,6 +33,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
+import com.thefinestartist.Base;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -121,6 +122,7 @@ public class AppController extends Application {
              .build());
 
         Timber.plant(new Timber.DebugTree());
+        Base.initialize(this);
     }
 
     public DatabaseReference firebaseInstance() {

@@ -22,7 +22,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnInitializedListener {
 
-    private static String VIDEO_ID = "pDms5XX3Nb0";
+    private static String VIDEO_ID = "dARAN1z2KqY";
     private YouTubePlayer youTubePlayer;
     private Boolean isIntilize = false;
 
@@ -47,7 +47,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
 
         if (HeavilyUsed.isContextSafe(getActivity())) {
             YouTubePlayerSupportFragment youtubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
-            getChildFragmentManager().beginTransaction().disallowAddToBackStack().add(R.id.youtube_layout, youtubePlayerFragment).commit();
+            getChildFragmentManager().beginTransaction().disallowAddToBackStack().add(R.id.youtube_layout, youtubePlayerFragment).commitAllowingStateLoss();
             youtubePlayerFragment.initialize(getString(R.string.google_maps_key), this);
         }
 

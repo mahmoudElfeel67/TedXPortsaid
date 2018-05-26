@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.Adapter.TeamAdapter;
 import com.bloomers.tedxportsaid.R;
@@ -40,21 +42,43 @@ public class TeamFragment extends Fragment {
                     case 0:
                     case 1:
                     case 2:
-                        return 4;
+                    case 3:
+                        return 3;
                     // next four items span 2 columns each
 
-                    case 3:
+
                     case 4:
                     case 5:
                     case 6:
-                        return 3;
+                        return 4;
                 }
                 throw new IllegalStateException("internal error");
             }
         });
-
+        article_recycler.setNestedScrollingEnabled(false);
         article_recycler.setLayoutManager(layoutManager);
         article_recycler.setAdapter(new TeamAdapter((AppCompatActivity) getActivity(),clicked));
+
+        ((TextView)root.findViewById(R.id.tedx)).setText(Html.fromHtml("<html>\n" +
+             "<body>\n" +
+             "\n" +
+             "<p><font color=\"red\">TEDx</font></p>\n" +
+             "<p><font color=\"black\">كذاوكذا وكذا وبلا بلا بلا</font></p>\n" +
+             "\n" +
+             "\n" +
+             "</body>\n" +
+             "</html>\n"));
+
+
+        ((TextView)root.findViewById(R.id.ted)).setText(Html.fromHtml("<html>\n" +
+             "<body>\n" +
+             "\n" +
+             "<p><font color=\"red\">TED</font></p>\n" +
+             "<p><font color=\"black\">كذاوكذا وكذا وبلا بلا بلا</font></p>\n" +
+             "\n" +
+             "\n" +
+             "</body>\n" +
+             "</html>\n"));
         return root;
     }
 
