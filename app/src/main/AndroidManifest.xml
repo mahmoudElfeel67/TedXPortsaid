@@ -32,6 +32,7 @@
         <activity
             android:name=".Activity.SplashActivity"
             android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,20 +44,21 @@
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensor"
+            android:screenOrientation="portrait"
             android:theme="@style/noFullScreen"/>
 
         <activity
             android:name=".Activity.MainActivity"
             android:theme="@style/noFullScreen"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             >
 
         </activity>
 
         <activity android:name=".Activity.WalkThroughActivity"
             android:theme="@style/fullScreen"
-
+                  android:screenOrientation="portrait"
             >
 
         </activity>

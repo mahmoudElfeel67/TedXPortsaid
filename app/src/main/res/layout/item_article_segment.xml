@@ -6,7 +6,7 @@
           android:text="سيزون 1"
           android:textColor="#ab585858"
           android:gravity="center"
-          android:textSize="10sp"
+          android:textSize="12sp"
     >
 
 </TextView>

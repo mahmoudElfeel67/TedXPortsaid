@@ -160,11 +160,7 @@ public class MainActivity extends AppCompatActivity {
         if (originalPos != null) {
             dissmisTeamMember();
         } else {
-            if (getFragmentManager().getBackStackEntryCount() != 0) {
-                getFragmentManager().popBackStack();
-            } else {
-                super.onBackPressed();
-            }
+            super.onBackPressed();
         }
     }
 

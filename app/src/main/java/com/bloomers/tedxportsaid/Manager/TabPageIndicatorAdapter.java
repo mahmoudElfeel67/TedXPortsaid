@@ -17,7 +17,7 @@ import com.bloomers.tedxportsaid.R;
 public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
 
-    private final TeamFragment.onCLick onCLick;
+    private static  TeamFragment.onCLick onCLick = null;
     public TabPageIndicatorAdapter(FragmentManager fm,TeamFragment.onCLick onCLick) {
         super(fm);
         this.onCLick = onCLick;

@@ -18,10 +18,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import timber.log.Timber;
 public class AboutUsFragment extends Fragment {
 
-    TeamFragment.onCLick onCLick;
+   static TeamFragment.onCLick onCLick;
     public static AboutUsFragment newInstance(TeamFragment.onCLick onCLick) {
+        Timber.e("CALLLED");
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
         aboutUsFragment.onCLick = onCLick;
         return aboutUsFragment;
