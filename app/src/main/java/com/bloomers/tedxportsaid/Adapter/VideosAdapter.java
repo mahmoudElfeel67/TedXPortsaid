@@ -7,22 +7,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.Dialog.YoutubeFragment;
 import com.bloomers.tedxportsaid.R;
+import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
+import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
+    private ArrayList<YouTubeVideo> videos;
 
-    public VideosAdapter(AppCompatActivity editActivity) {
+    public VideosAdapter(AppCompatActivity editActivity, List<YouTubeVideo> videos) {
         this.mContext = new WeakReference<>(editActivity);
+        this.videos = new ArrayList<>(videos);
     }
 
     @NonNull
@@ -40,11 +49,17 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
     @Override
     public int getItemCount() {
 
-        return 100;
+        return videos.size();
     }
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
+
+        @BindView(R.id.video_title)
+        TextView video_title;
+
+        @BindView(R.id.video_thumb)
+        ImageView video_thumb;
 
 
         SingleItemRowHolder(@NonNull final View view) {
@@ -58,11 +73,13 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
         @OnClick(R.id.card)
         public void onClick() {
 
-            HeavilyUsed.callSaveDialog(mContext.get(),new YoutubeFragment(),null);
+            HeavilyUsed.callSaveDialog(mContext.get(),YoutubeFragment.newInstance(videos.get(getAdapterPosition()).getId()),null);
 
         }
 
         void bind() {
+            video_title.setText(videos.get(getAdapterPosition()).getTitle());
+            GlideApp.with(mContext.get()).load(videos.get(getAdapterPosition()).getThumbnailUrl()).into(video_thumb);
         }
 
     }

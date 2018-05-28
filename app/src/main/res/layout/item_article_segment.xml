@@ -3,7 +3,7 @@
           android:layout_width="50dp"
           android:layout_height="match_parent"
           android:orientation="vertical"
-          android:text="سيزون 1"
+          android:text="علمي"
           android:textColor="#ab585858"
           android:gravity="center"
           android:textSize="12sp"

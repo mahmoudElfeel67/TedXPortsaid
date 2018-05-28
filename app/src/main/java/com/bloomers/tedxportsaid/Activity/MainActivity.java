@@ -29,14 +29,21 @@ import com.bloomers.tedxportsaid.Dialog.AskSpeakerDialog;
 import com.bloomers.tedxportsaid.Fragment.TeamFragment;
 import com.bloomers.tedxportsaid.Manager.TabPageIndicatorAdapter;
 import com.bloomers.tedxportsaid.R;
+import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInterface;
+import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
+import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.bumptech.glide.request.target.Target;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -105,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 

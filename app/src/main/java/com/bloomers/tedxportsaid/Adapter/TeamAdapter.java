@@ -63,7 +63,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowH
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.rick).circleCrop().into(team_member);
+            GlideApp.with(mContext.get()).load(R.drawable.portofilio).circleCrop().into(team_member);
         }
 
     }

@@ -73,7 +73,7 @@ public class ArticleAdapter  extends RecyclerView.Adapter<ArticleAdapter.SingleI
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.circle_morty).circleCrop().into(circle_source);
+            GlideApp.with(mContext.get()).load(R.drawable.da7e7).circleCrop().into(circle_source);
         }
 
     }

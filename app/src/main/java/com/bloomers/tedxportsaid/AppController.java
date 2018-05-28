@@ -2,7 +2,6 @@ package com.bloomers.tedxportsaid;
 
 
 import android.app.Activity;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -22,8 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
+import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -45,14 +45,39 @@ import java.util.regex.Pattern;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-public class AppController extends Application {
+public class AppController extends MultiDexApplication {
 
     private static final AppController mInstance = new AppController();
     private static Boolean othersImplemented = false;
     private DatabaseReference database;
+    public static String mediumFont = "Cairo-Regular.ttf";
+    public static String smallFont = "Cairo-Light.ttf";
 
     public static synchronized AppController getInstance() {
         return mInstance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+             .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+             .build();
+
+        Fabric.with(getApplicationContext(), crashlyticsKit);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+             .setDefaultFontPath(mediumFont)
+             .setFontAttrId(R.attr.fontPath)
+             .build());
+
+        Timber.plant(new Timber.DebugTree());
+        Base.initialize(this);
     }
 
     public static int easyColor(Context context, int color) {
@@ -100,29 +125,6 @@ public class AppController extends Application {
         SharedPreferences sharedPreferences = context.getSharedPreferences("My App", MODE_PRIVATE);
         return new Locale(sharedPreferences.getString("language", Locale.getDefault().getLanguage()));
 
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
-
-        Crashlytics crashlyticsKit = new Crashlytics.Builder()
-             .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-             .build();
-
-        Fabric.with(getApplicationContext(), crashlyticsKit);
-
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-             .setDefaultFontPath("GE_SS_Two_Medium.otf")
-             .setFontAttrId(R.attr.fontPath)
-             .build());
-
-        Timber.plant(new Timber.DebugTree());
-        Base.initialize(this);
     }
 
     public DatabaseReference firebaseInstance() {
@@ -340,6 +342,6 @@ public class AppController extends Application {
     }
 
     public void showErrorToast(FragmentActivity activity) {
-        Toast.makeText(activity, R.string.something_wrong, Toast.LENGTH_SHORT).show();
+        MainActivity.showCusomtToast(activity,activity.getString(R.string.error_happend),null,false);
     }
 }

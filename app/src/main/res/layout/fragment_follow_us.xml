@@ -24,7 +24,7 @@
         android:text="@string/follow_us_tedx"
         android:layout_margin="15dp"
         android:gravity="center"
-        fontPath="GE_SS_Two_Light.otf"
+        fontPath="@string/smallFont"
 
 
         tools:ignore="MissingPrefix"/>
@@ -36,6 +36,7 @@
         android:gravity="center"
         >
         <ImageView
+            android:id="@+id/face_book"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/fb_logo"
@@ -44,6 +45,7 @@
             />
 
         <ImageView
+            android:id="@+id/instagram"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/instagram_logo"

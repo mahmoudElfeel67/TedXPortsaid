@@ -14,7 +14,12 @@
     <string name="get_there_desc">التفاعليه هتقام في كذا كذا اللي جمب كذا وكذاوهتبدا الساعه 5 الفجر باذن الله</string>
     <string name="careem_code">استخدم الكود ده يوم الايفينت في كريم وهتاخد الرحله بنص التمن !</string>
     <string name="ask_hint">إسأل سؤال للمتحدثيين لفرصه ان السؤال يتجاوب حي في الايفينت</string>
-    <string name="form_que_gint">خلي السؤال في نطاق موضوع المتحدت ... ع الهادي يازبادي</string>
+    <string name="form_que_gint">خلي السؤال في نطاق موضوع المتحدت ..</string>
     <string name="form_edit_text_hint">تحب الدحيح يجاوب علي ايه ؟</string>
     <string name="ask">إسئل</string>
+    <string name="smallFont">Cairo-Light.ttf</string>
+    <string name="meduimFont">Cairo-Regular.ttf</string>
+    <string name="whatsAppDoesntExist">واتس اب مش موجود ده تقدر تحمله من جوجل بلاي</string>
+    <string name="error_happend">حصل مشكله ما !</string>
+    <string name="no_email_app">مفيش برنامج يقدر يبعت ايميل في الجهاز !</string>
 </resources>

@@ -38,7 +38,7 @@
                 android:id="@+id/speaker_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/rick"
+                android:src="@drawable/da7e7"
                 android:scaleType="centerCrop"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="الاستاذ ريك :"
+                android:text="الدحيح"
                 android:textColor="@color/black"
                 android:layout_toLeftOf="@+id/speaker_image"
                 tools:ignore="RtlHardcoded"
@@ -80,12 +80,12 @@
             android:layout_below="@+id/insider"
             android:layout_centerVertical="true"
             android:padding="15dp"
-            android:text="ريك خبره في المغامرات IN AND OUT Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla "
+            android:text="مثال للشرح "
             android:textColor="@color/black"
             android:textSize="13sp"
             tools:ignore="RtlHardcoded"
             android:alpha="0"
-            fontPath="GE_SS_Two_Light.otf"
+            fontPath="@string/smallFont"
             />
 
     </RelativeLayout>

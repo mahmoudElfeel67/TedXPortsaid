@@ -25,7 +25,7 @@ public class WalkThroughActivity extends AhoyOnboarderActivity {
         pages.add(makePage("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker));
         pages.add(makePage("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker));
 
-        setFont(Typeface.createFromAsset(getAssets(),"GE_SS_Two_Medium.otf"));
+        setFont(Typeface.createFromAsset(getAssets(),AppController.mediumFont));
         setOnboardPages(pages);
         showNavigationControls(true);
         setFinishButtonTitle("تمام");

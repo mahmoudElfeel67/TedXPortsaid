@@ -93,22 +93,22 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.SingleIt
         void bind() {
             if (getAdapterPosition() % 2 == 0) {
                 speaker_desc.setTextColor(AppController.easyColor(mContext.get(), R.color.black));
-                speaker_image.setImageResource(R.drawable.morty);
+                speaker_image.setImageResource(R.drawable.da7e7);
                 root.setBackgroundResource(R.drawable.white_speaker_round);
                 speaker_session.setTextColor(Color.parseColor("#e2646464"));
                 speaker_title.setTextColor(AppController.easyColor(mContext.get(), R.color.black));
-                speaker_title.setText("مورتي :");
-                speaker_session.setText("الروبوت");
+                speaker_title.setText("الدحيح :");
+                speaker_session.setText("الانتروبي");
 
                 root.getLayoutParams().width = (int) (ints.getScreenWidth(mContext.get()) * (0.90));
                 root.getLayoutParams().height = ints.dp2px(60,mContext.get());
             } else {
-                speaker_image.setImageResource(R.drawable.rick);
+                speaker_image.setImageResource(R.drawable.da7e7);
                 root.setBackgroundResource(R.drawable.red_speaker_round);
                 speaker_session.setTextColor(AppController.easyColor(mContext.get(), R.color.white));
                 speaker_title.setTextColor(AppController.easyColor(mContext.get(), R.color.white));
-                speaker_title.setText("ريك :");
-                speaker_session.setText("المجره");
+                speaker_title.setText("الدحيح :");
+                speaker_session.setText("السفاح");
                 root.getLayoutParams().width = (int) (ints.getScreenWidth(mContext.get()) * (0.75));
                 root.getLayoutParams().height = ints.dp2px(60,mContext.get());
                 speaker_desc.setTextColor(AppController.easyColor(mContext.get(), R.color.white));

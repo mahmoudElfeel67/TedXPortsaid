@@ -80,7 +80,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.even_time).circleCrop().into(event_time);
+            GlideApp.with(mContext.get()).load(R.drawable.da7e7).circleCrop().into(event_time);
 
             event_container.requestLayout();
             event_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -109,11 +109,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
             if (getAdapterPosition() == 0) {
                 top_line.setVisibility(View.GONE);
                 lay.setPadding(0, ints.dp2px(10, mContext.get()), 0, 0);
-                sch_desc.setText("فتح البوابات\n \n 7 pm");
+                sch_desc.setText("فتح البوابات \n 7pm");
             } else {
                 top_line.setVisibility(View.VISIBLE);
                 lay.setPadding(0, ints.dp2px(10, mContext.get()), 0, 0);
-                sch_desc.setText("بدايه محاضره ريك");
+                sch_desc.setText("بدايه محاضره الدحيح");
             }
 
         }

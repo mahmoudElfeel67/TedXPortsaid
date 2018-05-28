@@ -22,7 +22,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/rickmorty"
+        android:src="@drawable/da7e7"
         android:scaleType="centerCrop"
 
         />
@@ -44,7 +44,7 @@
         android:layout_gravity="bottom"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="ريك و مورتي "
+        android:text="الدحيح مقاله"
         android:textColor="@color/white"
         android:textSize="14sp"
 

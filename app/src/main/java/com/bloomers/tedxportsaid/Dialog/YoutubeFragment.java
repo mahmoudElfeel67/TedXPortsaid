@@ -14,17 +14,30 @@ import android.view.ViewGroup;
 import com.bloomers.tedxportsaid.Adapter.VideosAdapter;
 import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
+import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInterface;
+import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
+import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.LinearLayoutManagerEXT;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
+import java.util.List;
+
 public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnInitializedListener {
 
-    private static String VIDEO_ID = "dARAN1z2KqY";
+    private String VIDEO_ID = "dARAN1z2KqY";
     private YouTubePlayer youTubePlayer;
     private Boolean isIntilize = false;
+
+
+    public static YoutubeFragment newInstance(String videoid) {
+        YoutubeFragment fragment = new YoutubeFragment();
+        fragment.VIDEO_ID = videoid;
+        return fragment;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +53,18 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
         }
 
 
-        RecyclerView article_segment_recycler = view.findViewById(R.id.videosRecycler);
+        final RecyclerView article_segment_recycler = view.findViewById(R.id.videosRecycler);
         article_segment_recycler.setLayoutManager(new LinearLayoutManagerEXT(getContext(), LinearLayoutManager.VERTICAL, false));
-        article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity()));
+        new GetChannelVideosTask(new YouTubeChannel("UCAuUUnT6oDeKwE6v1NGQxug","asdas"))
+                .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
+                    @Override
+                    public void onGetVideos(List<YouTubeVideo> videos) {
+
+                        article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(),videos));
+
+                    }
+                }).executeInParallel();
+
 
 
         if (HeavilyUsed.isContextSafe(getActivity())) {

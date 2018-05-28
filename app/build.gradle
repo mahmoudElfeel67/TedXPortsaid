@@ -15,7 +15,7 @@ android {
             preDexLibraries = false
             javaMaxHeapSize "3g"
         }
-
+        multiDexEnabled true
 
         resConfigs "en", "ar"
     }
@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
     //Firebase
     implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
@@ -63,6 +64,8 @@ dependencies {
     }
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.thefinestartist:finestwebview:1.2.7'
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev187-1.23.0'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     //Code Facilitate
@@ -71,6 +74,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.4.0'
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'
