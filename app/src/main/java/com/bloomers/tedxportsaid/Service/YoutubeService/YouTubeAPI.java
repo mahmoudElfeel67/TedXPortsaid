@@ -17,10 +17,6 @@
 
 package com.bloomers.tedxportsaid.Service.YoutubeService;
 
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-
-import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.BuildConfig;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpRequest;
@@ -28,10 +24,8 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.services.youtube.YouTube;
-import com.google.common.io.BaseEncoding;
 
 import java.io.IOException;
-import java.security.MessageDigest;
 
 
 /**
@@ -49,18 +43,7 @@ public class YouTubeAPI {
 		JsonFactory jsonFactory = com.google.api.client.extensions.android.json.AndroidJsonFactory.getDefaultInstance();
 		return new YouTube.Builder(httpTransport, jsonFactory, new HttpRequestInitializer() {
 			private String getSha1() {
-				String sha1 = null;
-				try {
-					Signature[] signatures = AppController.getInstance().getApplicationContext().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_SIGNATURES).signatures;
-					for (Signature signature: signatures) {
-						MessageDigest md = MessageDigest.getInstance("SHA-1");
-
-						md.update(signature.toByteArray());
-						sha1 = BaseEncoding.base16().encode(md.digest());
-					}
-				} catch (Throwable tr) {
-				}
-				return sha1;
+				return "E8:30:3D:5F:04:12:23:A3:59:7E:FA:8A:87:5B:F3:A0:87:3B:77:30";
 			}
 			@Override
 			public void initialize(HttpRequest request) throws IOException {

@@ -19,7 +19,13 @@
     <string name="ask">إسئل</string>
     <string name="smallFont">Cairo-Light.ttf</string>
     <string name="meduimFont">Cairo-Regular.ttf</string>
+    <string name="bigFont">Cairo-Bold.ttf</string>
     <string name="whatsAppDoesntExist">واتس اب مش موجود ده تقدر تحمله من جوجل بلاي</string>
     <string name="error_happend">حصل مشكله ما !</string>
     <string name="no_email_app">مفيش برنامج يقدر يبعت ايميل في الجهاز !</string>
+    <string name="videos_not_loaded">حدث خطا بتحميل فيديوهات اليوتيوب تاكد من الاتصال بالانترنت</string>
+    <string name="number_picker_formatter">%02d</string>
+    <string name="read">قراءه</string>
+    <string name="watch">مشاهده</string>
+    <string name="no_videos_randomize">للاسف مفيش فيدويهات للاختيار منها اتاكد انك متصل بالانترنت</string>
 </resources>

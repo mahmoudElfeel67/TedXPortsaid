@@ -33,28 +33,23 @@ public class GetChannelVideosTask extends AsyncTaskParallel<Void, Void, List<You
 	private GetChannelVideos getChannelVideos = new GetChannelVideos();
 	private YouTubeChannel channel;
 	private GetChannelVideosTaskInterface getChannelVideosTaskInterface;
+	private int when;
 
 
-	public GetChannelVideosTask(YouTubeChannel channel) {
+	public GetChannelVideosTask(YouTubeChannel channel, int when) {
 		try {
+			this.when = when;
 			getChannelVideos.init();
 			getChannelVideos.setPublishedAfter(getOneMonthAgo());
 			getChannelVideos.setQuery(channel.getId());
 			this.channel = channel;
+
 		} catch (IOException e) {
 			e.printStackTrace();
 
 		}
 	}
 
-	/**
-	 * Once set, this class will only return videos published after the specified date.  If the date
-	 * is set to null, then the class will return videos that are less than one month old.
-	 */
-	public GetChannelVideosTask setPublishedAfter(DateTime publishedAfter) {
-		getChannelVideos.setPublishedAfter(publishedAfter != null ? publishedAfter : getOneMonthAgo());
-		return this;
-	}
 
 	public GetChannelVideosTask setGetChannelVideosTaskInterface(GetChannelVideosTaskInterface getChannelVideosTaskInterface) {
 		this.getChannelVideosTaskInterface = getChannelVideosTaskInterface;
@@ -87,7 +82,7 @@ public class GetChannelVideosTask extends AsyncTaskParallel<Void, Void, List<You
 
 	private DateTime getOneMonthAgo() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MONTH, -2);
+		calendar.add(Calendar.MONTH, when);
 		Date date = calendar.getTime();
 		return new DateTime(date);
 	}

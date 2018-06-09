@@ -34,6 +34,10 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
         this.videos = new ArrayList<>(videos);
     }
 
+    public void setVideos(ArrayList<YouTubeVideo> videos) {
+        this.videos = videos;
+    }
+
     @NonNull
     @Override
     public VideosAdapter.SingleItemRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -73,7 +77,7 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
         @OnClick(R.id.card)
         public void onClick() {
 
-            HeavilyUsed.callSaveDialog(mContext.get(),YoutubeFragment.newInstance(videos.get(getAdapterPosition()).getId()),null);
+            HeavilyUsed.callSaveDialog(mContext.get(), YoutubeFragment.newInstance(videos.get(getAdapterPosition()).getId()),null);
 
         }
 

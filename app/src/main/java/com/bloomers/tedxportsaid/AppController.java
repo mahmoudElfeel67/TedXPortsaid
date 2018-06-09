@@ -1,6 +1,9 @@
 package com.bloomers.tedxportsaid;
 
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -18,10 +21,13 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
@@ -343,5 +349,59 @@ public class AppController extends MultiDexApplication {
 
     public void showErrorToast(FragmentActivity activity) {
         MainActivity.showCusomtToast(activity,activity.getString(R.string.error_happend),null,false);
+    }
+
+
+    public void addLoadingBlock(Activity activity,ViewGroup viewGroup){
+        final ViewGroup rootLayout;
+
+        if (viewGroup == null) {
+            rootLayout = activity.findViewById(android.R.id.content);
+        } else {
+            rootLayout = viewGroup;
+        }
+
+        View blackopack = new View(activity);
+        blackopack.setBackgroundColor(easyColor(activity,R.color.white));
+        blackopack.setAlpha(0);
+        blackopack.setId(R.id.loading_view);
+        rootLayout.addView(blackopack);
+        blackopack.animate().setDuration(1000).alpha(.95F).start();
+        ImageView imageView = new ImageView(activity);
+        imageView.setImageResource(R.drawable.xex1);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setId(R.id.loading_image_view);
+        blackopack.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+
+        FrameLayout.LayoutParams pa = new FrameLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight());
+        rootLayout.addView(imageView,pa);
+
+        PropertyValuesHolder scalex = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1F);
+        PropertyValuesHolder scaley = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1F);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(imageView, scalex, scaley);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.setDuration(2000);
+        animator.start();
+
+    }
+
+    public void removeLoadingScreen(Activity activity,ViewGroup viewGroup){
+        final ViewGroup rootLayout;
+
+        if (viewGroup == null) {
+            rootLayout = activity.findViewById(android.R.id.content);
+        } else {
+            rootLayout = viewGroup;
+        }
+
+        removeView(rootLayout.findViewById(R.id.loading_image_view));
+        removeView(rootLayout.findViewById(R.id.loading_view));
     }
 }

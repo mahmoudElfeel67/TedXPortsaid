@@ -26,24 +26,21 @@ import android.widget.TextView;
 import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip;
 import com.bloomers.tedxportsaid.Dialog.AskSpeakerDialog;
+import com.bloomers.tedxportsaid.Dialog.RandomDialog;
 import com.bloomers.tedxportsaid.Fragment.TeamFragment;
+import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.Manager.TabPageIndicatorAdapter;
 import com.bloomers.tedxportsaid.R;
-import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
-import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInterface;
-import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
-import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.bumptech.glide.request.target.Target;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.team_info) TextView team_info;
     @BindView(R.id.display_container) RelativeLayout display_container;
     int[] originalPos;
-    int current_postion = 0;
+    int current_position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         tab.setOnItemSelected(new PagerSlidingTabStrip.OnItemSelected() {
             @Override
             public void onSelectPostion(int postion) {
-                current_postion = postion;
+                current_position = postion;
                 switch (postion) {
                     case 0:
                         fab.setImageResource(R.drawable.question_mark);
@@ -102,18 +99,34 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (current_postion) {
+
+                switch (current_position) {
+                    case 0:
+
+
+                        ArrayList arrayList = new ArrayList();
+                        for (int i = 0; i < 100; i++) {
+                            arrayList.add(0);
+
+                        }
+                        HeavilyUsed.callSaveDialog(MainActivity.this, RandomDialog.newInstance(true, arrayList), null);
+                        break;
+                    case 1:
+                        if (VideosFragment.videos != null && VideosFragment.videos.size() != 0) {
+                            HeavilyUsed.callSaveDialog(MainActivity.this, RandomDialog.newInstance(false, VideosFragment.videos), null);
+                        } else {
+                            MainActivity.showCusomtToast(MainActivity.this, getString(R.string.no_videos_randomize), null, false);
+                        }
+                        break;
                     case 2:
                         HeavilyUsed.callSaveDialog(MainActivity.this, new AskSpeakerDialog(), null);
                         break;
-                   default:
-                        showCusomtToast(MainActivity.this,"مفيش كود يعمل حاجه هنا لسه !!",null,false);
+                    default:
+                        showCusomtToast(MainActivity.this, "مفيش كود يعمل حاجه هنا لسه !!", null, false);
                         break;
                 }
             }
         });
-
-
 
     }
 
@@ -124,11 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        originalPos = new int[ 2 ];
+        originalPos = new int[2];
         view.getLocationInWindow(originalPos);
-        int x = originalPos[ 0 ];
-        int y = originalPos[ 1 ] - ints.dp2px(23, MainActivity.this);
-        originalPos[ 1 ] = y;
+        int x = originalPos[0];
+        int y = originalPos[1] - ints.dp2px(23, MainActivity.this);
+        originalPos[1] = y;
         scale_view.setAlpha(1F);
         scale_view.setVisibility(View.VISIBLE);
         scale_view.setScaleX(0);
@@ -189,9 +202,9 @@ public class MainActivity extends AppCompatActivity {
         int animation_period = 1000;
         display_container.setPivotX(0);
         display_container.setPivotY(0);
-        scale_view.animate().x(originalPos[ 0 ]).y(originalPos[ 1 ]).scaleX(0).scaleY(0).setDuration(animation_period - 100).start();
+        scale_view.animate().x(originalPos[0]).y(originalPos[1]).scaleX(0).scaleY(0).setDuration(animation_period - 100).start();
         scale_view.animate().alpha(0).setStartDelay(500).setDuration(500).start();
-        display_container.animate().x(originalPos[ 0 ] + ints.px2dp(80, MainActivity.this)).y(originalPos[ 1 ] + ints.px2dp(80, MainActivity.this)).scaleX(.20F).scaleY(.20F).alpha(0).setDuration(animation_period - 200).start();
+        display_container.animate().x(originalPos[0] + ints.px2dp(80, MainActivity.this)).y(originalPos[1] + ints.px2dp(80, MainActivity.this)).scaleX(.20F).scaleY(.20F).alpha(0).setDuration(animation_period - 200).start();
         team_bg.animate().alpha(0).start();
         originalPos = null;
     }

@@ -55,7 +55,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
 
         final RecyclerView article_segment_recycler = view.findViewById(R.id.videosRecycler);
         article_segment_recycler.setLayoutManager(new LinearLayoutManagerEXT(getContext(), LinearLayoutManager.VERTICAL, false));
-        new GetChannelVideosTask(new YouTubeChannel("UCAuUUnT6oDeKwE6v1NGQxug","asdas"))
+        new GetChannelVideosTask(new YouTubeChannel("UCAuUUnT6oDeKwE6v1NGQxug","asdas"),-2)
                 .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
                     @Override
                     public void onGetVideos(List<YouTubeVideo> videos) {

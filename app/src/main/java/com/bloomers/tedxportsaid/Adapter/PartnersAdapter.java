@@ -73,7 +73,7 @@ public class PartnersAdapter extends RecyclerView.Adapter<PartnersAdapter.Single
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.cn_logo).centerInside().into(partenr_logo);
+            GlideApp.with(mContext.get()).load(R.drawable.tedlogo).centerInside().into(partenr_logo);
         }
 
     }
