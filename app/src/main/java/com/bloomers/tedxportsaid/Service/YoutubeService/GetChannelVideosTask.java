@@ -17,6 +17,7 @@
 
 package com.bloomers.tedxportsaid.Service.YoutubeService;
 
+
 import com.google.api.client.util.DateTime;
 
 import java.io.IOException;
@@ -24,67 +25,67 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import timber.log.Timber;
 
 /**
  * Task to asynchronously get videos for a specific channel.
  */
 public class GetChannelVideosTask extends AsyncTaskParallel<Void, Void, List<YouTubeVideo>> {
 
-	private GetChannelVideos getChannelVideos = new GetChannelVideos();
-	private YouTubeChannel channel;
-	private GetChannelVideosTaskInterface getChannelVideosTaskInterface;
-	private int when;
+
+    private YouTubeChannel channel;
+    private GetChannelVideosTaskInterface getChannelVideosTaskInterface;
+    private GetChannelVideos getChannelVideos;
+
+    public GetChannelVideosTask( GetChannelVideos getChannelVideos ,YouTubeChannel channel) {
+        try {
+            this.channel = channel;
+            this.getChannelVideos= getChannelVideos;
+            if (getChannelVideos.getChannelVideos==null){
+                getChannelVideos.init();
+                getChannelVideos.setQuery(channel.getId());
+            }
 
 
-	public GetChannelVideosTask(YouTubeChannel channel, int when) {
-		try {
-			this.when = when;
-			getChannelVideos.init();
-			getChannelVideos.setPublishedAfter(getOneMonthAgo());
-			getChannelVideos.setQuery(channel.getId());
-			this.channel = channel;
+        } catch (IOException e) {
+            e.printStackTrace();
 
-		} catch (IOException e) {
-			e.printStackTrace();
+        }
+    }
 
-		}
-	}
+    public GetChannelVideosTask setGetChannelVideosTaskInterface(GetChannelVideosTaskInterface getChannelVideosTaskInterface) {
+        this.getChannelVideosTaskInterface = getChannelVideosTaskInterface;
+        return this;
+    }
 
+    @Override
+    protected List<YouTubeVideo> doInBackground(Void... voids) {
+        List<YouTubeVideo> videos = null;
 
-	public GetChannelVideosTask setGetChannelVideosTaskInterface(GetChannelVideosTaskInterface getChannelVideosTaskInterface) {
-		this.getChannelVideosTaskInterface = getChannelVideosTaskInterface;
-		return this;
-	}
+        if (!isCancelled()) {
+            videos = getChannelVideos.getNextVideos();
+        }
 
-	@Override
-	protected List<YouTubeVideo> doInBackground(Void... voids) {
-		List<YouTubeVideo> videos = null;
+        if (videos != null) {
+            for (YouTubeVideo video : videos)
+                channel.addYouTubeVideo(video);
+        }
 
-		if (!isCancelled()) {
-			videos = getChannelVideos.getNextVideos();
-		}
+        return videos;
+    }
 
-		if(videos != null) {
-			for (YouTubeVideo video : videos)
-				channel.addYouTubeVideo(video);
+    @Override
+    protected void onPostExecute(List<YouTubeVideo> youTubeVideos) {
+        if (getChannelVideosTaskInterface != null)
+            getChannelVideosTaskInterface.onGetVideos(youTubeVideos);
+    }
 
-		}
-		return videos;
-	}
-
-
-	@Override
-	protected void onPostExecute(List<YouTubeVideo> youTubeVideos) {
-		if(getChannelVideosTaskInterface != null)
-			getChannelVideosTaskInterface.onGetVideos(youTubeVideos);
-	}
-
-
-	private DateTime getOneMonthAgo() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MONTH, when);
-		Date date = calendar.getTime();
-		return new DateTime(date);
-	}
+    private DateTime getOneMonthAgo() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -2);
+        Date date = calendar.getTime();
+        Timber.e(new DateTime(date).toString());
+        return new DateTime(date);
+    }
 
 }

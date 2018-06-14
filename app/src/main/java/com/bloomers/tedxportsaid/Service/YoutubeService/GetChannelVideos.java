@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class GetChannelVideos extends GetYouTubeVideos implements GetChannelVideosInterface {
 
-	private GetYouTubeVideos getChannelVideos;
+	public GetYouTubeVideos getChannelVideos;
 	private static final String TAG = GetChannelVideos.class.getSimpleName();
 
 	@Override

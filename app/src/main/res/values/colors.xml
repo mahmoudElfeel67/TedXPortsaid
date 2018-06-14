@@ -15,7 +15,7 @@
     <color name="gradient_endColor">#f05b61</color>
 
     <color name="grey_600">#757575</color>
-
+     <color name="test">#e5585858</color>
     <color name="inactive_indicator">#4D000000</color>
 
 

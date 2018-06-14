@@ -24,7 +24,7 @@ import java.util.Random;
  */
 public class YouTubeAPIKey {
 
-	private String userAPIKey;
+	private final String userAPIKey;
 	private Random random = new Random();
 
 	private static YouTubeAPIKey youTubeAPIKey = null;

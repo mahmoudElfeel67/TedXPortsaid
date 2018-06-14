@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.bloomers.tedxportsaid.Adapter.TeamAdapter;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GridLayoutManagerEXT;
-
-import timber.log.Timber;
 public class TeamFragment extends Fragment {
 
     public static TeamFragment newInstance(onCLick onCLick) {

@@ -25,8 +25,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.services.youtube.YouTube;
 
-import java.io.IOException;
-
 
 /**
  * Represents YouTube API service.
@@ -46,7 +44,7 @@ public class YouTubeAPI {
 				return "E8:30:3D:5F:04:12:23:A3:59:7E:FA:8A:87:5B:F3:A0:87:3B:77:30";
 			}
 			@Override
-			public void initialize(HttpRequest request) throws IOException {
+			public void initialize(HttpRequest request) {
 				request.getHeaders().set("X-Android-Package", BuildConfig.APPLICATION_ID);
 				request.getHeaders().set("X-Android-Cert", getSha1());
 			}

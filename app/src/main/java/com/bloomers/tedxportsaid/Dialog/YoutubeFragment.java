@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.Adapter.VideosAdapter;
 import com.bloomers.tedxportsaid.AppController;
+import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
 import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInterface;
@@ -20,10 +22,12 @@ import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
 import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.LinearLayoutManagerEXT;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnInitializedListener {
@@ -31,6 +35,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
     private String VIDEO_ID = "dARAN1z2KqY";
     private YouTubePlayer youTubePlayer;
     private Boolean isIntilize = false;
+    private int postion = 0;
 
 
     public static YoutubeFragment newInstance(String videoid) {
@@ -43,27 +48,52 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_youtube_video, container);
         if (getDialog() != null && getDialog().getWindow() != null) {
-
+            getDialog().getWindow().setWindowAnimations(R.style.MyAnimation_Window);
             getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         }
 
-        if (getArguments() != null) {
-            VIDEO_ID = getArguments().getString("url");
+        final SpinKitView spinKitView = view.findViewById(R.id.spin_kit);
+
+        ArrayList<com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo> cutArrayList = new ArrayList<>();
+
+
+        for (int i=0;i<VideosFragment.videos.size();i++){
+            if (VideosFragment.videos.get(i).getId().equals(VIDEO_ID)){
+                postion=i+1;
+                break;
+            }
+        }
+
+        for (int i=postion;i<VideosFragment.videos.size();i++){
+            cutArrayList.add(VideosFragment.videos.get(i));
         }
 
 
         final RecyclerView article_segment_recycler = view.findViewById(R.id.videosRecycler);
         article_segment_recycler.setLayoutManager(new LinearLayoutManagerEXT(getContext(), LinearLayoutManager.VERTICAL, false));
-        new GetChannelVideosTask(new YouTubeChannel("UCAuUUnT6oDeKwE6v1NGQxug","asdas"),-2)
-                .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
-                    @Override
-                    public void onGetVideos(List<YouTubeVideo> videos) {
 
-                        article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(),videos));
 
-                    }
-                }).executeInParallel();
+        if (cutArrayList.size()==0){
+            new GetChannelVideosTask(VideosFragment.getChannelVideos, new YouTubeChannel("UCAuUUnT6oDeKwE6v1NGQxug", "asdas"))
+                 .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
+                     @Override
+                     public void onGetVideos(List<YouTubeVideo> videos) {
+                         spinKitView.setVisibility(View.GONE);
+                         if (videos != null) {
+                             article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), videos,true));
+
+                         }else {
+                             MainActivity.showCusomtToast(getActivity(), getString(R.string.videos_not_loaded), null, false);
+                         }
+
+                     }
+                 }).executeInParallel();
+        }else {
+            spinKitView.setVisibility(View.GONE);
+            article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), cutArrayList,true));
+        }
+
 
 
 

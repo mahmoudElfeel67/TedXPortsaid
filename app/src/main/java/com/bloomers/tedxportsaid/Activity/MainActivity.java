@@ -1,6 +1,7 @@
 package com.bloomers.tedxportsaid.Activity;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
@@ -24,9 +26,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.AppController;
+import com.bloomers.tedxportsaid.CustomView.CountDownView;
 import com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip;
 import com.bloomers.tedxportsaid.Dialog.AskSpeakerDialog;
 import com.bloomers.tedxportsaid.Dialog.RandomDialog;
+import com.bloomers.tedxportsaid.Fragment.AboutUsFragment;
+import com.bloomers.tedxportsaid.Fragment.ArticleFragment;
+import com.bloomers.tedxportsaid.Fragment.ScheduleFragment;
+import com.bloomers.tedxportsaid.Fragment.SpeakerFragment;
 import com.bloomers.tedxportsaid.Fragment.TeamFragment;
 import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.Manager.TabPageIndicatorAdapter;
@@ -38,9 +45,11 @@ import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.team_info) TextView team_info;
     @BindView(R.id.display_container) RelativeLayout display_container;
+    @BindView(R.id.count_down) CountDownView countDownView;
     int[] originalPos;
     int current_position = 0;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +73,18 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager pager = findViewById(R.id.pager);
         PagerSlidingTabStrip tab = findViewById(R.id.indicator);
-        FragmentPagerAdapter adapter = new TabPageIndicatorAdapter(getSupportFragmentManager(), new TeamFragment.onCLick() {
+        ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+        fragmentArrayList.add(ArticleFragment.newInstance());
+        fragmentArrayList.add(VideosFragment.newInstance());
+        fragmentArrayList.add(SpeakerFragment.newInstance());
+        fragmentArrayList.add(ScheduleFragment.newInstance());
+        fragmentArrayList.add(AboutUsFragment.newInstance(new TeamFragment.onCLick() {
             @Override
             public void onClick(View view) {
                 callTeamPreview(view);
             }
-        });
+        }));
+        FragmentPagerAdapter adapter = new TabPageIndicatorAdapter(getSupportFragmentManager(), fragmentArrayList, MainActivity.this);
 
         tab.setOnItemSelected(new PagerSlidingTabStrip.OnItemSelected() {
             @Override
@@ -75,19 +92,35 @@ public class MainActivity extends AppCompatActivity {
                 current_position = postion;
                 switch (postion) {
                     case 0:
+                        fab.setVisibility(View.VISIBLE);
                         fab.setImageResource(R.drawable.question_mark);
+                        fab.animate().scaleX(1).scaleY(1).setInterpolator(new FastOutSlowInInterpolator()).start();
                         break;
                     case 1:
+                        fab.setVisibility(View.VISIBLE);
                         fab.setImageResource(R.drawable.shuffle);
+                        fab.animate().scaleX(1).scaleY(1).setInterpolator(new FastOutSlowInInterpolator()).start();
                         break;
                     case 2:
+                        fab.setVisibility(View.VISIBLE);
                         fab.animate().scaleX(1).scaleY(1).setInterpolator(new FastOutSlowInInterpolator()).start();
                         fab.setImageResource(R.drawable.ask);
                         break;
                     case 3:
-                        fab.animate().scaleX(0).scaleY(0).setInterpolator(new FastOutSlowInInterpolator()).start();
+                        fab.animate().scaleX(0).scaleY(0).withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                fab.setVisibility(View.GONE);
+                            }
+                        }).setInterpolator(new FastOutSlowInInterpolator()).start();
                         break;
                     case 4:
+                        fab.animate().scaleX(0).scaleY(0).withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                fab.setVisibility(View.GONE);
+                            }
+                        }).setInterpolator(new FastOutSlowInInterpolator()).start();
                         break;
                 }
 
@@ -102,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (current_position) {
                     case 0:
-
 
                         ArrayList arrayList = new ArrayList();
                         for (int i = 0; i < 100; i++) {
@@ -121,12 +153,70 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         HeavilyUsed.callSaveDialog(MainActivity.this, new AskSpeakerDialog(), null);
                         break;
-                    default:
-                        showCusomtToast(MainActivity.this, "مفيش كود يعمل حاجه هنا لسه !!", null, false);
-                        break;
                 }
             }
         });
+
+        countDownView.setStartDuration(eventTime());
+        countDownView.start();
+
+    }
+
+    public long eventTime() {
+        Calendar c2 = Calendar.getInstance();
+        c2.set(Calendar.YEAR, 2018);
+        c2.set(Calendar.MONTH, Calendar.JUNE);
+        c2.set(Calendar.DAY_OF_MONTH, 30);
+        c2.add(Calendar.HOUR_OF_DAY, 10);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.SECOND, 0);
+        return c2.getTimeInMillis() - System.currentTimeMillis();
+    }
+
+    @OnClick(R.id.count_down)
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.count_down:
+
+                String day;
+                switch (countDownView.getDay(eventTime())) {
+                    case 1:
+                        day = "يوم";
+                        break;
+                    case 2:
+                        day = "يومين";
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                        day = countDownView.getDay(eventTime()) + "يوم ";
+                        break;
+                    default:
+                        day = countDownView.getDay(eventTime()) + "أيام ";
+                        break;
+                }
+
+                String hour;
+                switch (countDownView.getHour(eventTime())) {
+                    case 1:
+                        hour = "ساعه";
+                        break;
+                    case 2:
+                        hour = "ساعتين";
+                        break;
+                    default:
+                        hour = countDownView.getHour(eventTime()) + "ساعات ";
+                        break;
+                }
+
+                MainActivity.showCusomtToast(MainActivity.this, "لسه " + day + " و " + hour + "مستعديين !!", null, true, 5000);
+                break;
+        }
 
     }
 
@@ -178,6 +268,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownView!=null){
+            countDownView.stop();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (originalPos != null) {
             dissmisTeamMember();
@@ -210,6 +308,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void showCusomtToast(final Activity activity, String text, ViewGroup viewGroup, boolean success) {
+        showCusomtToast(activity, text, viewGroup, success, 2000);
+    }
+
+    public static void showCusomtToast(final Activity activity, String text, ViewGroup viewGroup, boolean success, int period) {
         final ViewGroup rootLayout;
 
         if (viewGroup == null) {
@@ -232,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
 
         cardView.animate().translationY(0).start();
 
-        new delay(cardView, 2000) {
+        new delay(cardView, period) {
             @Override
             protected void OnDelayEnded() {
                 cardView.animate().translationY(ints.dp2px(110, activity)).withEndAction(new Runnable() {

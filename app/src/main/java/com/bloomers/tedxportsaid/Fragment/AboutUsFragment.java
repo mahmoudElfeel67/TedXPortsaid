@@ -25,7 +25,7 @@ public class AboutUsFragment extends Fragment {
     public static AboutUsFragment newInstance(TeamFragment.onCLick onCLick) {
         Timber.e("CALLLED");
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
-        aboutUsFragment.onCLick = onCLick;
+        AboutUsFragment.onCLick = onCLick;
         return aboutUsFragment;
     }
 

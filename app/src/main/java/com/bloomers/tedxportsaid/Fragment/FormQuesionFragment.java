@@ -1,6 +1,9 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,8 +17,7 @@ import android.widget.EditText;
 import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -39,6 +41,9 @@ public class FormQuesionFragment extends Fragment {
                 if (TextUtils.isEmpty(editText.getText().toString())){
                     MainActivity.showCusomtToast(getActivity(),"برجاء كتابه سؤالك اولا !",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
                     return;
+                }else if (!isThereInternet()){
+                    MainActivity.showCusomtToast(getActivity(),"لا يوجد اتصال بالانترنت نرجو المحاوله مره اخري",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
+                    return;
                 }
 
 
@@ -47,15 +52,12 @@ public class FormQuesionFragment extends Fragment {
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put("question", editText.getText().toString());
 
-                FirebaseDatabase.getInstance().getReference().child("speaker_questions").child(key).updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseDatabase.getInstance().getReference().child("speaker_questions").child(key).updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onSuccess(Void aVoid) {
                         AppController.getInstance().removeLoadingScreen(getActivity(),((ViewGroup)root.findViewById(R.id.toast_lay)));
-                        if (task.isSuccessful()){
-                            MainActivity.showCusomtToast(getActivity(),"تم ارسال سؤالك لفريق تيدكس بورسعيد !",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
-                        }else {
-                            MainActivity.showCusomtToast(getActivity(),"لم يتم ارسال سؤالك نرجو المحاوله مره اخري",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
-                        }
+                        MainActivity.showCusomtToast(getActivity(),"تم ارسال سؤالك لفريق تيدكس بورسعيد !",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
+
                     }
                 });
 
@@ -66,6 +68,16 @@ public class FormQuesionFragment extends Fragment {
 
 
         return root;
+    }
+
+
+    private Boolean isThereInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        }
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return !(activeNetworkInfo == null || !activeNetworkInfo.isConnected());
     }
 
 }

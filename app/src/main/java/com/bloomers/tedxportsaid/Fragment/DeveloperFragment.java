@@ -44,13 +44,6 @@ public class DeveloperFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (getActivity()!=null){
-            GlideApp.with(getActivity()).clear(developer_image);
-        }
-    }
 
     @OnClick({R.id.developer_image,R.id.face_book,R.id.linked_in,R.id.whatsapp,R.id.gmail,R.id.google_play})
     void OnClik(View view){

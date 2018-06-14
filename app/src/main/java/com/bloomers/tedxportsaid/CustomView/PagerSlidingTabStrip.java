@@ -4,6 +4,7 @@ package com.bloomers.tedxportsaid.CustomView;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -164,7 +166,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         for (int i = 0; i < tabCount; i++) {
 
             if (pager.getAdapter() instanceof IconTabProvider) {
-                addIconTab(i, ((IconTabProvider) pager.getAdapter()).getPageIconResId(i));
+                addIconTab(i, ((IconTabProvider) pager.getAdapter()).getPageIconResId(i), pager.getAdapter().getPageTitle(i).toString());
             } else {
                 if (pager.getAdapter() != null && pager.getAdapter().getPageTitle(i) != null) {
                     //noinspection ConstantConditions
@@ -201,14 +203,45 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         addTab(position, tab);
     }
 
-    private void addIconTab(final int position, int resId) {
+    private void addIconTab(final int position, int resId, String s) {
+
+
+        int size = 16;
+
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ints.getScreenWidth(getContext())/5,RelativeLayout.LayoutParams.MATCH_PARENT);
+        linearLayout.setGravity(Gravity.CENTER);
+        linearLayout.setLayoutParams(layoutParams);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+
+        int pad = 1;
 
         ImageButton tab = new ImageButton(getContext());
         tab.setImageResource(resId);
-        tab.setLayoutParams(new RelativeLayout.LayoutParams(ints.getScreenWidth(getContext())/5,RelativeLayout.LayoutParams.MATCH_PARENT));
-        tab.setPadding(ints.dp2px(10,getContext()),ints.dp2px(10,getContext()),ints.dp2px(10,getContext()),ints.dp2px(10,getContext()));
+        tab.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ints.dp2px(size,getContext())));
+        tab.setPadding(ints.dp2px(pad,getContext()),ints.dp2px(pad,getContext()),ints.dp2px(pad,getContext()),ints.dp2px(pad,getContext()));
         tab.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        addTab(position, tab);
+        tab.setBackground(null);
+        tab.setClickable(false);
+        tab.setEnabled(false);
+        linearLayout.addView(tab);
+
+
+        TextView textView = new TextView(getContext());
+        textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ints.dp2px(20,getContext())));
+        textView.setText(s);
+        linearLayout.addView(textView);
+        textView.setTextColor(Color.parseColor("#e5585858"));
+        textView.setTextSize(10);
+        textView.setGravity(Gravity.CENTER);
+        textView.setClickable(false);
+        textView.setEnabled(false);
+        textView.setTypeface(Typeface.createFromAsset(getContext().getAssets(),AppController.smallFont));
+        linearLayout.setClickable(true);
+        linearLayout.setEnabled(true);
+
+        addTab(position, linearLayout);
 
     }
 

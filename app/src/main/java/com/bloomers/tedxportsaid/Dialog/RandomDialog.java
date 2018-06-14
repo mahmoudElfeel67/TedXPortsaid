@@ -22,6 +22,7 @@ import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.thefinestartist.finestwebview.FinestWebView;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class RandomDialog extends DialogFragment {
     @BindView(R.id.articleImage) ImageView articleImage;
     @BindView(R.id.article_text) TextView article_text;
     @BindView(R.id.actionButton) Button actionButton;
+    @BindView(R.id.spinner) SpinKitView spinKitView;
+    @BindView(R.id.circle_source) ImageView circle_source;
     boolean isArticle;
     List arrayList;
    public int random;
@@ -70,18 +73,23 @@ public class RandomDialog extends DialogFragment {
             public void onDone(int random) {
                 RandomDialog.this.random = random;
                 if (HeavilyUsed.isContextSafe(getActivity())&&getContext()!=null){
+                    spinKitView.setVisibility(View.GONE);
                     if (isArticle){
 
                     }else {
                         GlideApp.with(getActivity()).load(((ArrayList<YouTubeVideo>)arrayList).get(random).getThumbnailUrl()).into(articleImage);
                         article_text.setText(((ArrayList<YouTubeVideo>)arrayList).get(random).getTitle());
                         actionButton.setText(R.string.watch);
+
+                        circle_source.setVisibility(View.GONE);
                     }
                     new delay(random_number, 1000) {
                         @Override
                         protected void OnDelayEnded() {
-                            articleLayout.animate().setDuration(1000).translationX(0).start();
-                            random_number.animate().setDuration(1000).translationX(ints.dp2px(250,getContext()));
+                          if (getContext()!=null){
+                              articleLayout.animate().setDuration(1000).translationX(0).start();
+                              random_number.animate().setDuration(1000).translationX(ints.dp2px(250,getContext()));
+                          }
                         }
                     };
                 }
@@ -96,6 +104,8 @@ public class RandomDialog extends DialogFragment {
 
     @OnClick(R.id.actionButton)
     void onClick(){
+        if (getActivity()==null)return;
+
         if (isArticle){
             new FinestWebView.Builder(getActivity())
                  .iconDefaultColor(Color.WHITE)
@@ -106,7 +116,6 @@ public class RandomDialog extends DialogFragment {
                  .show("https://www.youtube.com/watch?v=dARAN1z2KqY");
         }else {
             HeavilyUsed.callSaveDialog((AppCompatActivity) getActivity(), YoutubeFragment.newInstance(((ArrayList<YouTubeVideo>)arrayList).get(random).getId()),null);
-
         }
     }
 

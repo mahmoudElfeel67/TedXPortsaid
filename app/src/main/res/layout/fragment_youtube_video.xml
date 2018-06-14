@@ -10,20 +10,51 @@
 
     <FrameLayout
         android:id="@+id/youtube_layout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:visibility="visible"
 
         />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/videosRecycler"
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-    </android.support.v7.widget.RecyclerView>
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.CubeGrid"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorAccent" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/videosRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+
+
 
 
 </LinearLayout>

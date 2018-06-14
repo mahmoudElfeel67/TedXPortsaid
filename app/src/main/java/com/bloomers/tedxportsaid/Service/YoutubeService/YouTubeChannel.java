@@ -43,7 +43,7 @@ public class YouTubeChannel implements Serializable {
 	private boolean isUserSubscribed;
 	private long	lastVisitTime;
 	private boolean	newVideosSinceLastVisit = false;
-	private List<YouTubeVideo> youTubeVideos = new ArrayList<>();
+	private final List<YouTubeVideo> youTubeVideos = new ArrayList<>();
 
 
 	public YouTubeChannel() {

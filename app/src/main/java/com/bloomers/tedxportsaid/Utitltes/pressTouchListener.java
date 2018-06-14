@@ -19,14 +19,14 @@ public abstract class pressTouchListener implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                animate(view, 0.95F, 70);
+                animate(view, 0.97F, 200);
                 break;
             case MotionEvent.ACTION_UP:
-                animate(view, 1F, 100);
+                animate(view, 1F, 250);
                 OnClick(view);
                 break;
             case MotionEvent.ACTION_CANCEL:
-                animate(view, 1F, 100);
+                animate(view, 1F, 250);
                 break;
         }
         return true;

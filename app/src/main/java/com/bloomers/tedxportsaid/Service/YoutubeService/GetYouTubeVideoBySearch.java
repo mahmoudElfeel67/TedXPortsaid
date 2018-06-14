@@ -17,7 +17,6 @@
 
 package com.bloomers.tedxportsaid.Service.YoutubeService;
 
-import android.util.Log;
 
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
@@ -25,6 +24,8 @@ import com.google.api.services.youtube.model.SearchResult;
 
 import java.io.IOException;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Get videos corresponding to the user's query (refer to {@link #setQuery(String)}).
@@ -87,7 +88,7 @@ public class GetYouTubeVideoBySearch extends GetYouTubeVideos {
 				if (nextPageToken == null)
 					noMoreVideoPages = true;
 			} catch (IOException ex) {
-				Log.e(TAG, ex.getLocalizedMessage());
+				Timber.e(ex.getLocalizedMessage());
 			}
 		}
 

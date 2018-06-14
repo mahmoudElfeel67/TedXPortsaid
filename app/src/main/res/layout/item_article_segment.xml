@@ -6,7 +6,8 @@
           android:text="علمي"
           android:textColor="#ab585858"
           android:gravity="center"
-          android:textSize="12sp"
+          android:textSize="14sp"
+          android:id="@+id/segment_name"
     >
 
 </TextView>

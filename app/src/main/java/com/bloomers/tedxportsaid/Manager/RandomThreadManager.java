@@ -13,7 +13,7 @@ public class RandomThreadManager {
     private int increase = 0;
     int i1;
 
-    private static RandomThreadManager mInstacne = new RandomThreadManager();
+    private static final RandomThreadManager mInstacne = new RandomThreadManager();
 
     public static RandomThreadManager getInstance() {
         return mInstacne;
@@ -65,7 +65,7 @@ public class RandomThreadManager {
 
 
 
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException ignored) {
 
                     }
                 }
@@ -87,7 +87,7 @@ public class RandomThreadManager {
             try {
                 expiryThreadExpiryCheck.interrupt();
                 expiryThreadExpiryCheck=  null;
-            }catch (Exception e){
+            }catch (Exception ignored){
             }
         }
     }

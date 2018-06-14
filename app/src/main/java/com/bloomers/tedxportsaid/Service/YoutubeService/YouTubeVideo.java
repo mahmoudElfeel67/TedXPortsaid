@@ -38,7 +38,7 @@ public class YouTubeVideo implements Serializable {
 	/**
 	 * YouTube video ID.
 	 */
-	private String id;
+	private final String id;
 	/**
 	 * Video title.
 	 */

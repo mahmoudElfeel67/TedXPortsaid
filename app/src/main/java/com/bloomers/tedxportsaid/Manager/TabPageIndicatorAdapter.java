@@ -1,54 +1,56 @@
 package com.bloomers.tedxportsaid.Manager;
 
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip;
-import com.bloomers.tedxportsaid.Fragment.AboutUsFragment;
-import com.bloomers.tedxportsaid.Fragment.ArticleFragment;
-import com.bloomers.tedxportsaid.Fragment.ScheduleFragment;
-import com.bloomers.tedxportsaid.Fragment.SpeakerFragment;
-import com.bloomers.tedxportsaid.Fragment.TeamFragment;
-import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.R;
+
+import java.util.ArrayList;
 
 public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
 
-    private static  TeamFragment.onCLick onCLick = null;
-    public TabPageIndicatorAdapter(FragmentManager fm,TeamFragment.onCLick onCLick) {
+    private ArrayList<Fragment> fragmentArrayList ;
+    private Context context;
+    public TabPageIndicatorAdapter(FragmentManager fm,ArrayList<Fragment> fragmentArrayList,Context context) {
         super(fm);
-        this.onCLick = onCLick;
+        this.context = context;
+        this.fragmentArrayList = fragmentArrayList;
+
+
     }
 
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return ArticleFragment.newInstance();
-            case 1:
-                return VideosFragment.newInstance();
-            case 2:
-                return SpeakerFragment.newInstance();
-            case 3:
-                return ScheduleFragment.newInstance();
-            default:
-                return AboutUsFragment.newInstance(onCLick);
-        }
+        return fragmentArrayList.get(position);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "ar";
+        switch (position){
+            case 0:
+                return context.getString(R.string.articles);
+            case 1:
+                return context.getString(R.string.videos);
+            case 2:
+                return context.getString(R.string.speakers);
+            case 3:
+                return  context.getString(R.string.schedule);
+            default:
+                return  context.getString(R.string.about_us);
+        }
     }
 
     @Override
     public int getCount() {
        return 5;
     }
+
 
     @Override
     public int getPageIconResId(int position) {

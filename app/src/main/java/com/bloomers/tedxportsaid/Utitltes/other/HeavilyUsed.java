@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.bloomers.tedxportsaid.Dialog.YoutubeFragment;
 import com.bloomers.tedxportsaid.Model.parcel;
 
 public class HeavilyUsed {
@@ -37,7 +38,7 @@ public class HeavilyUsed {
                 dialogFragment.setArguments(bundle);
             }
             FragmentTransaction ft = appCompatActivity.getSupportFragmentManager().beginTransaction();
-            ft.add(dialogFragment, null);
+            ft.add(dialogFragment, dialogFragment instanceof YoutubeFragment ? "youtube" : null);
             ft.commitAllowingStateLoss();
         }
     }

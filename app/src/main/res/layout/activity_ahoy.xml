@@ -94,7 +94,8 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:elevation="3dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:targetApi="lollipop"/>
 
         <FrameLayout
             android:id="@+id/navigation_layout"

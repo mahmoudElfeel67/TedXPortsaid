@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.bloomers.tedxportsaid"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
@@ -78,7 +78,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.thefinestartist:finestwebview:1.2.7'
-    implementation 'com.shawnlin:number-picker:2.4.6'
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation files('libs/google-api-services-youtube-v3-rev198-1.23.0.jar')
     implementation files('libs/google-http-client-android-1.23.0.jar')

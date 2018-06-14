@@ -39,14 +39,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
-import com.thefinestartist.Base;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
@@ -56,8 +53,9 @@ public class AppController extends MultiDexApplication {
     private static final AppController mInstance = new AppController();
     private static Boolean othersImplemented = false;
     private DatabaseReference database;
-    public static String mediumFont = "Cairo-Regular.ttf";
-    public static String smallFont = "Cairo-Light.ttf";
+    public static final String mediumFont = "Cairo-Regular.ttf";
+    public static final String smallFont = "Cairo-Light.ttf";
+    public static final String bigFont = "Cairo-Bold.ttf";
 
     public static synchronized AppController getInstance() {
         return mInstance;
@@ -83,7 +81,6 @@ public class AppController extends MultiDexApplication {
              .build());
 
         Timber.plant(new Timber.DebugTree());
-        Base.initialize(this);
     }
 
     public static int easyColor(Context context, int color) {
@@ -276,22 +273,6 @@ public class AppController extends MultiDexApplication {
         }
     }
 
-    public String extractYTId(String ytUrl) {
-        if (ytUrl != null) {
-
-            String pattern = "(?<=youtu.be/|watch\\?v=|/videos/|embed/)[^#&?]*";
-            Pattern compiledPattern = Pattern.compile(pattern);
-            Matcher matcher = compiledPattern.matcher(ytUrl);
-            if (matcher.find()) {
-                return matcher.group();
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
     public Boolean ifShared(Activity activity, String StringBoolean) {
         if (activity == null) {
             return false;
@@ -366,8 +347,8 @@ public class AppController extends MultiDexApplication {
         blackopack.setAlpha(0);
         blackopack.setId(R.id.loading_view);
         rootLayout.addView(blackopack);
-        blackopack.animate().setDuration(1000).alpha(.95F).start();
         ImageView imageView = new ImageView(activity);
+        imageView.setAlpha(0F);
         imageView.setImageResource(R.drawable.xex1);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setId(R.id.loading_image_view);
@@ -389,6 +370,9 @@ public class AppController extends MultiDexApplication {
         animator.setRepeatMode(ValueAnimator.REVERSE);
         animator.setDuration(2000);
         animator.start();
+
+        imageView.animate().setDuration(1000).alpha(.90F).start();
+        blackopack.animate().setDuration(1000).alpha(.90F).start();
 
     }
 

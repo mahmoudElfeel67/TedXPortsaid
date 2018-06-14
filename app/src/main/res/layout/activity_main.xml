@@ -23,6 +23,22 @@
         android:src="@drawable/png_logo"
         tools:ignore="ContentDescription"/>
 
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="50dp">
+       <com.bloomers.tedxportsaid.CustomView.CountDownView
+           android:id="@+id/count_down"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentEnd="true"
+           android:layout_marginEnd="10dp"
+           android:layout_centerVertical="true"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="10dp"
+
+           />
+   </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +53,7 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="38dp"
+            android:layout_marginBottom="44dp"
             android:background="@color/frag_background"/>
 
         <View
@@ -67,7 +83,7 @@
             <com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
+                android:layout_height="44dp"
                 app:pstsIndicatorColor="@color/colorAccent"
                 app:pstsIndicatorHeight="2dp"/>
 
@@ -83,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="59dp"
+        android:layout_marginBottom="65dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/question_mark"

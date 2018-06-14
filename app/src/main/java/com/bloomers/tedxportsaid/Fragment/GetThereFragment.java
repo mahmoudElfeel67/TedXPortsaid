@@ -1,6 +1,9 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +30,7 @@ public class GetThereFragment extends Fragment {
 
     private MapView mMapView;
     private GoogleMap googleMap;
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -62,6 +67,19 @@ public class GetThereFragment extends Fragment {
             e.printStackTrace();
         }
 
+        root.findViewById(R.id.careem_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("كود برنامج كريم", "54as43a");
+                if (clipboard != null) {
+                    clipboard.setPrimaryClip(clip);
+                    MainActivity.showCusomtToast(getActivity(),getString(R.string.careem_code_copied),null,true);
+                }
+
+            }
+        });
+
         return root;
     }
 
@@ -78,6 +96,14 @@ public class GetThereFragment extends Fragment {
         super.onPause();
         if (mMapView!=null){
             mMapView.onPause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mMapView!=null){
+            mMapView.onResume();
         }
     }
 }
