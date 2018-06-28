@@ -22,6 +22,7 @@ import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.FaviconParser;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.pressTouchListener;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.thefinestartist.finestwebview.FinestWebView;
 
@@ -34,6 +35,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
@@ -101,12 +103,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
             protected void OnClick(View view) {
 
                 new FinestWebView.Builder(mContext.get())
-                     .iconDefaultColor(Color.WHITE)
-                     .titleColor(Color.WHITE)
-                     .urlColor(Color.WHITE)
-                     .statusBarColor(AppController.easyColor(mContext.get(), R.color.statusBarColor))
-                     .toolbarColor(AppController.easyColor(mContext.get(), R.color.colorAccent))
-                     .show(art);
+                        .iconDefaultColor(Color.WHITE)
+                        .titleColor(Color.WHITE)
+                        .urlColor(Color.WHITE)
+                        .statusBarColor(AppController.easyColor(mContext.get(), R.color.statusBarColor))
+                        .toolbarColor(AppController.easyColor(mContext.get(), R.color.colorAccent))
+                        .show(art);
             }
         };
 
@@ -153,9 +155,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                 @Override
                 protected void onPostExecute(Pair o) {
                     super.onPostExecute(o);
+                    
                     try {
-                        GlideApp.with(mContext.get()).load((String) ((Pair) o.first).first).into(articleImage);
-                        GlideApp.with(mContext.get()).load((String) o.second).into(circle_source);
+                        GlideApp.with(mContext.get()).load((String) ((Pair) o.first).first).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(articleImage);
+                        GlideApp.with(mContext.get()).load((String) o.second).transition(DrawableTransitionOptions.withCrossFade(300)).into(circle_source);
                         articleText.setText((String) ((Pair) o.first).second);
                         spinner.setVisibility(View.GONE);
                     } catch (Exception e) {

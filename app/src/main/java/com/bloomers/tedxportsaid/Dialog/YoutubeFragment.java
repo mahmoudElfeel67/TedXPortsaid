@@ -111,7 +111,6 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if (!wasRestored) {
             youTubePlayer.loadVideo(VIDEO_ID);
-            youTubePlayer.setShowFullscreenButton(false);
             this.youTubePlayer = youTubePlayer;
             isIntilize = true;
         }

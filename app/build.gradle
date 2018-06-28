@@ -24,7 +24,7 @@ android {
                 try {
                     keyAlias KEY_PASSWORD
                     keyPassword KEY_PASSWORD
-                    storeFile file('E:/AlaWad3k Res/kets/TEDxPortsaid.jks')
+                    storeFile file('F:/AlaWad3k Res/kets/TEDxPortsaid.jks')
                     storePassword KEY_PASSWORD
                 } catch (ignored) {
                     throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")

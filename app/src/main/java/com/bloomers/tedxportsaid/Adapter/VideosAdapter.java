@@ -17,6 +17,7 @@ import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.pressTouchListener;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
 
         void bind() {
             video_title.setText(videos.get(getAdapterPosition()).getTitle());
-            GlideApp.with(mContext.get()).load(videos.get(getAdapterPosition()).getThumbnailUrl()).into(video_thumb);
+            GlideApp.with(mContext.get()).load(videos.get(getAdapterPosition()).getThumbnailUrl()).transition(DrawableTransitionOptions.withCrossFade(300)).into(video_thumb);
         }
 
     }

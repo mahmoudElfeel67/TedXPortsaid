@@ -42,8 +42,9 @@ public class RandomDialog extends DialogFragment {
     @BindView(R.id.spinner) SpinKitView spinKitView;
     @BindView(R.id.circle_source) ImageView circle_source;
     boolean isArticle;
-    List arrayList;
+    static List arrayList;
    public int random;
+   public static YouTubeVideo youTubeVideo;
 
 
     public static RandomDialog newInstance(Boolean isArticle, List arrayList){
@@ -51,6 +52,7 @@ public class RandomDialog extends DialogFragment {
         RandomDialog randomDialog = new RandomDialog();
         randomDialog.isArticle= isArticle;
         randomDialog.arrayList = arrayList;
+        randomDialog.youTubeVideo = null;
         return randomDialog;
 
     }
@@ -66,40 +68,54 @@ public class RandomDialog extends DialogFragment {
         }
 
 
+        if (youTubeVideo==null){
+            RandomThreadManager.getInstance().addNumberChanger(random_number, getActivity(), new RandomThreadManager.onDone() {
+                @SuppressWarnings("ConstantConditions")
+                @Override
+                public void onDone(int random) {
+                    RandomDialog.this.random = random;
+                    if (HeavilyUsed.isContextSafe(getActivity())&&getContext()!=null){
+                        spinKitView.setVisibility(View.GONE);
+                        if (isArticle){
 
-        RandomThreadManager.getInstance().addNumberChanger(random_number, getActivity(), new RandomThreadManager.onDone() {
-            @SuppressWarnings("ConstantConditions")
-            @Override
-            public void onDone(int random) {
-                RandomDialog.this.random = random;
-                if (HeavilyUsed.isContextSafe(getActivity())&&getContext()!=null){
-                    spinKitView.setVisibility(View.GONE);
-                    if (isArticle){
-
-                    }else {
-                        GlideApp.with(getActivity()).load(((ArrayList<YouTubeVideo>)arrayList).get(random).getThumbnailUrl()).into(articleImage);
-                        article_text.setText(((ArrayList<YouTubeVideo>)arrayList).get(random).getTitle());
-                        actionButton.setText(R.string.watch);
-
-                        circle_source.setVisibility(View.GONE);
-                    }
-                    new delay(random_number, 1000) {
-                        @Override
-                        protected void OnDelayEnded() {
-                          if (getContext()!=null){
-                              articleLayout.animate().setDuration(1000).translationX(0).start();
-                              random_number.animate().setDuration(1000).translationX(ints.dp2px(250,getContext()));
-                          }
+                        }else {
+                            intilizeVidoe();
                         }
-                    };
-                }
+                        new delay(random_number, 1000) {
+                            @Override
+                            protected void OnDelayEnded() {
+                                if (getContext()!=null){
+                                    articleLayout.animate().setDuration(1000).translationX(0).start();
+                                    random_number.animate().setDuration(1000).translationX(ints.dp2px(250,getContext()));
+                                }
+                            }
+                        };
+                    }
 
-            }
-        },arrayList.size());
+                }
+            },arrayList.size());
+        }else {
+            articleLayout.setTranslationX(0);
+            random_number.setTranslationX(ints.dp2px(250,getContext()));
+            articleLayout.requestLayout();
+            random_number.requestLayout();
+            intilizeVidoe();
+        }
+
+
 
 
 
         return view;
+    }
+
+    private void intilizeVidoe() {
+        youTubeVideo = ((ArrayList<YouTubeVideo>)arrayList).get(random);
+        GlideApp.with(getActivity()).load(((ArrayList<YouTubeVideo>)arrayList).get(random).getThumbnailUrl()).centerCrop().into(articleImage);
+        article_text.setText(((ArrayList<YouTubeVideo>)arrayList).get(random).getTitle());
+        actionButton.setText(R.string.watch);
+
+        circle_source.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.actionButton)

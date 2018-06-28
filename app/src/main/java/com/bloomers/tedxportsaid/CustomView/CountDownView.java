@@ -130,6 +130,11 @@ public class CountDownView extends View {
         this.textLayout = this.createTextLayout(text);
     }
 
+
+    public TextPaint getTextPaint() {
+        return textPaint;
+    }
+
     Layout createTextLayout(String text) {
         int textWidth = (int) this.textPaint.measureText(text);
         int unitTextSize = (int) (this.textPaint.getTextSize() / 2.0F);

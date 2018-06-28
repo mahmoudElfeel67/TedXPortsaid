@@ -25,7 +25,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     private Unbinder unbinder;
-    private boolean isAtTimeline = true;
+    private static boolean isAtTimeline = true;
     @BindView(R.id.schedule_text) TextView schedule_text;
     @BindView(R.id.get_there_text) TextView get_there_text;
 

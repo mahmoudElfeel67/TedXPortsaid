@@ -21,7 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-@SuppressWarnings("ConstantConditions")
+
 public class GetThereFragment extends Fragment {
 
     public static GetThereFragment newInstance() {
@@ -58,7 +58,7 @@ public class GetThereFragment extends Fragment {
                     LatLng venue = new LatLng(31.27048432, 32.30471898);
                     googleMap.addMarker(new MarkerOptions().position(venue).title("إيفينت تيدكس"));
 
-                    CameraPosition cameraPosition = new CameraPosition.Builder().target(venue).zoom(16).build();
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(venue).zoom(15).build();
                     googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
                 }
@@ -74,7 +74,7 @@ public class GetThereFragment extends Fragment {
                 ClipData clip = ClipData.newPlainText("كود برنامج كريم", "54as43a");
                 if (clipboard != null) {
                     clipboard.setPrimaryClip(clip);
-                    MainActivity.showCusomtToast(getActivity(),getString(R.string.careem_code_copied),null,true);
+                    MainActivity.showCusomtToast(getActivity(), getString(R.string.careem_code_copied), null, true);
                 }
 
             }
@@ -85,24 +85,28 @@ public class GetThereFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-        if (mMapView!=null){
+        if (mMapView != null) {
+            if (googleMap!=null){
+                googleMap.clear();
+            }
             mMapView.onDestroy();
+            mMapView = null;
         }
+        super.onDestroyView();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
-        if (mMapView!=null){
+        if (mMapView != null) {
             mMapView.onPause();
         }
+        super.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mMapView!=null){
+        if (mMapView != null) {
             mMapView.onResume();
         }
     }

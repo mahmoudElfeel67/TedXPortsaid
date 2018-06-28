@@ -22,7 +22,7 @@ import butterknife.OnClick;
 public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
-    private int clicked = 0;
+    private static int clicked = 0;
 
     public ArticleSegmentAdapter(AppCompatActivity editActivity) {
         this.mContext = new WeakReference<>(editActivity);

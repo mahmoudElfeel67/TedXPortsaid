@@ -8,7 +8,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.PorterDuff;
+import android.graphics.Shader;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +23,7 @@ import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.display_container) RelativeLayout display_container;
     @BindView(R.id.count_down) CountDownView countDownView;
     int[] originalPos;
+    ViewPager pager;
     int current_position = 0;
 
     @SuppressLint("StaticFieldLeak")
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        ViewPager pager = findViewById(R.id.pager);
+        pager = findViewById(R.id.pager);
         PagerSlidingTabStrip tab = findViewById(R.id.indicator);
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(ArticleFragment.newInstance());
@@ -160,18 +164,32 @@ public class MainActivity extends AppCompatActivity {
         countDownView.setStartDuration(eventTime());
         countDownView.start();
 
+
+        countDownView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                countDownView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                Shader textShader = new LinearGradient(0, 0, countDownView.getWidth(), countDownView.getHeight(),
+                        new int[]{getResources().getColor(R.color.gradient_startColor),
+                                getResources().getColor(R.color.gradient_endColor)},
+                        new float[]{0.50F, 1}, Shader.TileMode.CLAMP);
+                countDownView.getTextPaint().setShader(textShader);
+            }
+        });
+
+
     }
 
     public long eventTime() {
         Calendar c2 = Calendar.getInstance();
-        c2.set(Calendar.YEAR, 2018);
-        c2.set(Calendar.MONTH, Calendar.JUNE);
-        c2.set(Calendar.DAY_OF_MONTH, 30);
-        c2.add(Calendar.HOUR_OF_DAY, 10);
-        c2.set(Calendar.MINUTE, 0);
-        c2.set(Calendar.SECOND, 0);
+        c2.set(2018, Calendar.JULY, 10, 3, 21, 0);
+        if (System.currentTimeMillis() > c2.getTimeInMillis()) {
+            countDownView.setVisibility(View.GONE);
+        }
         return c2.getTimeInMillis() - System.currentTimeMillis();
     }
+
 
     @OnClick(R.id.count_down)
     void onClick(View view) {
@@ -194,10 +212,10 @@ public class MainActivity extends AppCompatActivity {
                     case 8:
                     case 9:
                     case 10:
-                        day = countDownView.getDay(eventTime()) + "يوم ";
+                        day = countDownView.getDay(eventTime()) + "أيام ";
                         break;
                     default:
-                        day = countDownView.getDay(eventTime()) + "أيام ";
+                        day = countDownView.getDay(eventTime()) + "يوم ";
                         break;
                 }
 
@@ -209,18 +227,34 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         hour = "ساعتين";
                         break;
-                    default:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
                         hour = countDownView.getHour(eventTime()) + "ساعات ";
+                        break;
+                    default:
+                        hour = countDownView.getHour(eventTime()) + "ساعه ";
                         break;
                 }
 
                 MainActivity.showCusomtToast(MainActivity.this, "لسه " + day + " و " + hour + "مستعديين !!", null, true, 5000);
+                pager.setCurrentItem(3,true);
                 break;
         }
 
     }
 
     private void callTeamPreview(View view) {
+        if (getResources().getBoolean(R.bool.is_landscape)){
+
+        }else {
+
+        }
         scale_view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -270,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (countDownView!=null){
+        if (countDownView != null) {
             countDownView.stop();
         }
     }

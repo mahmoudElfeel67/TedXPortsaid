@@ -18,12 +18,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import timber.log.Timber;
 public class AboutUsFragment extends Fragment {
 
    static TeamFragment.onCLick onCLick;
     public static AboutUsFragment newInstance(TeamFragment.onCLick onCLick) {
-        Timber.e("CALLLED");
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
         AboutUsFragment.onCLick = onCLick;
         return aboutUsFragment;
@@ -34,6 +32,7 @@ public class AboutUsFragment extends Fragment {
     @BindView(R.id.partners) TextView partners;
     @BindView(R.id.follow_us) TextView follow_us;
     @BindView(R.id.developer) TextView developer;
+    static int lastClickedId;
 
 
 
@@ -42,7 +41,12 @@ public class AboutUsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_about_us, container, false);
         unbinder = ButterKnife.bind(this, root);
-        change(TeamFragment.newInstance(onCLick));
+        if (lastClickedId==0){
+            change(TeamFragment.newInstance(onCLick));
+        }else {
+            root.findViewById(lastClickedId).performClick();
+        }
+
         return root;
     }
 
@@ -72,6 +76,7 @@ public class AboutUsFragment extends Fragment {
     @OnClick({R.id.team, R.id.partners, R.id.follow_us, R.id.developer})
     void onCLik(View view) {
         grayOut(view);
+        lastClickedId = view.getId();
         switch (view.getId()) {
             case R.id.team:
                 change(TeamFragment.newInstance(onCLick));

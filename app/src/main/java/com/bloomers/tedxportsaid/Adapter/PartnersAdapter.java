@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.thefinestartist.finestwebview.FinestWebView;
 
 import java.lang.ref.WeakReference;
@@ -73,7 +74,7 @@ public class PartnersAdapter extends RecyclerView.Adapter<PartnersAdapter.Single
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.tedlogo).centerInside().into(partenr_logo);
+            GlideApp.with(mContext.get()).load(R.drawable.tedlogo).centerInside().transition(DrawableTransitionOptions.withCrossFade(300)).into(partenr_logo);
         }
 
     }

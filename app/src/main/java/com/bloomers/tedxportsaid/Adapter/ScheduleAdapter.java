@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.lang.ref.WeakReference;
 
@@ -80,7 +81,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.da7e7).circleCrop().into(event_time);
+            GlideApp.with(mContext.get()).load(R.drawable.da7e7).transition(DrawableTransitionOptions.withCrossFade(300)).circleCrop().into(event_time);
 
             event_container.requestLayout();
             event_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
