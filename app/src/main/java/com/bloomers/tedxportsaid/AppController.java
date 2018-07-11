@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -22,7 +21,6 @@ import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +30,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bloomers.tedxportsaid.Activity.MainActivity;
-import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -47,8 +42,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
@@ -58,7 +51,6 @@ public class AppController extends MultiDexApplication {
 
     private static final AppController mInstance = new AppController();
     private static Boolean othersImplemented = false;
-    private DatabaseReference database;
     public static final String mediumFont = "Cairo-Regular.ttf";
     public static final String smallFont = "Cairo-Light.ttf";
     public static final String bigFont = "Cairo-Bold.ttf";
@@ -108,67 +100,10 @@ public class AppController extends MultiDexApplication {
         }
     }
 
-    public static Boolean isntRecycled(Bitmap bitmap) {
-        return bitmap != null && !bitmap.isRecycled();
-    }
-
-    public static void avoidMultiTouch(final View v) {
-        v.setClickable(false);
-        v.setEnabled(false);
-        new delay(v, 2000) {
-            @Override
-            public void OnDelayEnded() {
-
-                v.setClickable(true);
-                v.setEnabled(true);
-            }
-        };
-    }
-
-    public static void redirectToAppWithLink(String appPackageName, @NonNull Context context, String link) {
-
-        if (AppController.getInstance().isAppInstalled(appPackageName, context)) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, link);
-            sendIntent.setType("text/plain");
-            sendIntent.setPackage(appPackageName);
-            context.startActivity(sendIntent);
-        } else {
-            Intent i = new Intent(android.content.Intent.ACTION_VIEW);
-            i.setData(Uri.parse(link));
-            context.startActivity(i);
-        }
-    }
-
     public static Locale getLocale(@NonNull Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("TEDX", MODE_PRIVATE);
         return new Locale(sharedPreferences.getString("language", Locale.getDefault().getLanguage()));
 
-    }
-
-    public DatabaseReference firebaseInstance() {
-        if (database == null) {
-            database = FirebaseDatabase.getInstance().getReference();
-        }
-        return database;
-    }
-
-    public boolean isSafeRecycler(ArrayList arrayList, int postion) {
-        return postion != -1 && arrayList != null && arrayList.size() > postion && arrayList.get(postion) != null;
-    }
-
-    public boolean isSafeRecycler(List arrayList, int postion) {
-        try {
-            return postion != -1 && arrayList != null && arrayList.size() > postion && arrayList.get(postion) != null;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
-
-    public FirebaseAnalytics getAnalytics(Context context) {
-        return FirebaseAnalytics.getInstance(context);
     }
 
     public void cancelAsync(AsyncTask ex) {
@@ -197,17 +132,6 @@ public class AppController extends MultiDexApplication {
 
     public Boolean isArabic(Context mContext) {
         return mContext == null || mContext.getSharedPreferences("TEDX", MODE_PRIVATE).getString("language", Locale.getDefault().getLanguage()).equals("ar");
-    }
-
-    public void deleteItem(int index, RecyclerView.Adapter adapter, ArrayList arrayList) {
-        try {
-            arrayList.remove(index);
-            adapter.notifyItemRemoved(index);
-            adapter.notifyItemRangeRemoved(index, 1);
-        } catch (IndexOutOfBoundsException e) {
-            adapter.notifyDataSetChanged();
-            e.printStackTrace();
-        }
     }
 
     public void implementOthers(Activity activity) {
@@ -252,21 +176,6 @@ public class AppController extends MultiDexApplication {
                 //for new api versions.
                 View decorView = activity.getWindow().getDecorView();
                 int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-                decorView.setSystemUiVisibility(uiOptions);
-            }
-        }
-    }
-
-    public void showNavBar(Activity activity) {
-        if (hasNavBar(activity.getResources())) {
-
-            if (Build.VERSION.SDK_INT < 19) { // lower api
-                View v = activity.getWindow().getDecorView();
-                v.setSystemUiVisibility(View.VISIBLE);
-            } else {
-                //for new api versions.
-                View decorView = activity.getWindow().getDecorView();
-                int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
                 decorView.setSystemUiVisibility(uiOptions);
             }
         }
