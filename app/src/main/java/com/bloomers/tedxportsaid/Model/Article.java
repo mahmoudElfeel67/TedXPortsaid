@@ -7,7 +7,7 @@ public class Article {
 
     public static ArrayList getTech() {
 
-        ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayList<String> arrayList = new ArrayList<>();
 
 
         arrayList.add("https://ideas.ted.com/if-indiana-jones-had-only-had-a-satellite-the-many-wonders-of-space-archaeology");
@@ -113,7 +113,7 @@ public class Article {
     }
 
     public static ArrayList getEnte() {
-        ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayList<String> arrayList = new ArrayList<>();
 
 
         arrayList.add("https://blog.ted.com/12-tips-for-hosting-a-ted-live-party");

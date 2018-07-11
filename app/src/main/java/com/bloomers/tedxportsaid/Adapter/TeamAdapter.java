@@ -26,7 +26,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowH
 
     private final WeakReference<AppCompatActivity> mContext;
     private final TeamFragment.onCLick onCLick;
-    private ArrayList<TeamMember> teamMembers;
+    private final ArrayList<TeamMember> teamMembers;
 
     public TeamAdapter(AppCompatActivity editActivity, TeamFragment.onCLick clicked,ArrayList teamMembers) {
         this.mContext = new WeakReference<>(editActivity);

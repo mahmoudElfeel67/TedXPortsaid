@@ -1,14 +1,14 @@
 package com.bloomers.tedxportsaid.Model;
 
 public class event_date {
-    int year ;
-    int day;
-    int hour;
-    int minute;
-    int month;
-    int before_day;
-    int before_year;
-    int before_month;
+    private int year ;
+    private int day;
+    private int hour;
+    private int minute;
+    private int month;
+    private int before_day;
+    private int before_year;
+    private int before_month;
 
     public int getYear() {
         return year;

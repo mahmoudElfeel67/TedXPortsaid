@@ -2,9 +2,9 @@ package com.bloomers.tedxportsaid.Model;
 
 public class Schedule {
 
-    public String date;
-    public String session_name;
-    public String background;
+    private String date;
+    private String session_name;
+    private String background;
 
     public String getDate() {
         return date;

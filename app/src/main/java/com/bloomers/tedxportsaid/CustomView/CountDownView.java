@@ -28,10 +28,10 @@ public class CountDownView extends View {
     private static final int HOUR = 3600000;
     private static final int MIN = 60000;
     private static final int SEC = 1000;
-    private TextPaint textPaint = new TextPaint(1);
+    private final TextPaint textPaint = new TextPaint(1);
     @Nullable
     private Layout textLayout;
-    private SpannableStringBuilder spannableString = new SpannableStringBuilder();
+    private final SpannableStringBuilder spannableString = new SpannableStringBuilder();
     private CountDownTimer timer;
     private long startDuration;
     private long currentDuration;
@@ -46,7 +46,7 @@ public class CountDownView extends View {
         this.textPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), AppController.bigFont));
         TypedArray ta = this.getContext().obtainStyledAttributes(attrs, R.styleable.CountDownView);
         int startDuration = ta.getInt(R.styleable.CountDownView_startDuration, 0);
-        int textSize = ta.getDimensionPixelSize(R.styleable.CountDownView_android_textSize, (int) dpToPx(18, this.getResources()));
+        int textSize = ta.getDimensionPixelSize(R.styleable.CountDownView_android_textSize, (int) dpToPx(this.getResources()));
         ta.recycle();
         this.textPaint.setTextSize((float) textSize);
 
@@ -125,7 +125,7 @@ public class CountDownView extends View {
 
     }
 
-    void updateText(long duration) {
+    private void updateText(long duration) {
         String text = generateCountdownText(duration,getContext());
         this.textLayout = this.createTextLayout(text);
     }
@@ -135,7 +135,7 @@ public class CountDownView extends View {
         return textPaint;
     }
 
-    Layout createTextLayout(String text) {
+    private Layout createTextLayout(String text) {
         int textWidth = (int) this.textPaint.measureText(text);
         int unitTextSize = (int) (this.textPaint.getTextSize() / 2.0F);
         this.spannableString.clear();
@@ -154,7 +154,7 @@ public class CountDownView extends View {
         return new StaticLayout(this.spannableString, this.textPaint, textWidth, Layout.Alignment.ALIGN_CENTER, 0.0F, 0.0F, true);
     }
 
-     String generateCountdownText(long duration, Context activity) {
+     private String generateCountdownText(long duration, Context activity) {
         int day = (int) (duration / 86400000);
         int calhr = (int) (duration / HOUR);
         int hr = (int) ((duration - (long) (day * 86400000)) / 3600000L);
@@ -178,7 +178,7 @@ public class CountDownView extends View {
         return (int) ((duration - (long) (day * 86400000)) / 3600000L);
     }
 
-    private static float dpToPx(int dp, Resources resources) {
-        return TypedValue.applyDimension(1, (float) dp, resources.getDisplayMetrics());
+    private static float dpToPx(Resources resources) {
+        return TypedValue.applyDimension(1, (float) 18, resources.getDisplayMetrics());
     }
 }

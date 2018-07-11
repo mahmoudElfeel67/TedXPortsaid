@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class PartnersAdapter extends RecyclerView.Adapter<PartnersAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
-    private ArrayList<Partner> arrayList;
+    private final ArrayList<Partner> arrayList;
 
     public PartnersAdapter(AppCompatActivity editActivity, ArrayList<Partner> arrayList) {
         this.mContext = new WeakReference<>(editActivity);

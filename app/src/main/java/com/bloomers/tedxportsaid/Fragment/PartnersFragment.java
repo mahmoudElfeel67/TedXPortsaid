@@ -30,9 +30,9 @@ public class PartnersFragment extends Fragment {
         return new PartnersFragment();
     }
 
-    SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView article_recycler;
-    LinearLayout no_data;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView article_recycler;
+    private LinearLayout no_data;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

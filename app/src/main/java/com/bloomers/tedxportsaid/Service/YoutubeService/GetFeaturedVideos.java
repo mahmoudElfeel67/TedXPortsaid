@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class GetFeaturedVideos extends GetYouTubeVideos {
 
-	protected YouTube.Videos.List videosList = null;
+	YouTube.Videos.List videosList = null;
 
 
 	@Override
@@ -104,7 +104,7 @@ public class GetFeaturedVideos extends GetYouTubeVideos {
 	/**
 	 * @return The maximum number of items that should be retrieved per YouTube query.
 	 */
-	protected Long getMaxResults() {
+    private Long getMaxResults() {
 		return 50L;
 	}
 

@@ -46,25 +46,25 @@ import static com.bloomers.tedxportsaid.AppController.parsePageHeaderInfo;
 public class RandomDialog extends DialogFragment {
 
 
-    @BindView(R.id.random_number) TextView random_number;
-    @BindView(R.id.articleLayout) RelativeLayout articleLayout;
-    @BindView(R.id.articleImage) ImageView articleImage;
-    @BindView(R.id.article_text) TextView article_text;
-    @BindView(R.id.actionButton) Button actionButton;
-    @BindView(R.id.spinner) SpinKitView spinKitView;
-    @BindView(R.id.circle_source) ImageView circle_source;
-    boolean isArticle;
-    static List arrayList;
-   public int random;
-   public static YouTubeVideo youTubeVideo;
+    @BindView(R.id.random_number)  TextView random_number;
+    @BindView(R.id.articleLayout)  RelativeLayout articleLayout;
+    @BindView(R.id.articleImage)  ImageView articleImage;
+    @BindView(R.id.article_text)  TextView article_text;
+    @BindView(R.id.actionButton)  Button actionButton;
+    @BindView(R.id.spinner)  SpinKitView spinKitView;
+    @BindView(R.id.circle_source)  ImageView circle_source;
+    private boolean isArticle;
+    private static List arrayList;
+   private int random;
+   private static YouTubeVideo youTubeVideo;
 
 
     public static RandomDialog newInstance(Boolean isArticle, List arrayList){
 
         RandomDialog randomDialog = new RandomDialog();
         randomDialog.isArticle= isArticle;
-        randomDialog.arrayList = arrayList;
-        randomDialog.youTubeVideo = null;
+        RandomDialog.arrayList = arrayList;
+        youTubeVideo = null;
         return randomDialog;
 
     }

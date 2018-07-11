@@ -26,8 +26,8 @@ public class ScheduleFragment extends Fragment {
 
     private Unbinder unbinder;
     private static boolean isAtTimeline = true;
-    @BindView(R.id.schedule_text) TextView schedule_text;
-    @BindView(R.id.get_there_text) TextView get_there_text;
+    @BindView(R.id.schedule_text)  TextView schedule_text;
+    @BindView(R.id.get_there_text)  TextView get_there_text;
 
     @SuppressWarnings("unchecked")
     @Override

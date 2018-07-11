@@ -1,8 +1,8 @@
 package com.bloomers.tedxportsaid.Model;
 
 public class VoucherCode {
-    public String desc;
-    public String code;
+    private String desc;
+    private String code;
 
     public String getDesc() {
         return desc;

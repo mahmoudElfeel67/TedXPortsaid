@@ -20,7 +20,7 @@ import butterknife.OnClick;
 
 public class FollowUsFragment extends Fragment {
 
-    @BindView(R.id.developer_image) ImageView developer_image;
+    @BindView(R.id.developer_image)  ImageView developer_image;
 
     public static FollowUsFragment newInstance() {
         return new FollowUsFragment();

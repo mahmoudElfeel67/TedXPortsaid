@@ -39,7 +39,7 @@ import static com.bloomers.tedxportsaid.AppController.parsePageHeaderInfo;
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
-    private ArrayList<String> articles;
+    private final ArrayList<String> articles;
 
     public ArticleAdapter(AppCompatActivity editActivity,ArrayList<String> arrayList) {
         this.mContext = new WeakReference<>(editActivity);

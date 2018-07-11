@@ -31,9 +31,9 @@ public class WalkThroughActivity extends AhoyOnboarderActivity {
         super.onCreate(savedInstanceState);
 
         List<AhoyOnboarderCard> pages = new ArrayList<>();
-        pages.add(makePage("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker));
-        pages.add(makePage("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker));
-        pages.add(makePage("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker));
+        pages.add(makePage());
+        pages.add(makePage());
+        pages.add(makePage());
 
         setFont(Typeface.createFromAsset(getAssets(),AppController.mediumFont));
         setOnboardPages(pages);
@@ -80,8 +80,8 @@ public class WalkThroughActivity extends AhoyOnboarderActivity {
         AppController.getInstance().hideNavBar(this);
     }
 
-    private AhoyOnboarderCard makePage(String title, String Description, int drawable) {
-        AhoyOnboarderCard ahoyOnboarderCard = new AhoyOnboarderCard(title, Description, drawable);
+    private AhoyOnboarderCard makePage() {
+        AhoyOnboarderCard ahoyOnboarderCard = new AhoyOnboarderCard("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker);
         ahoyOnboarderCard.setTitleTextSize(22);
         ahoyOnboarderCard.setDescriptionTextSize(13);
         if (getResources().getBoolean(R.bool.isTablet)) {

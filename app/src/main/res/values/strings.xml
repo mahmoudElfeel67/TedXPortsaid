@@ -5,8 +5,6 @@
     <string name="Follow_us">Follow Us</string>
     <string name="Developer">Developer</string>
     <string name="follow_us_tedx">Follow us on social media</string>
-    <string name="TED_INTRO">TED     هي كذا وكذا وكذا</string>
-    <string name="TEDx_INTOR">TEDx     هي كذا وكذا وكذا</string>
     <string name="developer">App developed by Mahmoud Elfeel</string>
     <string name="Schedule">Schedule</string>
     <string name="how_to_get_there">Directions</string>
@@ -44,5 +42,4 @@
     <string name="hour_ext">h</string>
     <string name="minute_ext">m</string>
     <string name="second_ext">s</string>
-    <string name="format">%02d</string>
 </resources>

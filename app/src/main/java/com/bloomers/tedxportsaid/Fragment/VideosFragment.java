@@ -43,17 +43,17 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
     }
 
     public static List<YouTubeVideo> videos;
-    VideosAdapter adapter;
+    private VideosAdapter adapter;
     public static GetChannelVideos getChannelVideos = new GetChannelVideos();
-    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.portsaid_vid) TextView portsaid_vid;
-    @BindView(R.id.tedx_vid) TextView tedx_vid;
+    @BindView(R.id.refreshLayout)  SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.portsaid_vid)  TextView portsaid_vid;
+    @BindView(R.id.tedx_vid)  TextView tedx_vid;
     private boolean searchRunning = false;
     private boolean isRefreshing = false;
     private static boolean isAtPortsiad = true;
-    @BindView(R.id.spin_kit) SpinKitView progressBar;
-    @BindView(R.id.videosRecycler) RecyclerView article_segment_recycler;
-   public  static String tedxPortsaidChnnel  = "UC-4KnPMmZzwAzW7SbVATUZQ";
+    @BindView(R.id.spin_kit)  SpinKitView progressBar;
+    @BindView(R.id.videosRecycler)  RecyclerView article_segment_recycler;
+   public  static final String tedxPortsaidChnnel  = "UC-4KnPMmZzwAzW7SbVATUZQ";
 
     @SuppressWarnings("unchecked")
     @Override
@@ -82,7 +82,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
             load(progressBar, article_segment_recycler, tedxPortsaidChnnel);
         } else {
             progressBar.setVisibility(View.GONE);
-            adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos, false);
+            adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
             article_segment_recycler.setAdapter(adapter);
         }
 
@@ -150,7 +150,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                                 progressBar.setVisibility(View.GONE);
 
                                 if (VideosFragment.videos != null) {
-                                    adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos, false);
+                                    adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
                                     article_segment_recycler.setAdapter(adapter);
 
                                 } else {
@@ -169,7 +169,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                 VideosFragment.videos.addAll(YouTubeVideo.getFilters(getContext()));
 
                 if (VideosFragment.videos != null) {
-                    adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos, false);
+                    adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
                     article_segment_recycler.setAdapter(adapter);
 
                 } else {

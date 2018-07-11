@@ -27,7 +27,7 @@ import java.util.Map;
 public class FormQuesionFragment extends Fragment {
 
 
-    Speaker speaker;
+    private Speaker speaker;
 
 
     public static FormQuesionFragment newInstance(Speaker speaker) {
@@ -55,7 +55,6 @@ public class FormQuesionFragment extends Fragment {
                     return;
                 }
 
-
                 String key = FirebaseDatabase.getInstance().getReference().child("speaker_questions").push().getKey();
                 AppController.getInstance().addLoadingBlock(getActivity(), ((ViewGroup) root.findViewById(R.id.toast_lay)));
                 Map<String, Object> childUpdates = new HashMap<>();
@@ -70,10 +69,8 @@ public class FormQuesionFragment extends Fragment {
                     }
                 });
 
-
             }
         });
-
 
         return root;
     }

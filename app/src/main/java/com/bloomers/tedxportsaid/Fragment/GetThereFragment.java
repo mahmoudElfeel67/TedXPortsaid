@@ -38,7 +38,7 @@ public class GetThereFragment extends Fragment {
 
     private MapView mMapView;
     private GoogleMap googleMap;
-    TextView voucher_code_text;
+    private TextView voucher_code_text;
 
     @SuppressWarnings("unchecked")
     @Override

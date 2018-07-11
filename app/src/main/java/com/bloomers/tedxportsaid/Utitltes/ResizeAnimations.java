@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-public class ResizeAnimations extends Animation {
+class ResizeAnimations extends Animation {
 
     private final View mView;
     private final float mToHeight;

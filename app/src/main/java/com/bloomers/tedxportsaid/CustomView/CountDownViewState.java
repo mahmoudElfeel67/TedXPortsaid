@@ -22,7 +22,7 @@ class CountDownViewState extends View.BaseSavedState {
         super(superState);
     }
 
-    CountDownViewState(Parcel source) {
+    private CountDownViewState(Parcel source) {
         super(source);
         this.startDuration = source.readLong();
         this.currentDuration = source.readLong();

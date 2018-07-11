@@ -5,7 +5,7 @@ import android.graphics.Matrix;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-public class Flip3dAnimation extends Animation {
+class Flip3dAnimation extends Animation {
     private final float mFromDegrees;
     private final float mToDegrees;
     private final float mCenterX;

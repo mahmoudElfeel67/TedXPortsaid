@@ -27,8 +27,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
 
     private final WeakReference<AppCompatActivity> mContext;
     private final ArrayList<Schedule> schedules;
-    int leftPostion = 0;
-    int rightPostion = 0;
+    private int leftPostion = 0;
+    private int rightPostion = 0;
 
     public ScheduleAdapter(AppCompatActivity editActivity,ArrayList schedules) {
         this.mContext = new WeakReference<>(editActivity);

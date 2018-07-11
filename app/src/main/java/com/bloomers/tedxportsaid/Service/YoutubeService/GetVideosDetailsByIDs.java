@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * A class that is able to query YouTube and returns information regarding the supplied videos IDs.
  */
-public class GetVideosDetailsByIDs extends GetFeaturedVideos {
+class GetVideosDetailsByIDs extends GetFeaturedVideos {
 
 	/**
 	 * Initialise object.

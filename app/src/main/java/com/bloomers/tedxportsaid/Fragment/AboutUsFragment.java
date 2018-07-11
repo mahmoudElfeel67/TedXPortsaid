@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 public class AboutUsFragment extends Fragment {
 
-    TeamFragment.onCLick onCLick;
+    private TeamFragment.onCLick onCLick;
     public static AboutUsFragment newInstance(TeamFragment.onCLick onCLick) {
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
         aboutUsFragment.onCLick = onCLick;
@@ -30,11 +30,11 @@ public class AboutUsFragment extends Fragment {
     }
 
     private Unbinder unbinder;
-    @BindView(R.id.team) TextView team;
-    @BindView(R.id.partners) TextView partners;
-    @BindView(R.id.follow_us) TextView follow_us;
-    @BindView(R.id.developer) TextView developer;
-    static int lastClickedId;
+    @BindView(R.id.team)  TextView team;
+    @BindView(R.id.partners)  TextView partners;
+    @BindView(R.id.follow_us)  TextView follow_us;
+    @BindView(R.id.developer)  TextView developer;
+    private static int lastClickedId;
 
 
 
@@ -76,7 +76,7 @@ public class AboutUsFragment extends Fragment {
         unbinder.unbind();
     }
 
-    public void grayOut(View view){
+    private void grayOut(View view){
         team.setTextColor(view.getId()==team.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));
         partners.setTextColor(view.getId()==partners.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));
         follow_us.setTextColor(view.getId()==follow_us.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class AskSpeakerDialog extends DialogFragment {
 
-    ArrayList<Speaker> speakers;
+    private ArrayList<Speaker> speakers;
 
     public static AskSpeakerDialog newInstance(ArrayList<Speaker> speaker){
         AskSpeakerDialog askSpeakerDialog = new AskSpeakerDialog();

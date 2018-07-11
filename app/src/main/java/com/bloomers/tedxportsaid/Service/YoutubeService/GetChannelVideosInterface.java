@@ -22,7 +22,7 @@ import com.google.api.client.util.DateTime;
 /**
  * Interface to be used by {@link GetChannelVideosFull} and {@link GetChannelVideosLite}.
  */
-public interface GetChannelVideosInterface {
+interface GetChannelVideosInterface {
 
 	/**
 	 * Used to retrieve channel videos published after the specified date.

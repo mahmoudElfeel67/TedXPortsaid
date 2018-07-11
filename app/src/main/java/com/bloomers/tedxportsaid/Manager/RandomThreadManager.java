@@ -11,7 +11,7 @@ public class RandomThreadManager {
     private boolean stop = false;
     private int count = 0;
     private int increase = 0;
-    int i1;
+    private int i1;
 
     private static final RandomThreadManager mInstacne = new RandomThreadManager();
 

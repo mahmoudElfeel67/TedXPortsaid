@@ -28,7 +28,7 @@ public class ArticleFragment extends Fragment {
     }
     
     public static ArrayList<String> articles;
-    RecyclerView article_recycler;
+    private RecyclerView article_recycler;
 
     @SuppressWarnings("unchecked")
     @Override

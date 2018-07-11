@@ -32,10 +32,10 @@ import timber.log.Timber;
  */
 public class GetYouTubeVideoBySearch extends GetYouTubeVideos {
 
-	protected YouTube.Search.List videosList = null;
+	YouTube.Search.List videosList = null;
 
 	private static final String	TAG = GetYouTubeVideoBySearch.class.getSimpleName();
-	protected static final Long	MAX_RESULTS = 45L;
+	private static final Long	MAX_RESULTS = 45L;
 
 
 	@Override

@@ -7,8 +7,6 @@
     <string name="Follow_us">تابعونا</string>
     <string name="Developer">المطور</string>
     <string name="follow_us_tedx">تابعونا علي السوشيال ميديا !</string>
-    <string name="TED_INTRO">TED     هي كذا وكذا وكذا</string>
-    <string name="TEDx_INTOR">TEDx     هي كذا وكذا وكذا</string>
     <string name="developer">تم تطوير البرنامج من محمود الفيل</string>
     <string name="Schedule">الجدول</string>
     <string name="how_to_get_there">أوصل ازاي ؟</string>
@@ -46,5 +44,4 @@
     <string name="hour_ext">س</string>
     <string name="minute_ext">د</string>
     <string name="second_ext">ث</string>
-    <string name="format">%02ي</string>
 </resources>

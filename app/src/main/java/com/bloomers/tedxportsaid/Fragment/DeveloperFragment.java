@@ -24,8 +24,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 public class DeveloperFragment extends Fragment {
 
-    @BindView(R.id.developer_image) ImageView developer_image;
-    Unbinder unbinder;
+    @BindView(R.id.developer_image)  ImageView developer_image;
+    private Unbinder unbinder;
 
     public static DeveloperFragment newInstance() {
         return new DeveloperFragment();
@@ -100,7 +100,7 @@ public class DeveloperFragment extends Fragment {
       }
     }
 
-    public void openAppAfterDelay(View view, @StringRes int string, final String packageName){
+    private void openAppAfterDelay(View view, @StringRes int string, final String packageName){
         MainActivity.showCustomToast(getActivity(),getString(string),null,false);
         new delay(view, 2000) {
             @Override

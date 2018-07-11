@@ -81,7 +81,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
                      public void onGetVideos(List<YouTubeVideo> videos) {
                          spinKitView.setVisibility(View.GONE);
                          if (videos != null) {
-                             article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), videos,true));
+                             article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), videos));
 
                          }else {
                              MainActivity.showCustomToast(getActivity(), getString(R.string.videos_not_loaded), null, false);
@@ -91,7 +91,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
                  }).executeInParallel();
         }else {
             spinKitView.setVisibility(View.GONE);
-            article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), cutArrayList,true));
+            article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), cutArrayList));
         }
 
 

@@ -2,8 +2,8 @@ package com.bloomers.tedxportsaid.Model;
 
 public class Partner {
 
-    public String logo;
-    public String link;
+    private String logo;
+    private String link;
 
     public String getLogo() {
         return logo;

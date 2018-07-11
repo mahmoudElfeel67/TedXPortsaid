@@ -1,8 +1,8 @@
 package com.bloomers.tedxportsaid.Model;
 
 public class Coordinates {
-    public double lat;
-    public double longd;
+    private double lat;
+    private double longd;
 
     public double getLat() {
         return lat;

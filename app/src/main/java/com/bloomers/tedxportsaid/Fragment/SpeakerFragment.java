@@ -30,8 +30,8 @@ public class SpeakerFragment extends Fragment {
         return new SpeakerFragment();
     }
 
-    View root;
-    LinearLayout no_data;
+    private View root;
+    private LinearLayout no_data;
     public  static  ArrayList<Speaker> speakers;
 
     @SuppressWarnings("unchecked")

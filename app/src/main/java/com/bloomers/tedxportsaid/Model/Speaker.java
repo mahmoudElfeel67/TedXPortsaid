@@ -2,10 +2,10 @@ package com.bloomers.tedxportsaid.Model;
 
 public class Speaker {
 
-    public String description;
-    public String prof_url;
-    public String name;
-    public String topic;
+    private String description;
+    private String prof_url;
+    private String name;
+    private String topic;
 
     public String getName() {
         return name;

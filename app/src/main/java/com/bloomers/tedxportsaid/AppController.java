@@ -185,7 +185,7 @@ public class AppController extends MultiDexApplication {
         }
     }
 
-    public void removeView(@Nullable View view) {
+    private void removeView(@Nullable View view) {
         if (view != null && view.getParent() != null) {
             try {
                 ((ViewGroup) view.getParent()).removeView(view);
@@ -272,7 +272,7 @@ public class AppController extends MultiDexApplication {
         }
     }
 
-    public boolean hasNavBar(@NonNull Resources resources) {
+    private boolean hasNavBar(@NonNull Resources resources) {
         int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
         return id > 0 && resources.getBoolean(id);
     }

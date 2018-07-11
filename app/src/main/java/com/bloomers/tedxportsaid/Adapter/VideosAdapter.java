@@ -30,12 +30,10 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
 
     private final WeakReference<AppCompatActivity> mContext;
     private ArrayList<YouTubeVideo> videos;
-    private final boolean isInsider;
 
-    public VideosAdapter(AppCompatActivity editActivity, List<YouTubeVideo> videos,boolean isInsider) {
+    public VideosAdapter(AppCompatActivity editActivity, List<YouTubeVideo> videos) {
         this.mContext = new WeakReference<>(editActivity);
         this.videos = new ArrayList<>(videos);
-        this.isInsider = isInsider;
     }
 
     public void setVideos(ArrayList<YouTubeVideo> videos) {

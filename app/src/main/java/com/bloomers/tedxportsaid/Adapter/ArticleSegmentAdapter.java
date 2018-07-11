@@ -24,8 +24,8 @@ public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAd
 
     private final WeakReference<AppCompatActivity> mContext;
     public static int clicked = 0;
-    private ArrayList<Integer> arrayList = new ArrayList<>();
-    private onClicked onClicked;
+    private final ArrayList<Integer> arrayList = new ArrayList<>();
+    private final onClicked onClicked;
 
     public ArticleSegmentAdapter(AppCompatActivity editActivity,onClicked onClicked) {
         this.mContext = new WeakReference<>(editActivity);

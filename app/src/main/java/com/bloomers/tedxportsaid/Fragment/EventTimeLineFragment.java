@@ -31,9 +31,9 @@ public class EventTimeLineFragment extends Fragment {
         return new EventTimeLineFragment();
     }
 
-    SwipeRefreshLayout swipeRefreshLayout;
-    View root;
-    LinearLayout no_data;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private View root;
+    private LinearLayout no_data;
 
     @SuppressWarnings("unchecked")
     @Override

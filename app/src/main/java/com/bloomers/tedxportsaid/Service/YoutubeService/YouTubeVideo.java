@@ -45,7 +45,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class YouTubeVideo implements Serializable {
 
-	private static String dataBaseFilterTEST="TEDXVIDEOS";
+	private static final String dataBaseFilterTEST="TEDXVIDEOS";
 	/**
 	 * YouTube video ID.
 	 */

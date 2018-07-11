@@ -27,21 +27,21 @@ import java.util.List;
  * <p>Do not run this directly, but rather use {@link GetYouTubeVideosTask}.</p>
  */
 public abstract class GetYouTubeVideos {
-	protected String nextPageToken = null;
-	protected boolean noMoreVideoPages = false;
+	String nextPageToken = null;
+	boolean noMoreVideoPages = false;
 
 	/**
 	 * Initialise this object.
 	 *
 	 * @throws IOException
 	 */
-	public abstract void init() throws IOException;
+	protected abstract void init() throws IOException;
 
 
 	/**
 	 * Sets user's query. [optional]
 	 */
-	public void setQuery(String query) {
+    void setQuery(String query) {
 	}
 
 
@@ -50,19 +50,19 @@ public abstract class GetYouTubeVideos {
 	 *
 	 * @return List of {@link YouTubeVideo}s.
 	 */
-	public abstract List<YouTubeVideo> getNextVideos();
+	protected abstract List<YouTubeVideo> getNextVideos();
 
 
 	/**
 	 * @return True if YouTube states that there will be no more video pages; false otherwise.
 	 */
-	public abstract boolean noMoreVideoPages();
+	protected abstract boolean noMoreVideoPages();
 
 
 	/**
 	 * Reset the fetching of videos. This will be called when a swipe to refresh is done.
 	 */
-	public void reset() {
+    void reset() {
 		nextPageToken = null;
 		noMoreVideoPages = false;
 	}

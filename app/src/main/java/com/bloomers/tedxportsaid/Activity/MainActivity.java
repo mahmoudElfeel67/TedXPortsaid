@@ -65,17 +65,17 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.scale_view) ImageView scale_view;
-    @BindView(R.id.team_bg) ImageView team_bg;
-    @BindView(R.id.team_image) ImageView team_image;
-    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.scale_view)  ImageView scale_view;
+    @BindView(R.id.team_bg)  ImageView team_bg;
+    @BindView(R.id.team_image)  ImageView team_image;
+    @BindView(R.id.fab)  FloatingActionButton fab;
     @BindView(R.id.team_info) TextView team_info;
-    @BindView(R.id.display_container) RelativeLayout display_container;
-    @BindView(R.id.count_down) CountDownView countDownView;
-    int[] originalPos;
-    ViewPager pager;
-    int current_position = 0;
-    event_date eventDate;
+    @BindView(R.id.display_container)  RelativeLayout display_container;
+    @BindView(R.id.count_down)  CountDownView countDownView;
+    private int[] originalPos;
+    private ViewPager pager;
+    private int current_position = 0;
+    private event_date eventDate;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public long eventTime(event_date eventDate) {
+    private long eventTime(event_date eventDate) {
         Calendar c2 = Calendar.getInstance();
         c2.set(eventDate.getYear(), eventDate.getMonth()- 1, eventDate.getDay(), eventDate.getHour(), eventDate.getMinute(), 0);
         if (System.currentTimeMillis() > c2.getTimeInMillis()) {
@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
         showCustomToast(activity, text, viewGroup, success, 2000);
     }
 
-    public static void showCustomToast(final Activity activity, String text, ViewGroup viewGroup, boolean success, int period) {
+    private static void showCustomToast(final Activity activity, String text, ViewGroup viewGroup, boolean success, int period) {
         final ViewGroup rootLayout;
 
         if (viewGroup == null) {

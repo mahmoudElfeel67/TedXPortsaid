@@ -37,9 +37,9 @@ public class TeamFragment extends Fragment {
     }
 
 
-    RecyclerView article_recycler;
-    SwipeRefreshLayout swipeRefreshLayout;
-    SpinKitView spin_kit;
+    private RecyclerView article_recycler;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private SpinKitView spin_kit;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

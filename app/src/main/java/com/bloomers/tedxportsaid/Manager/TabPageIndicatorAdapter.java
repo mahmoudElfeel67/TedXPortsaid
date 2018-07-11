@@ -16,10 +16,10 @@ import java.util.Collections;
 public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
 
-    private ArrayList<Fragment> fragmentArrayList ;
-    private ArrayList<Integer> titles = new ArrayList<>();
-    private ArrayList<Integer> drawables = new ArrayList<>();
-    private Context context;
+    private final ArrayList<Fragment> fragmentArrayList ;
+    private final ArrayList<Integer> titles = new ArrayList<>();
+    private final ArrayList<Integer> drawables = new ArrayList<>();
+    private final Context context;
     public TabPageIndicatorAdapter(FragmentManager fm,ArrayList<Fragment> fragmentArrayList,Context context) {
         super(fm);
         this.context = context;

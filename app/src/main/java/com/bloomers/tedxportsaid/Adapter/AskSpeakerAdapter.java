@@ -28,8 +28,8 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
 
     private final WeakReference<AppCompatActivity> mContext;
     public Fragment fragment;
-    final android.support.v4.app.DialogFragment dialog;
-    ArrayList<Speaker> arrayList;
+    private final android.support.v4.app.DialogFragment dialog;
+    private final ArrayList<Speaker> arrayList;
 
     public AskSpeakerAdapter(AppCompatActivity editActivity, android.support.v4.app.DialogFragment dialog,ArrayList<Speaker> speaker) {
         this.mContext = new WeakReference<>(editActivity);

@@ -31,5 +31,5 @@ public abstract class EndlessOnScrollListener extends RecyclerView.OnScrollListe
 
     }
 
-    public abstract void onScrolledToEnd();
+    protected abstract void onScrolledToEnd();
 }
