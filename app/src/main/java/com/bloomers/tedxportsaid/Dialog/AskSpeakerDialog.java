@@ -13,15 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bloomers.tedxportsaid.Adapter.AskSpeakerAdapter;
+import com.bloomers.tedxportsaid.Model.Speaker;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GridLayoutManagerEXT;
+
+import java.util.ArrayList;
+
 public class AskSpeakerDialog extends DialogFragment {
 
+    ArrayList<Speaker> speakers;
+
+    public static AskSpeakerDialog newInstance(ArrayList<Speaker> speaker){
+        AskSpeakerDialog askSpeakerDialog = new AskSpeakerDialog();
+        askSpeakerDialog.speakers = speaker;
+        return askSpeakerDialog;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ask_spearker, container);
-        final AskSpeakerAdapter askSpeakerAdapter = new AskSpeakerAdapter((AppCompatActivity) getActivity(),this);
+        final AskSpeakerAdapter askSpeakerAdapter = new AskSpeakerAdapter((AppCompatActivity) getActivity(),this,speakers);
 
         if (getDialog()!=null&&getDialog().getWindow()!=null){
             getDialog().getWindow().setWindowAnimations(R.style.MyAnimation_Window);

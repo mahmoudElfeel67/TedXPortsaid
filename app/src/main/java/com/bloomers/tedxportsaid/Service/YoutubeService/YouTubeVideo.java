@@ -17,17 +17,27 @@
 
 package com.bloomers.tedxportsaid.Service.YoutubeService;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.model.Thumbnail;
 import com.google.api.services.youtube.model.Video;
 
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -35,6 +45,7 @@ import java.util.regex.Pattern;
  */
 public class YouTubeVideo implements Serializable {
 
+	private static String dataBaseFilterTEST="TEDXVIDEOS";
 	/**
 	 * YouTube video ID.
 	 */
@@ -209,6 +220,47 @@ public class YouTubeVideo implements Serializable {
 
 	public String getDescription() {
 		return description;
+	}
+
+
+	public static ArrayList<YouTubeVideo> getFilters(Context context)  {
+
+		ArrayList<YouTubeVideo> faceModels = new ArrayList<>();
+		for (File file1 : context.getFilesDir().listFiles()) {
+			if (file1.getName().contains(dataBaseFilterTEST) && !file1.isDirectory()) {
+				try {
+					faceModels.add(getFilter(context, file1.getName()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return faceModels;
+	}
+
+	private static YouTubeVideo getFilter(Context context, String fileName) throws IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(fileName);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		YouTubeVideo faceModel = (YouTubeVideo) is.readObject();
+		is.close();
+		fis.close();
+		return faceModel;
+	}
+
+	public static void storeFilter(YouTubeVideo faceModel, Context context) throws IOException {
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences("TEDX", MODE_PRIVATE);
+		String last = String.valueOf(sharedPreferences.getInt("lastFilter", 0));
+		FileOutputStream fos = context.openFileOutput(dataBaseFilterTEST + last, MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(faceModel);
+		os.close();
+		fos.close();
+		sharedPreferences.edit().putInt("lastFilter", sharedPreferences.getInt("lastFilter", 0) + 1).commit();
+
 	}
 
 

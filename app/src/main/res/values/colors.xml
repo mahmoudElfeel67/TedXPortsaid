@@ -13,7 +13,7 @@
     <color name="gradient_startColor">#eb3c44</color>
     <color name="gradient_centerColor">#ee4b52</color>
     <color name="gradient_endColor">#f05b61</color>
-
+    <color name="disalble">#c1c1c1</color>
     <color name="grey_600">#757575</color>
      <color name="test">#e5585858</color>
     <color name="inactive_indicator">#4D000000</color>

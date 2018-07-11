@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.Fragment.TeamFragment;
+import com.bloomers.tedxportsaid.Model.TeamMember;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,10 +26,12 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowH
 
     private final WeakReference<AppCompatActivity> mContext;
     private final TeamFragment.onCLick onCLick;
+    private ArrayList<TeamMember> teamMembers;
 
-    public TeamAdapter(AppCompatActivity editActivity, TeamFragment.onCLick clicked) {
+    public TeamAdapter(AppCompatActivity editActivity, TeamFragment.onCLick clicked,ArrayList teamMembers) {
         this.mContext = new WeakReference<>(editActivity);
         this.onCLick = clicked;
+        this.teamMembers =teamMembers;
     }
 
     @NonNull
@@ -42,14 +48,17 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowH
 
     @Override
     public int getItemCount() {
-
-        return 40;
+        return teamMembers.size();
     }
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.team_member)
         ImageView team_member;
+
+
+        @BindView(R.id.member_name)
+        TextView member_name;
 
         SingleItemRowHolder(@NonNull final View view) {
             super(view);
@@ -59,11 +68,14 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowH
 
         @OnClick(R.id.team_member)
         public void onClick(View view) {
-            onCLick.onClick(view);
+            onCLick.onClick(view,teamMembers.get(getAdapterPosition()));
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.portofilio).circleCrop().into(team_member);
+            TeamMember teamMember=  teamMembers.get(getAdapterPosition());
+
+            member_name.setText(teamMember.getName());
+            GlideApp.with(mContext.get()).load(teamMember.getProfile_url()).transition(DrawableTransitionOptions.withCrossFade(300)).circleCrop().into(team_member);
         }
 
     }

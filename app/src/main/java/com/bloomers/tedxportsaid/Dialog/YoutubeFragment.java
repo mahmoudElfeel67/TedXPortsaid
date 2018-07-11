@@ -32,7 +32,7 @@ import java.util.List;
 
 public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnInitializedListener {
 
-    private String VIDEO_ID = "dARAN1z2KqY";
+    private static String VIDEO_ID = "dARAN1z2KqY";
     private YouTubePlayer youTubePlayer;
     private Boolean isIntilize = false;
     private int postion = 0;
@@ -40,7 +40,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
 
     public static YoutubeFragment newInstance(String videoid) {
         YoutubeFragment fragment = new YoutubeFragment();
-        fragment.VIDEO_ID = videoid;
+        VIDEO_ID = videoid;
         return fragment;
     }
 
@@ -84,7 +84,7 @@ public class YoutubeFragment extends DialogFragment implements YouTubePlayer.OnI
                              article_segment_recycler.setAdapter(new VideosAdapter((AppCompatActivity) getActivity(), videos,true));
 
                          }else {
-                             MainActivity.showCusomtToast(getActivity(), getString(R.string.videos_not_loaded), null, false);
+                             MainActivity.showCustomToast(getActivity(), getString(R.string.videos_not_loaded), null, false);
                          }
 
                      }

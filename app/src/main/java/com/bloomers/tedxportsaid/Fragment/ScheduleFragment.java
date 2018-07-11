@@ -41,6 +41,13 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void change() {
+        if (isAtTimeline){
+            get_there_text.setTextColor(Color.parseColor("#d6898989"));
+            schedule_text.setTextColor(AppController.easyColor(getContext(),R.color.black));
+        }else {
+            get_there_text.setTextColor(AppController.easyColor(getContext(),R.color.black));
+            schedule_text.setTextColor(Color.parseColor("#d6898989"));
+        }
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,
              R.anim.fade_out,
@@ -62,14 +69,10 @@ public class ScheduleFragment extends Fragment {
             case R.id.schedule_text:
                 isAtTimeline = true;
                 change();
-                ((TextView)view).setTextColor(AppController.easyColor(getContext(),R.color.black));
-                get_there_text.setTextColor(Color.parseColor("#d6898989"));
                 break;
             case R.id.get_there_text:
                 isAtTimeline = false;
                 change();
-                ((TextView)view).setTextColor(AppController.easyColor(getContext(),R.color.black));
-                schedule_text.setTextColor(Color.parseColor("#d6898989"));
                 break;
         }
     }

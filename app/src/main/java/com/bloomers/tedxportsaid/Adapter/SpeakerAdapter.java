@@ -1,7 +1,6 @@
 package com.bloomers.tedxportsaid.Adapter;
 
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -9,25 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bloomers.tedxportsaid.AppController;
+import com.bloomers.tedxportsaid.Model.Speaker;
 import com.bloomers.tedxportsaid.R;
-import com.bloomers.tedxportsaid.Utitltes.ResizeAnimations;
-import com.bloomers.tedxportsaid.Utitltes.ints;
+import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
+    private final ArrayList<Speaker> arrayList;
 
-    public SpeakerAdapter(AppCompatActivity editActivity) {
+    public SpeakerAdapter(AppCompatActivity editActivity,ArrayList arrayList) {
         this.mContext = new WeakReference<>(editActivity);
+        this.arrayList =arrayList;
     }
 
     @NonNull
@@ -46,25 +46,18 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.SingleIt
 
     @Override
     public int getItemCount() {
-        return 100;
+        return arrayList.size();
     }
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.root)
-        RelativeLayout root;
+
 
         @BindView(R.id.speaker_image)
         ImageView speaker_image;
 
-        @BindView(R.id.speaker_session)
-        TextView speaker_session;
-
         @BindView(R.id.speaker_title)
-        TextView speaker_title;
-
-        @BindView(R.id.speaker_desc)
-        TextView speaker_desc;
+        TextView speaker_session_name;
 
         SingleItemRowHolder(@NonNull final View view) {
             super(view);
@@ -72,10 +65,10 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.SingleIt
 
         }
 
-        @OnClick(R.id.root)
+        //@OnClick(R.id.root)
         public void onClick() {
 
-            if (root.getHeight() == ints.dp2px(60, mContext.get())) {
+           /* if (root.getHeight() == ints.dp2px(60, mContext.get())) {
 
                 ResizeAnimations resizeAnimations = new ResizeAnimations(root, root.getWidth(), root.getHeight(), root.getWidth(), ints.dp2px(150, mContext.get()));
                 resizeAnimations.setDuration(500);
@@ -86,35 +79,14 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.SingleIt
                 resizeAnimations.setDuration(500);
                 root.startAnimation(resizeAnimations);
                 speaker_desc.animate().alpha(0).start();
-            }
+            }*/
 
         }
 
         void bind() {
-            if (getAdapterPosition() % 2 == 0) {
-                speaker_desc.setTextColor(AppController.easyColor(mContext.get(), R.color.black));
-                speaker_image.setImageResource(R.drawable.da7e7);
-                root.setBackgroundResource(R.drawable.white_speaker_round);
-                speaker_session.setTextColor(Color.parseColor("#e2646464"));
-                speaker_title.setTextColor(AppController.easyColor(mContext.get(), R.color.black));
-                speaker_title.setText("الدحيح :");
-                speaker_session.setText("الانتروبي");
-
-                root.getLayoutParams().width = (int) (ints.getScreenWidth(mContext.get()) * (0.90));
-                root.getLayoutParams().height = ints.dp2px(60,mContext.get());
-            } else {
-                speaker_image.setImageResource(R.drawable.da7e7);
-                root.setBackgroundResource(R.drawable.red_speaker_round);
-                speaker_session.setTextColor(AppController.easyColor(mContext.get(), R.color.white));
-                speaker_title.setTextColor(AppController.easyColor(mContext.get(), R.color.white));
-                speaker_title.setText("الدحيح :");
-                speaker_session.setText("السفاح");
-                root.getLayoutParams().width = (int) (ints.getScreenWidth(mContext.get()) * (0.75));
-                root.getLayoutParams().height = ints.dp2px(60,mContext.get());
-                speaker_desc.setTextColor(AppController.easyColor(mContext.get(), R.color.white));
-
-
-            }
+            Speaker speaker = arrayList.get(getAdapterPosition());
+            GlideApp.with(mContext.get()).load(speaker.getProf_url()).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(speaker_image);
+            speaker_session_name.setText(speaker.getName() +" - "+speaker.getTopic());
         }
 
     }

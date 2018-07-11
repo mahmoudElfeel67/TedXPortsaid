@@ -13,6 +13,8 @@ import android.graphics.PorterDuff;
 import android.graphics.Shader;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -40,12 +42,18 @@ import com.bloomers.tedxportsaid.Fragment.SpeakerFragment;
 import com.bloomers.tedxportsaid.Fragment.TeamFragment;
 import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.Manager.TabPageIndicatorAdapter;
+import com.bloomers.tedxportsaid.Model.TeamMember;
+import com.bloomers.tedxportsaid.Model.event_date;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.delay;
 import com.bumptech.glide.request.target.Target;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     int[] originalPos;
     ViewPager pager;
     int current_position = 0;
+    event_date eventDate;
 
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -78,23 +87,41 @@ public class MainActivity extends AppCompatActivity {
         pager = findViewById(R.id.pager);
         PagerSlidingTabStrip tab = findViewById(R.id.indicator);
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-        fragmentArrayList.add(ArticleFragment.newInstance());
         fragmentArrayList.add(VideosFragment.newInstance());
+        fragmentArrayList.add(ArticleFragment.newInstance());
         fragmentArrayList.add(SpeakerFragment.newInstance());
         fragmentArrayList.add(ScheduleFragment.newInstance());
         fragmentArrayList.add(AboutUsFragment.newInstance(new TeamFragment.onCLick() {
             @Override
-            public void onClick(View view) {
-                callTeamPreview(view);
+            public void onClick(View view, TeamMember teamMember) {
+                callTeamPreview(view,teamMember,1100);
             }
         }));
         FragmentPagerAdapter adapter = new TabPageIndicatorAdapter(getSupportFragmentManager(), fragmentArrayList, MainActivity.this);
-
         tab.setOnItemSelected(new PagerSlidingTabStrip.OnItemSelected() {
             @Override
             public void onSelectPostion(int postion) {
                 current_position = postion;
-                switch (postion) {
+                if (AppController.getInstance().isArabic(MainActivity.this)){
+                    switch (postion) {
+                        case 0:
+                            current_position = 4;
+                            break;
+                        case 1:
+                            current_position = 3;
+                            break;
+                        case 2:
+                            current_position= 2;
+                            break;
+                        case 3:
+                            current_position= 1;
+                            break;
+                        case 4:
+                            current_position= 0;
+                            break;
+                    }
+                }
+                switch (current_position) {
                     case 0:
                         fab.setVisibility(View.VISIBLE);
                         fab.setImageResource(R.drawable.question_mark);
@@ -130,7 +157,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         pager.setAdapter(adapter);
+        if (AppController.getInstance().isArabic(this)){
+            pager.setCurrentItem(fragmentArrayList.size()-1);
+        }
         tab.setViewPager(pager);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -139,51 +170,100 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (current_position) {
                     case 0:
-
-                        ArrayList arrayList = new ArrayList();
-                        for (int i = 0; i < 100; i++) {
-                            arrayList.add(0);
-
+                        if (ArticleFragment.articles != null && ArticleFragment.articles.size() != 0) {
+                            HeavilyUsed.callSaveDialog(MainActivity.this, RandomDialog.newInstance(true, ArticleFragment.articles), null);
+                        } else {
+                            MainActivity.showCustomToast(MainActivity.this, getString(R.string.no_articles_randomize), null, false);
                         }
-                        HeavilyUsed.callSaveDialog(MainActivity.this, RandomDialog.newInstance(true, arrayList), null);
+
                         break;
                     case 1:
                         if (VideosFragment.videos != null && VideosFragment.videos.size() != 0) {
                             HeavilyUsed.callSaveDialog(MainActivity.this, RandomDialog.newInstance(false, VideosFragment.videos), null);
                         } else {
-                            MainActivity.showCusomtToast(MainActivity.this, getString(R.string.no_videos_randomize), null, false);
+                            MainActivity.showCustomToast(MainActivity.this, getString(R.string.no_videos_randomize), null, false);
                         }
                         break;
                     case 2:
-                        HeavilyUsed.callSaveDialog(MainActivity.this, new AskSpeakerDialog(), null);
+                        if (SpeakerFragment.speakers != null && SpeakerFragment.speakers.size() != 0) {
+                            HeavilyUsed.callSaveDialog(MainActivity.this, AskSpeakerDialog.newInstance(SpeakerFragment.speakers), null);
+                        } else {
+                            MainActivity.showCustomToast(MainActivity.this, getString(R.string.no_speakers_randomize), null, false);
+                        }
+
+
                         break;
                 }
             }
         });
 
-        countDownView.setStartDuration(eventTime());
-        countDownView.start();
-
-
-        countDownView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        FirebaseDatabase.getInstance().getReference().child("event_date").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onGlobalLayout() {
-                countDownView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot!=null&&dataSnapshot.exists()){
+                    eventDate = dataSnapshot.getValue(event_date.class);
 
-                Shader textShader = new LinearGradient(0, 0, countDownView.getWidth(), countDownView.getHeight(),
-                        new int[]{getResources().getColor(R.color.gradient_startColor),
-                                getResources().getColor(R.color.gradient_endColor)},
-                        new float[]{0.50F, 1}, Shader.TileMode.CLAMP);
-                countDownView.getTextPaint().setShader(textShader);
+
+                    Calendar c2 = Calendar.getInstance();
+                    c2.set(eventDate.getBefore_year(), eventDate.getBefore_month()- 1, eventDate.getBefore_day(),0,0,0);
+                    if (System.currentTimeMillis() > c2.getTimeInMillis()){
+                        countDownView.setStartDuration(eventTime(eventDate));
+                        countDownView.start();
+                        countDownView.setVisibility(View.VISIBLE);
+
+
+                        countDownView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                countDownView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                                Shader textShader = new LinearGradient(0, 0, countDownView.getWidth(), countDownView.getHeight(),
+                                        new int[]{getResources().getColor(R.color.gradient_startColor),
+                                                getResources().getColor(R.color.gradient_endColor)},
+                                        new float[]{0.50F, 1}, Shader.TileMode.CLAMP);
+                                countDownView.getTextPaint().setShader(textShader);
+                            }
+                        });
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
+        display_container.setPivotX(0);
+        display_container.setPivotY(0);
+        scale_view.animate().x(5).y(5).scaleX(0).scaleY(0).setDuration(0).start();
+        scale_view.animate().alpha(0).setStartDelay(500).setDuration(500).start();
+        display_container.animate().x(5).y(5).scaleX(.20F).scaleY(.20F).alpha(0).setDuration(0).start();
+
+        if (AppController.getInstance().isArabic(this)){
+            fab.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    fab.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    callTeamPreview(countDownView,new TeamMember(),200);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dissmisTeamMember(300);
+                        }
+                    },200);
+                }
+            });
+        }
 
 
     }
 
-    public long eventTime() {
+    public long eventTime(event_date eventDate) {
         Calendar c2 = Calendar.getInstance();
-        c2.set(2018, Calendar.JULY, 10, 3, 21, 0);
+        c2.set(eventDate.getYear(), eventDate.getMonth()- 1, eventDate.getDay(), eventDate.getHour(), eventDate.getMinute(), 0);
         if (System.currentTimeMillis() > c2.getTimeInMillis()) {
             countDownView.setVisibility(View.GONE);
         }
@@ -195,14 +275,13 @@ public class MainActivity extends AppCompatActivity {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.count_down:
-
                 String day;
-                switch (countDownView.getDay(eventTime())) {
+                switch (countDownView.getDay(eventTime(eventDate))) {
                     case 1:
-                        day = "يوم";
+                        day = " يوم ";
                         break;
                     case 2:
-                        day = "يومين";
+                        day = " يومين ";
                         break;
                     case 3:
                     case 4:
@@ -212,20 +291,20 @@ public class MainActivity extends AppCompatActivity {
                     case 8:
                     case 9:
                     case 10:
-                        day = countDownView.getDay(eventTime()) + "أيام ";
+                        day = countDownView.getDay(eventTime(eventDate)) + " أيام ";
                         break;
                     default:
-                        day = countDownView.getDay(eventTime()) + "يوم ";
+                        day = countDownView.getDay(eventTime(eventDate)) + " يوم ";
                         break;
                 }
 
                 String hour;
-                switch (countDownView.getHour(eventTime())) {
+                switch (countDownView.getHour(eventTime(eventDate))) {
                     case 1:
-                        hour = "ساعه";
+                        hour = " ساعه ";
                         break;
                     case 2:
-                        hour = "ساعتين";
+                        hour = " ساعتين ";
                         break;
                     case 3:
                     case 4:
@@ -235,26 +314,31 @@ public class MainActivity extends AppCompatActivity {
                     case 8:
                     case 9:
                     case 10:
-                        hour = countDownView.getHour(eventTime()) + "ساعات ";
+                        hour = countDownView.getHour(eventTime(eventDate)) + " ساعات ";
                         break;
                     default:
-                        hour = countDownView.getHour(eventTime()) + "ساعه ";
+                        hour = countDownView.getHour(eventTime(eventDate)) + " ساعه ";
                         break;
                 }
 
-                MainActivity.showCusomtToast(MainActivity.this, "لسه " + day + " و " + hour + "مستعديين !!", null, true, 5000);
-                pager.setCurrentItem(3,true);
+                MainActivity.showCustomToast(MainActivity.this, "لسه " + day + " و " + hour + "مستعديين !!", null, true, 5000);
+                if (AppController.getInstance().isArabic(this)){
+                    pager.setCurrentItem(1,true);
+                }else{
+                    pager.setCurrentItem(3,true);
+                }
                 break;
         }
 
     }
 
-    private void callTeamPreview(View view) {
-        if (getResources().getBoolean(R.bool.is_landscape)){
-
-        }else {
-
-        }
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
+    public void callTeamPreview(View view, TeamMember teamMember,int duration) {
+        fab.animate().scaleX(0).scaleY(0).setInterpolator(new FastOutSlowInInterpolator()).start();
+        TextView team_member_name = findViewById(R.id.team_member_name);
+        TextView team_info = findViewById(R.id.team_info);
+        team_member_name.setText(teamMember.getName() + " - "+teamMember.getTeam());
+        team_info.setText(teamMember.getDesc());
         scale_view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -265,13 +349,15 @@ public class MainActivity extends AppCompatActivity {
         view.getLocationInWindow(originalPos);
         int x = originalPos[0];
         int y = originalPos[1] - ints.dp2px(23, MainActivity.this);
+
         originalPos[1] = y;
         scale_view.setAlpha(1F);
         scale_view.setVisibility(View.VISIBLE);
-        scale_view.setScaleX(0);
-        scale_view.setScaleY(0);
+        scale_view.setScaleX(.20F);
+        scale_view.setScaleY(.20F);
         scale_view.setX(x);
         scale_view.setY(y);
+
 
         display_container.setPivotX(0);
         display_container.setPivotY(0);
@@ -283,17 +369,35 @@ public class MainActivity extends AppCompatActivity {
         display_container.setScaleY(.20F);
 
         display_container.requestLayout();
-        display_container.setPivotX(0.50F);
-        display_container.setPivotY(0.50F);
 
-        int animation_period = 1100;
 
-        GlideApp.with(MainActivity.this).load(R.drawable.portofilio).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(team_image);
+        GlideApp.with(MainActivity.this)
+                .load(teamMember.getProfile_url())
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .into(team_image);
 
-        scale_view.animate().setStartDelay(0).scaleX(14).scaleY(14).setDuration(animation_period - 100).start();
 
-        display_container.animate().x(0).y(0).scaleY(1).scaleX(1).setDuration(animation_period).alpha(1).start();
-        team_bg.animate().setStartDelay(500).alpha(0.70F).start();
+        if (duration==200){
+            display_container.setVisibility(View.INVISIBLE);
+            scale_view.setVisibility(View.INVISIBLE);
+            team_bg.setVisibility(View.INVISIBLE);
+
+            scale_view.animate().setStartDelay(0).scaleX(16).scaleY(16).setDuration(duration - 100).start();
+
+            display_container.animate().x(0).y(0).scaleY(1).scaleX(1).setDuration(duration).start();
+            team_bg.animate().setStartDelay(500).start();
+
+
+        }else {
+            display_container.setVisibility(View.VISIBLE);
+            scale_view.setVisibility(View.VISIBLE);
+            team_bg.setVisibility(View.VISIBLE);
+            scale_view.animate().setStartDelay(0).scaleX(16).scaleY(16).setDuration(duration - 100).start();
+
+            display_container.animate().x(0).y(0).scaleY(1).scaleX(1).setDuration(duration).alpha(1).start();
+            team_bg.animate().setStartDelay(500).alpha(0.50F).start();
+        }
+
     }
 
     @Override
@@ -303,16 +407,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (countDownView != null) {
             countDownView.stop();
         }
+        super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
         if (originalPos != null) {
-            dissmisTeamMember();
+            dissmisTeamMember(1000);
         } else {
             super.onBackPressed();
         }
@@ -330,22 +434,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void dissmisTeamMember() {
-        int animation_period = 1000;
+    private void dissmisTeamMember(int duration) {
+        fab.animate().scaleX(1).scaleY(1).setInterpolator(new FastOutSlowInInterpolator()).start();
         display_container.setPivotX(0);
         display_container.setPivotY(0);
-        scale_view.animate().x(originalPos[0]).y(originalPos[1]).scaleX(0).scaleY(0).setDuration(animation_period - 100).start();
+        scale_view.animate().x(originalPos[0]).y(originalPos[1]).scaleX(0).scaleY(0).setDuration(duration - 100).start();
         scale_view.animate().alpha(0).setStartDelay(500).setDuration(500).start();
-        display_container.animate().x(originalPos[0] + ints.px2dp(80, MainActivity.this)).y(originalPos[1] + ints.px2dp(80, MainActivity.this)).scaleX(.20F).scaleY(.20F).alpha(0).setDuration(animation_period - 200).start();
+        display_container.animate().x(originalPos[0] + ints.px2dp(80, MainActivity.this)).y(originalPos[1] + ints.px2dp(80, MainActivity.this)).scaleX(.20F).scaleY(.20F).alpha(0).setDuration(duration - 200).start();
         team_bg.animate().alpha(0).start();
         originalPos = null;
     }
 
-    public static void showCusomtToast(final Activity activity, String text, ViewGroup viewGroup, boolean success) {
-        showCusomtToast(activity, text, viewGroup, success, 2000);
+    public static void showCustomToast(final Activity activity, String text, ViewGroup viewGroup, boolean success) {
+        showCustomToast(activity, text, viewGroup, success, 2000);
     }
 
-    public static void showCusomtToast(final Activity activity, String text, ViewGroup viewGroup, boolean success, int period) {
+    public static void showCustomToast(final Activity activity, String text, ViewGroup viewGroup, boolean success, int period) {
         final ViewGroup rootLayout;
 
         if (viewGroup == null) {

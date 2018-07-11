@@ -93,7 +93,7 @@ public class DeveloperFragment extends Fragment {
               try {
                   startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=5959613167249185073")));
               }catch (Exception e){
-                  MainActivity.showCusomtToast(getActivity(),getString(R.string.error_happend),null,false);
+                  MainActivity.showCustomToast(getActivity(),getString(R.string.error_happend),null,false);
               }
 
               break;
@@ -101,7 +101,7 @@ public class DeveloperFragment extends Fragment {
     }
 
     public void openAppAfterDelay(View view, @StringRes int string, final String packageName){
-        MainActivity.showCusomtToast(getActivity(),getString(string),null,false);
+        MainActivity.showCustomToast(getActivity(),getString(string),null,false);
         new delay(view, 2000) {
             @Override
             protected void OnDelayEnded() {

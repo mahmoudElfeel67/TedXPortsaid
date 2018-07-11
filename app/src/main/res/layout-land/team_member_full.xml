@@ -24,16 +24,33 @@
             android:scaleType="centerCrop"
             android:src="@drawable/portofilio" />
 
-        <TextView
-            android:id="@+id/team_info"
+
+        <LinearLayout
             android:layout_weight="50"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
-            android:padding="20dp"
-            android:text="مريم السحراوي \n\n An engineering student and a blogger with huge interest of art. She's interested in writing, photographing and has her own studio on Instagram. She joined TEDx believing in ‘we learn by doing’ concept, to learn new things and have an exciting experience"
+            >
 
-            />
+            <TextView
+                android:id="@+id/team_member_name"
+               android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+
+                />
+
+            <TextView
+                android:id="@+id/team_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+
+                />
+        </LinearLayout>
     </LinearLayout>
 
 

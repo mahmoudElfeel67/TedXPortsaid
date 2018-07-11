@@ -15,7 +15,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppController.getInstance().implementOthers(this);
 
-        SharedPreferences sharedPrefereces = getSharedPreferences("My App", MODE_PRIVATE);
+        SharedPreferences sharedPrefereces = getSharedPreferences("TEDX", MODE_PRIVATE);
         Class classToGO;
         if (sharedPrefereces.getBoolean("isSlideShown", false)) {
             classToGO = MainActivity.class;

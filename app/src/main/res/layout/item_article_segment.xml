@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:layout_width="50dp"
-          android:layout_height="match_parent"
-          android:orientation="vertical"
-          android:text="علمي"
-          android:textColor="#ab585858"
-          android:gravity="center"
-          android:textSize="14sp"
-          android:id="@+id/segment_name"
-    >
+    android:id="@+id/segment_name"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:textColor="#ab585858"
+    android:textSize="14sp">
 
 </TextView>

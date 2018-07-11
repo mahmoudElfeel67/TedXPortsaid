@@ -16,17 +16,26 @@ import android.widget.EditText;
 
 import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.AppController;
+import com.bloomers.tedxportsaid.Model.Speaker;
 import com.bloomers.tedxportsaid.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+
 public class FormQuesionFragment extends Fragment {
 
-    public static FormQuesionFragment newInstance() {
-        return new FormQuesionFragment();
+
+    Speaker speaker;
+
+
+    public static FormQuesionFragment newInstance(Speaker speaker) {
+        FormQuesionFragment formQuesionFragment = new FormQuesionFragment();
+        formQuesionFragment.speaker = speaker;
+        return formQuesionFragment;
     }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -38,29 +47,28 @@ public class FormQuesionFragment extends Fragment {
         sendQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(editText.getText().toString())){
-                    MainActivity.showCusomtToast(getActivity(),"برجاء كتابه سؤالك اولا !",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    MainActivity.showCustomToast(getActivity(), "برجاء كتابه سؤالك اولا !", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
-                }else if (!isThereInternet()){
-                    MainActivity.showCusomtToast(getActivity(),"لا يوجد اتصال بالانترنت نرجو المحاوله مره اخري",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
+                } else if (!isThereInternet()) {
+                    MainActivity.showCustomToast(getActivity(), "لا يوجد اتصال بالانترنت نرجو المحاوله مره اخري", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
                 }
 
 
                 String key = FirebaseDatabase.getInstance().getReference().child("speaker_questions").push().getKey();
-                AppController.getInstance().addLoadingBlock(getActivity(),((ViewGroup)root.findViewById(R.id.toast_lay)));
+                AppController.getInstance().addLoadingBlock(getActivity(), ((ViewGroup) root.findViewById(R.id.toast_lay)));
                 Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("question", editText.getText().toString());
+                childUpdates.put(key, editText.getText().toString());
 
-                FirebaseDatabase.getInstance().getReference().child("speaker_questions").child(key).updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                FirebaseDatabase.getInstance().getReference().child("speaker_questions").child(speaker.getName()).updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        AppController.getInstance().removeLoadingScreen(getActivity(),((ViewGroup)root.findViewById(R.id.toast_lay)));
-                        MainActivity.showCusomtToast(getActivity(),"تم ارسال سؤالك لفريق تيدكس بورسعيد !",((ViewGroup)root.findViewById(R.id.toast_lay)),true);
+                        AppController.getInstance().removeLoadingScreen(getActivity(), ((ViewGroup) root.findViewById(R.id.toast_lay)));
+                        MainActivity.showCustomToast(getActivity(), "تم ارسال سؤالك لفريق تيدكس بورسعيد !", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
 
                     }
                 });
-
 
 
             }

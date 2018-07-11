@@ -15,6 +15,7 @@ import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,10 +23,19 @@ import butterknife.OnClick;
 public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
-    private static int clicked = 0;
+    public static int clicked = 0;
+    private ArrayList<Integer> arrayList = new ArrayList<>();
+    private onClicked onClicked;
 
-    public ArticleSegmentAdapter(AppCompatActivity editActivity) {
+    public ArticleSegmentAdapter(AppCompatActivity editActivity,onClicked onClicked) {
         this.mContext = new WeakReference<>(editActivity);
+        this.onClicked= onClicked;
+        arrayList.add(R.string.technology);
+        arrayList.add(R.string.Education);
+        arrayList.add(R.string.Design);
+        arrayList.add(R.string.Entertainment);
+        arrayList.add(R.string.Ideas);
+        arrayList.add(R.string.Cultures);
     }
 
     @NonNull
@@ -42,7 +52,7 @@ public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAd
 
     @Override
     public int getItemCount() {
-        return 100;
+        return arrayList.size();
     }
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
@@ -57,7 +67,7 @@ public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAd
 
         @OnClick(R.id.segment_name)
         void onClick() {
-
+            onClicked.onClick(getAdapterPosition());
             clicked = getAdapterPosition();
             notifyDataSetChanged();
 
@@ -72,8 +82,14 @@ public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAd
                 segment_name.setTypeface(Typeface.createFromAsset(mContext.get().getAssets(), AppController.smallFont));
             }
 
+            segment_name.setText(arrayList.get(getAdapterPosition()));
+
         }
 
+    }
+
+    public interface onClicked{
+        void  onClick(int postion);
     }
 
 }

@@ -17,15 +17,14 @@
     </com.google.android.gms.maps.MapView>
 
     <TextView
+        android:id="@+id/get_there_desc"
         android:layout_width="match_parent"
         android:layout_toRightOf="@id/map_view"
         android:layout_height="180dp"
         android:padding="5dp"
         android:gravity="center"
-        android:text="@string/get_there_desc"
         android:textSize="14sp"
-
-        />
+        android:layout_toEndOf="@id/map_view" />
 
 
     <View
@@ -49,11 +48,13 @@
         android:scaleY="-1"
         android:layout_margin="35dp"
         android:padding="5dp"
+        android:layout_alignParentLeft="true"
 
         />
 
     <TextView
-        android:layout_width="150dp"
+        android:id="@+id/voucher_code_desc"
+        android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_toRightOf="@+id/round_arrow"
         android:textColor="@color/colorAccent"
@@ -61,9 +62,7 @@
         android:layout_marginBottom="25dp"
         android:textSize="14sp"
         android:layout_marginLeft="-20dp"
-        android:text="@string/careem_code"
-
-        />
+        android:layout_marginStart="-20dp" />
 
 
     <LinearLayout
@@ -72,6 +71,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/careem_voucher"
+        android:layout_alignParentLeft="true"
         android:gravity="center"
         >
 
@@ -84,14 +84,14 @@
 
 
         <TextView
+            android:id="@+id/voucher_code_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="54as43a"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
 
-            />
+            android:layout_marginStart="8dp" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

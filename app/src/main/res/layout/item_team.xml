@@ -27,6 +27,15 @@
         android:scaleX="-1"
         />
 
+    <View
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/white_circle"
+        android:scaleX="-1"
+        />
+
     <ImageView
         android:id="@+id/team_member"
         android:layout_width="80dp"
@@ -40,6 +49,7 @@
         />
 
     <TextView
+        android:id="@+id/member_name"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"

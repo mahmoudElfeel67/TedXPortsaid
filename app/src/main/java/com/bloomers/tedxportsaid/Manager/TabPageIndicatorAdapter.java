@@ -6,20 +6,42 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip;
 import com.bloomers.tedxportsaid.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
 
 
     private ArrayList<Fragment> fragmentArrayList ;
+    private ArrayList<Integer> titles = new ArrayList<>();
+    private ArrayList<Integer> drawables = new ArrayList<>();
     private Context context;
     public TabPageIndicatorAdapter(FragmentManager fm,ArrayList<Fragment> fragmentArrayList,Context context) {
         super(fm);
         this.context = context;
         this.fragmentArrayList = fragmentArrayList;
+
+        titles.add(R.string.videos);
+        titles.add(R.string.articles);
+        titles.add(R.string.speakers);
+        titles.add(R.string.schedule);
+        titles.add(R.string.about_us);
+
+        drawables.add(R.drawable.videos);
+        drawables.add(R.drawable.article);
+        drawables.add(R.drawable.speaker);
+        drawables.add(R.drawable.schedule);
+        drawables.add(R.drawable.about_us);
+
+        if (AppController.getInstance().isArabic(context)){
+            Collections.reverse(this.fragmentArrayList);
+            Collections.reverse(this.drawables);
+            Collections.reverse(this.titles);
+        }
 
 
     }
@@ -32,40 +54,17 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements Pag
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
-            case 0:
-                return context.getString(R.string.articles);
-            case 1:
-                return context.getString(R.string.videos);
-            case 2:
-                return context.getString(R.string.speakers);
-            case 3:
-                return  context.getString(R.string.schedule);
-            default:
-                return  context.getString(R.string.about_us);
-        }
+        return context.getString(titles.get(position));
     }
 
     @Override
     public int getCount() {
-       return 5;
+       return drawables.size();
     }
 
 
     @Override
     public int getPageIconResId(int position) {
-        switch (position){
-            case 0:
-                return R.drawable.article;
-            case 1:
-                return R.drawable.videos;
-            case 2:
-                return R.drawable.speaker;
-            case 3:
-                return R.drawable.schedule;
-            case 4:
-                return R.drawable.about_us;
-        }
-        return 0;
+        return drawables.get(position);
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TEDxPortSaid</string>
+    <string name="About_us">عنا</string>
+    <string name="Partners">الشركاء</string>
+    <string name="Follow_us">تابعونا</string>
+    <string name="Developer">المطور</string>
+    <string name="follow_us_tedx">تابعونا علي السوشيال ميديا !</string>
+    <string name="TED_INTRO">TED     هي كذا وكذا وكذا</string>
+    <string name="TEDx_INTOR">TEDx     هي كذا وكذا وكذا</string>
+    <string name="developer">تم تطوير البرنامج من محمود الفيل</string>
+    <string name="Schedule">الجدول</string>
+    <string name="how_to_get_there">أوصل ازاي ؟</string>
+    <string name="ask_hint">إسأل سؤال للمتحدثيين لفرصه ان السؤال يتجاوب حي في الايفينت</string>
+    <string name="form_que_gint">خلي السؤال في نطاق موضوع المتحدت ..</string>
+    <string name="form_edit_text_hint">اكتب سؤالك هنا</string>
+    <string name="ask">إسئل</string>
+    <string name="smallFont">Cairo-Light.ttf</string>
+    <string name="bigFont">Cairo-Bold.ttf</string>
+    <string name="whatsAppDoesntExist">واتس اب مش موجود تقدر تحمله من جوجل بلاي</string>
+    <string name="error_happend">حصل مشكله ما !</string>
+    <string name="no_email_app">مفيش برنامج يقدر يبعت ايميل في الجهاز !</string>
+    <string name="videos_not_loaded">حدث خطا بتحميل فيديوهات اليوتيوب تاكد من الاتصال بالانترنت</string>
+    <string name="read">قراءه</string>
+    <string name="watch">مشاهده</string>
+    <string name="no_videos_randomize">للاسف مفيش فيدوهات للاختيار منها اتاكد إنك متصل بالانترنت</string>
+    <string name="no_articles_randomize">للاسف مفيش مقالات للاختيار منها اتاكد إنك متصل بالانترنت</string>
+    <string name="careem_code_copied">تم نسخ كود كريم بنجاح</string>
+    <string name="articles">مقالات</string>
+    <string name="videos">فيديوهات</string>
+    <string name="speakers">المتحدثيين</string>
+    <string name="schedule">الجدول</string>
+    <string name="about_us">عنا</string>
+    <string name="technology">تكنولوجي</string>
+    <string name="Education">التعليم</string>
+    <string name="Design">التصميم</string>
+    <string name="Ideas" >أفكار</string>
+    <string name="Cultures">الثقافه</string>
+    <string name="Entertainment">الترفيه</string>
+    <string name="tedx_vid">TED</string>
+    <string name="no_data">لا يوجد اتصال بالانترنت</string>
+
+    <string name="extenstion">%sي %sس %sد %sث</string>
+    <string name="day_ext">ي</string>
+    <string name="hour_ext">س</string>
+    <string name="minute_ext">د</string>
+    <string name="second_ext">ث</string>
+    <string name="format">%02ي</string>
+</resources>

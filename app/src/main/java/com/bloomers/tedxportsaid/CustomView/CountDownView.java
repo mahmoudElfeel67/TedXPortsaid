@@ -126,7 +126,7 @@ public class CountDownView extends View {
     }
 
     void updateText(long duration) {
-        String text = generateCountdownText(duration);
+        String text = generateCountdownText(duration,getContext());
         this.textLayout = this.createTextLayout(text);
     }
 
@@ -143,10 +143,10 @@ public class CountDownView extends View {
         this.spannableString.append(text);
         this.spannableString.setSpan(new ForegroundColorSpan(AppController.easyColor(getContext(), R.color.colorPrimary)), 0, text.length(), 33);
 
-        int daIndex = text.indexOf("d");
-        int hrIndex = text.indexOf("h");
-        int minIndex = text.indexOf("m");
-        int secIndex = text.indexOf("s");
+        int daIndex = text.indexOf(getContext().getString(R.string.day_ext));
+        int hrIndex = text.indexOf(getContext().getString(R.string.hour_ext));
+        int minIndex = text.indexOf(getContext().getString(R.string.minute_ext));
+        int secIndex = text.indexOf(getContext().getString(R.string.second_ext));
         this.spannableString.setSpan(new AbsoluteSizeSpan(unitTextSize), daIndex, daIndex + 1, 33);
         this.spannableString.setSpan(new AbsoluteSizeSpan(unitTextSize), hrIndex, hrIndex + 1, 33);
         this.spannableString.setSpan(new AbsoluteSizeSpan(unitTextSize), minIndex, minIndex + 1, 33);
@@ -154,7 +154,7 @@ public class CountDownView extends View {
         return new StaticLayout(this.spannableString, this.textPaint, textWidth, Layout.Alignment.ALIGN_CENTER, 0.0F, 0.0F, true);
     }
 
-    static String generateCountdownText(long duration) {
+     String generateCountdownText(long duration, Context activity) {
         int day = (int) (duration / 86400000);
         int calhr = (int) (duration / HOUR);
         int hr = (int) ((duration - (long) (day * 86400000)) / 3600000L);
@@ -166,7 +166,7 @@ public class CountDownView extends View {
         String formattedHr = String.format(locale, format, hr);
         String formattedMin = String.format(locale, format, min);
         String formattedSec = String.format(locale, format, sec);
-        return String.format(locale, "%sd %sh %sm %ss", formattedDay, formattedHr, formattedMin, formattedSec);
+        return String.format(locale, activity.getString(R.string.extenstion), formattedDay, formattedHr, formattedMin, formattedSec);
     }
 
     public int getDay(long duration) {

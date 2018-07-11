@@ -9,12 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.Fragment.FormQuesionFragment;
+import com.bloomers.tedxportsaid.Model.Speaker;
 import com.bloomers.tedxportsaid.R;
+import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.SingleItemRowHolder> {
@@ -22,10 +29,12 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
     private final WeakReference<AppCompatActivity> mContext;
     public Fragment fragment;
     final android.support.v4.app.DialogFragment dialog;
+    ArrayList<Speaker> arrayList;
 
-    public AskSpeakerAdapter(AppCompatActivity editActivity, android.support.v4.app.DialogFragment dialog) {
+    public AskSpeakerAdapter(AppCompatActivity editActivity, android.support.v4.app.DialogFragment dialog,ArrayList<Speaker> speaker) {
         this.mContext = new WeakReference<>(editActivity);
         this.dialog = dialog;
+        this.arrayList =speaker;
     }
 
     @NonNull
@@ -43,10 +52,16 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
     @Override
     public int getItemCount() {
 
-        return 100;
+        return arrayList.size();
     }
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.speaker_name)
+        TextView speaker_name;
+
+        @BindView(R.id.speaker_image)
+        ImageView speaker_image;
 
         SingleItemRowHolder(@NonNull final View view) {
             super(view);
@@ -56,7 +71,7 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
 
         @OnClick(R.id.card)
         public void onClick() {
-            fragment = FormQuesionFragment.newInstance();
+            fragment = FormQuesionFragment.newInstance(arrayList.get(getAdapterPosition()));
 
             FragmentTransaction ft = dialog.getChildFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.anim.fade_in,
@@ -69,6 +84,11 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
         }
 
         void bind() {
+
+            Speaker speaker = arrayList.get(getAdapterPosition());
+
+            GlideApp.with(mContext.get()).load(speaker.getProf_url()).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(speaker_image);
+            speaker_name.setText(speaker.getName() +" - "+speaker.getTopic());
         }
 
     }

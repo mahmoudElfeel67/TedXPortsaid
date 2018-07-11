@@ -7,7 +7,6 @@
 
     >
 
-
     <LinearLayout
         android:id="@+id/text_cont"
         android:layout_width="match_parent"
@@ -80,6 +79,8 @@
 
 
    </FrameLayout>
+
+
 
 
 </RelativeLayout>

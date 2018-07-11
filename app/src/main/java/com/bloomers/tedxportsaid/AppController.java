@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -39,6 +41,10 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -81,6 +87,17 @@ public class AppController extends MultiDexApplication {
              .build());
 
         Timber.plant(new Timber.DebugTree());
+
+
+    }
+
+    public Boolean isThereInternet(Activity activity) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        }
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return !(activeNetworkInfo == null || !activeNetworkInfo.isConnected());
     }
 
     public static int easyColor(Context context, int color) {
@@ -125,7 +142,7 @@ public class AppController extends MultiDexApplication {
     }
 
     public static Locale getLocale(@NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("My App", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("TEDX", MODE_PRIVATE);
         return new Locale(sharedPreferences.getString("language", Locale.getDefault().getLanguage()));
 
     }
@@ -179,7 +196,7 @@ public class AppController extends MultiDexApplication {
     }
 
     public Boolean isArabic(Context mContext) {
-        return mContext == null || mContext.getSharedPreferences("My App", MODE_PRIVATE).getString("language", Locale.getDefault().getLanguage()).equals("ar");
+        return mContext == null || mContext.getSharedPreferences("TEDX", MODE_PRIVATE).getString("language", Locale.getDefault().getLanguage()).equals("ar");
     }
 
     public void deleteItem(int index, RecyclerView.Adapter adapter, ArrayList arrayList) {
@@ -199,11 +216,30 @@ public class AppController extends MultiDexApplication {
         if (!othersImplemented) {
             othersImplemented = true;
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            SharedPreferences sharedPrefereces = activity.getSharedPreferences("My App", MODE_PRIVATE);
+            FirebaseDatabase.getInstance().getReference().keepSynced(true);
+            SharedPreferences sharedPrefereces = activity.getSharedPreferences("TEDX", MODE_PRIVATE);
             sharedPrefereces.edit().putInt("times_opened", sharedPrefereces.getInt("times_opened", 0) + 1).apply();
 
         }
 
+    }
+
+    public  static  String parsePageHeaderInfo(Document doc) {
+
+        Elements elements = doc.select("meta");
+        String imageUrl = null;
+
+        for (Element e : elements) {
+            //fetch image url from content attribute of meta tag.
+            imageUrl = e.attr("content");
+
+            //OR more specifically you can check meta property.
+            if (e.attr("property").equalsIgnoreCase("og:image")) {
+                imageUrl = e.attr("content");
+                break;
+            }
+        }
+        return imageUrl;
     }
 
     public void hideNavBar(Activity activity) {
@@ -277,7 +313,7 @@ public class AppController extends MultiDexApplication {
         if (activity == null) {
             return false;
         }
-        SharedPreferences sharedPrefereces = activity.getSharedPreferences("My App", MODE_PRIVATE);
+        SharedPreferences sharedPrefereces = activity.getSharedPreferences("TEDX", MODE_PRIVATE);
         Boolean theBoolean = sharedPrefereces.getBoolean(StringBoolean, false);
         if (!theBoolean) {
             SharedPreferences.Editor editor = sharedPrefereces.edit();
@@ -329,7 +365,7 @@ public class AppController extends MultiDexApplication {
     }
 
     public void showErrorToast(FragmentActivity activity) {
-        MainActivity.showCusomtToast(activity,activity.getString(R.string.error_happend),null,false);
+        MainActivity.showCustomToast(activity,activity.getString(R.string.error_happend),null,false);
     }
 
 

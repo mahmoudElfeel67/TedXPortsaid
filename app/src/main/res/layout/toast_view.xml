@@ -19,7 +19,6 @@
         android:minWidth="150dp"
         android:minHeight="50dp"
         android:layout_marginRight="20dp"
-        android:layoutDirection="ltr"
         app:cardCornerRadius="25dp"
         app:cardElevation="4dp"
         android:elevation="4dp"

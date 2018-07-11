@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
-import com.bloomers.tedxportsaid.Utitltes.FaviconParser;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.pressTouchListener;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -28,20 +27,23 @@ import com.thefinestartist.finestwebview.FinestWebView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bloomers.tedxportsaid.AppController.parsePageHeaderInfo;
+
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
+    private ArrayList<String> articles;
 
-    public ArticleAdapter(AppCompatActivity editActivity) {
+    public ArticleAdapter(AppCompatActivity editActivity,ArrayList<String> arrayList) {
         this.mContext = new WeakReference<>(editActivity);
+        this.articles = arrayList;
     }
 
     @NonNull
@@ -59,7 +61,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
     @Override
     public int getItemCount() {
 
-        return 100;
+        return articles.size();
     }
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
@@ -69,6 +71,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
         @BindView(R.id.article_text) TextView articleText;
         @BindView(R.id.spinner) SpinKitView spinner;
         @BindView(R.id.card) CardView cardView;
+        @BindView(R.id.shadow) View shadow;
+        AsyncTask asyncTask;
 
         SingleItemRowHolder(@NonNull final View view) {
             super(view);
@@ -76,26 +80,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
             cardView.setOnTouchListener(pressTouchListener);
 
         }
+        String art;
 
-        final String art = "http://www.ted.com/about/programs-initiatives/tedx-program";
 
-        String parsePageHeaderInfo(Document doc) {
-
-            Elements elements = doc.select("meta");
-            String imageUrl = null;
-
-            for (Element e : elements) {
-                //fetch image url from content attribute of meta tag.
-                imageUrl = e.attr("content");
-
-                //OR more specifically you can check meta property.
-                if (e.attr("property").equalsIgnoreCase("og:image")) {
-                    imageUrl = e.attr("content");
-                    break;
-                }
-            }
-            return imageUrl;
-        }
 
 
         final pressTouchListener pressTouchListener = new pressTouchListener() {
@@ -114,8 +101,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
 
         @SuppressLint("StaticFieldLeak")
         void bind() {
-
-            new AsyncTask<Pair, Pair, Pair>() {
+            art =  articles.get(getAdapterPosition());
+            GlideApp.with(mContext.get()).load(R.drawable.fav_ted).transition(DrawableTransitionOptions.withCrossFade(300)).into(circle_source);
+            shadow.setVisibility(View.GONE);
+            GlideApp.with(mContext.get()).clear(articleImage);
+            articleText.setText("");
+            if (asyncTask!=null){
+                AppController.getInstance().cancelAsync(asyncTask);
+            }
+            asyncTask =    new AsyncTask<Pair, Pair, Pair>() {
                 @Override
                 protected Pair doInBackground(Pair... objects) {
 
@@ -123,29 +117,24 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                         SharedPreferences sharedPreferences = mContext.get().getSharedPreferences("TEDX", Context.MODE_PRIVATE);
                         String url = art;
                         String extracted;
-                        final String fav;
                         String header;
 
-                        if (sharedPreferences.getString(url, "NNN").equals("NNN") || sharedPreferences.getString(url + "fav", "NNN").equals("NNN") || sharedPreferences.getString(url + "title", "NNN").equals("NNN")) {
+                        if (sharedPreferences.getString(url, "NNN").equals("NNN")  || sharedPreferences.getString(url + "title", "NNN").equals("NNN")) {
 
                             Document doc = Jsoup.connect(url).get();
                             header = doc.title();
                             extracted = parsePageHeaderInfo(doc);
 
-                            FaviconParser faviconParser = new FaviconParser();
-                            fav = faviconParser.startFaviconSearch(doc, art);
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(url, extracted);
-                            editor.putString(url + "fav", fav);
                             editor.putString(url + "title", header);
                             editor.apply();
                         } else {
                             extracted = sharedPreferences.getString(url, "NNN");
-                            fav = sharedPreferences.getString(url + "fav", "NNN");
                             header = sharedPreferences.getString(url + "title", "NNN");
                         }
-                        return new Pair(new Pair(extracted, header), fav);
+                        return new Pair(extracted, header);
                     } catch (Exception e) {
                         e.printStackTrace();
                         return null;
@@ -157,10 +146,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                     super.onPostExecute(o);
                     
                     try {
-                        GlideApp.with(mContext.get()).load((String) ((Pair) o.first).first).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(articleImage);
-                        GlideApp.with(mContext.get()).load((String) o.second).transition(DrawableTransitionOptions.withCrossFade(300)).into(circle_source);
-                        articleText.setText((String) ((Pair) o.first).second);
+                        GlideApp.with(mContext.get()).load(o.first).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(articleImage);
+                        articleText.setText((CharSequence) o.second);
                         spinner.setVisibility(View.GONE);
+                        shadow.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

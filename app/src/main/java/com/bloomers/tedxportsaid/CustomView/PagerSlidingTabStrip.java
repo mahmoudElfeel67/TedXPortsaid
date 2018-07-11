@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
@@ -84,6 +85,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         setWillNotDraw(false);
 
         tabsContainer = new LinearLayout(context);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            tabsContainer.setLayoutDirection(LAYOUT_DIRECTION_LTR);
+        }
         tabsContainer.setOrientation(LinearLayout.HORIZONTAL);
         tabsContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         addView(tabsContainer);

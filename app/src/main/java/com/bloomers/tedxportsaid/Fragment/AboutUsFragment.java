@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.AppController;
+import com.bloomers.tedxportsaid.Model.TeamMember;
 import com.bloomers.tedxportsaid.R;
 
 import butterknife.BindView;
@@ -20,10 +22,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 public class AboutUsFragment extends Fragment {
 
-   static TeamFragment.onCLick onCLick;
+    TeamFragment.onCLick onCLick;
     public static AboutUsFragment newInstance(TeamFragment.onCLick onCLick) {
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
-        AboutUsFragment.onCLick = onCLick;
+        aboutUsFragment.onCLick = onCLick;
         return aboutUsFragment;
     }
 
@@ -41,6 +43,14 @@ public class AboutUsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_about_us, container, false);
         unbinder = ButterKnife.bind(this, root);
+        if (onCLick==null){
+            onCLick = new TeamFragment.onCLick() {
+                @Override
+                public void onClick(View view, TeamMember teamMember) {
+                    ((MainActivity)getActivity()).callTeamPreview(view, teamMember,1100);
+                }
+            };
+        }
         if (lastClickedId==0){
             change(TeamFragment.newInstance(onCLick));
         }else {

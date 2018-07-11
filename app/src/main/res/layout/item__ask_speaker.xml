@@ -10,7 +10,6 @@
     android:layout_marginRight="1dp"
     android:layout_marginTop="3dp"
     android:background="@color/white"
-    android:layoutDirection="ltr"
     android:minHeight="180dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="2dp"
@@ -20,6 +19,7 @@
 
 
     <ImageView
+        android:id="@+id/speaker_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/da7e7"
@@ -40,11 +40,11 @@
 
 
     <TextView
+        android:id="@+id/speaker_name"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="الدحيح"
         android:textColor="@color/white"
         android:textSize="14sp"
 

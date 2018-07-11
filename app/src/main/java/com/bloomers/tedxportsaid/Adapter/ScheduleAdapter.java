@@ -12,23 +12,27 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bloomers.tedxportsaid.Model.Schedule;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
+    private final ArrayList<Schedule> schedules;
     int leftPostion = 0;
     int rightPostion = 0;
 
-    public ScheduleAdapter(AppCompatActivity editActivity) {
+    public ScheduleAdapter(AppCompatActivity editActivity,ArrayList schedules) {
         this.mContext = new WeakReference<>(editActivity);
+        this.schedules= schedules;
     }
 
     @NonNull
@@ -50,7 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
 
     @Override
     public int getItemCount() {
-        return 100;
+        return schedules.size();
     }
 
     @Override
@@ -81,7 +85,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
         }
 
         void bind() {
-            GlideApp.with(mContext.get()).load(R.drawable.da7e7).transition(DrawableTransitionOptions.withCrossFade(300)).circleCrop().into(event_time);
+            Schedule schedule = schedules.get(getAdapterPosition());
+            GlideApp.with(mContext.get()).load(schedule.getBackground()).transition(DrawableTransitionOptions.withCrossFade(300)).circleCrop().into(event_time);
 
             event_container.requestLayout();
             event_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -109,13 +114,21 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Single
 
             if (getAdapterPosition() == 0) {
                 top_line.setVisibility(View.GONE);
-                lay.setPadding(0, ints.dp2px(10, mContext.get()), 0, 0);
-                sch_desc.setText("فتح البوابات \n 7pm");
             } else {
+
                 top_line.setVisibility(View.VISIBLE);
-                lay.setPadding(0, ints.dp2px(10, mContext.get()), 0, 0);
-                sch_desc.setText("بدايه محاضره الدحيح");
             }
+
+            if (getAdapterPosition() ==schedules.size()-1){
+                bottom_line.setVisibility(View.GONE);
+            }else {
+                bottom_line.setVisibility(View.VISIBLE);
+            }
+
+            lay.setPadding(0, ints.dp2px(10, mContext.get()), 0, 0);
+            sch_desc.setText(schedule.getDate() +"\n" +schedule.getSession_name());
+
+
 
         }
 
