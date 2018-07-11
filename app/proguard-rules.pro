@@ -36,7 +36,7 @@
 -dontwarn org.apache.commons.**
 -keep class org.apache.http.** { *; }
 -dontwarn org.apache.http.**
-
+-keep public class com.google.android.gms.* { public *; }
 
 ##YOUTUBE
 -keep interface com.google.** { *;}

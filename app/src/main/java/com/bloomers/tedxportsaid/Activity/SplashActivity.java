@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bloomers.tedxportsaid.AppController;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -23,8 +24,12 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             classToGO = WalkThroughActivity.class;
 
+
         }
         startActivity(new Intent(SplashActivity.this, classToGO));
         finish();
+
+
+
     }
 }

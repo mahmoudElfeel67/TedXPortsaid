@@ -38,7 +38,7 @@
     <string name="Entertainment">الترفيه</string>
     <string name="tedx_vid">TED</string>
     <string name="no_data">لا يوجد اتصال بالانترنت</string>
-
+    <string name="no_speakers_randomize">لا يوجد اتصال بالانترنت</string>
     <string name="extenstion">%sي %sس %sد %sث</string>
     <string name="day_ext">ي</string>
     <string name="hour_ext">س</string>
