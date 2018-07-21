@@ -1,4 +1,4 @@
-package com.example.tedxportsaidadmin;
+package com.bloomers.tedxportsaidadmin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

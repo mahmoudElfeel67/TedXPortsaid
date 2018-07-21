@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "209348417407",
+    "firebase_url": "https://tedxportsaid-elfeel.firebaseio.com",
+    "project_id": "tedxportsaid-elfeel",
+    "storage_bucket": "tedxportsaid-elfeel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209348417407:android:0400c0a3423373fd",
+        "android_client_info": {
+          "package_name": "com.bloomers.tedxportsaid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209348417407-a7lksev6f2priuiqfvno0hmjhq55c8ns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0zs51EhuRCZwFQT8B5VJ5X7sAs_kevn0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209348417407:android:a986337e80182a80",
+        "android_client_info": {
+          "package_name": "com.bloomers.tedxportsaidadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209348417407-a7lksev6f2priuiqfvno0hmjhq55c8ns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0zs51EhuRCZwFQT8B5VJ5X7sAs_kevn0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
