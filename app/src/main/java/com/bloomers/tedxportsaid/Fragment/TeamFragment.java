@@ -112,37 +112,42 @@ public class TeamFragment extends Fragment {
 
     private void loadTeam() {
         if (AppController.getInstance().isThereInternet(getActivity())){
-            FirebaseDatabase.getInstance().getReference().child("Team").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot!=null&&dataSnapshot.getValue()!=null&&dataSnapshot.exists()){
-                        ArrayList<TeamMember> arrayList = new ArrayList();
-                        for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
-                            TeamMember speaker = dataSnapshot1.getValue(TeamMember.class);
-                            arrayList.add(speaker);
-                        }
-
-                        article_recycler.setAdapter(new TeamAdapter((AppCompatActivity) getActivity(),clicked,arrayList));
-                       swipeRefreshLayout.setRefreshing(false);
-                        spin_kit.setVisibility(View.GONE);
-                    }else {
-                        swipeRefreshLayout.setRefreshing(false);
-                        spin_kit.setVisibility(View.VISIBLE);
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    spin_kit.setVisibility(View.VISIBLE);
-                }
-            });
+            read();
         }else{
             swipeRefreshLayout.setRefreshing(false);
             spin_kit.setVisibility(View.VISIBLE);
+            read();
         }
+    }
+
+    private void read() {
+        FirebaseDatabase.getInstance().getReference().child("Team").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot!=null&&dataSnapshot.getValue()!=null&&dataSnapshot.exists()){
+                    ArrayList<TeamMember> arrayList = new ArrayList();
+                    for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+                        TeamMember speaker = dataSnapshot1.getValue(TeamMember.class);
+                        arrayList.add(speaker);
+                    }
+
+                    article_recycler.setAdapter(new TeamAdapter((AppCompatActivity) getActivity(),clicked,arrayList));
+                    swipeRefreshLayout.setRefreshing(false);
+                    spin_kit.setVisibility(View.GONE);
+                }else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    spin_kit.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                swipeRefreshLayout.setRefreshing(false);
+                spin_kit.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public interface onCLick{

@@ -58,41 +58,46 @@ public class SpeakerFragment extends Fragment {
     private void loadSpeakers() {
 
         if (AppController.getInstance().isThereInternet(getActivity())){
-            FirebaseDatabase.getInstance().getReference().child("speakers").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot != null && dataSnapshot.getValue() != null&&dataSnapshot.exists()) {
-                        ArrayList<Speaker> arrayList = new ArrayList();
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            Speaker speaker = dataSnapshot1.getValue(Speaker.class);
-                            arrayList.add(speaker);
-                        }
-                        speakers = arrayList;
-
-                        RecyclerView article_segment_recycler = root.findViewById(R.id.RecyclerSpeaker);
-                        article_segment_recycler.setLayoutManager(new GridLayoutManagerEXT(getContext(), 2));
-                        article_segment_recycler.setAdapter(new SpeakerAdapter((AppCompatActivity) getActivity(), arrayList));
-                        ((SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout)).setRefreshing(false);
-                        no_data.setVisibility(View.GONE);
-
-                    } else {
-                        no_data.setVisibility(View.VISIBLE);
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    no_data.setVisibility(View.VISIBLE);
-                    ((SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout)).setRefreshing(false);
-                }
-            });
+            read();
         }else {
             no_data.setVisibility(View.VISIBLE);
             ((SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout)).setRefreshing(false);
+            read();
         }
 
+    }
+
+    private void read() {
+        FirebaseDatabase.getInstance().getReference().child("Speakers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null&&dataSnapshot.exists()) {
+                    ArrayList<Speaker> arrayList = new ArrayList();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Speaker speaker = dataSnapshot1.getValue(Speaker.class);
+                        arrayList.add(speaker);
+                    }
+                    speakers = arrayList;
+
+                    RecyclerView article_segment_recycler = root.findViewById(R.id.RecyclerSpeaker);
+                    article_segment_recycler.setLayoutManager(new GridLayoutManagerEXT(getContext(), 2));
+                    article_segment_recycler.setAdapter(new SpeakerAdapter((AppCompatActivity) getActivity(), arrayList));
+                    ((SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout)).setRefreshing(false);
+                    no_data.setVisibility(View.GONE);
+
+                } else {
+                    no_data.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                no_data.setVisibility(View.VISIBLE);
+                ((SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout)).setRefreshing(false);
+            }
+        });
     }
 
 }

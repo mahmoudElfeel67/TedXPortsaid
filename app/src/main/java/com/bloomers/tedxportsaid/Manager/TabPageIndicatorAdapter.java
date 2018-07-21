@@ -20,19 +20,38 @@ public class TabPageIndicatorAdapter extends FragmentPagerAdapter implements Pag
     private final ArrayList<Integer> titles = new ArrayList<>();
     private final ArrayList<Integer> drawables = new ArrayList<>();
     private final Context context;
-    public TabPageIndicatorAdapter(FragmentManager fm,ArrayList<Fragment> fragmentArrayList,Context context) {
+    public TabPageIndicatorAdapter(FragmentManager fm, ArrayList<Fragment> fragmentArrayList, Context context, boolean isVideos) {
         super(fm);
         this.context = context;
         this.fragmentArrayList = fragmentArrayList;
 
-        titles.add(R.string.videos);
-        titles.add(R.string.articles);
+
+        if (isVideos){
+            titles.add(R.string.videos);
+            titles.add(R.string.articles);
+        }else {
+            titles.add(R.string.articles);
+            titles.add(R.string.videos);
+
+        }
+
+
         titles.add(R.string.speakers);
         titles.add(R.string.schedule);
         titles.add(R.string.about_us);
 
-        drawables.add(R.drawable.videos);
-        drawables.add(R.drawable.article);
+
+        if (isVideos){
+            drawables.add(R.drawable.videos);
+            drawables.add(R.drawable.article);
+        }else {
+            drawables.add(R.drawable.article);
+            drawables.add(R.drawable.videos);
+
+
+        }
+
+
         drawables.add(R.drawable.speaker);
         drawables.add(R.drawable.schedule);
         drawables.add(R.drawable.about_us);

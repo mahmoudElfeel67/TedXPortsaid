@@ -1,5 +1,9 @@
 package com.bloomers.tedxportsaid.Model;
 
+
+import android.support.annotation.Keep;
+
+@Keep
 public class Schedule {
 
     private String date;

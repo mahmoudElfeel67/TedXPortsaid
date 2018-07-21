@@ -1,5 +1,9 @@
 package com.bloomers.tedxportsaid.Model;
 
+
+import android.support.annotation.Keep;
+
+@Keep
 public class event_date {
     private int year ;
     private int day;

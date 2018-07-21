@@ -37,20 +37,6 @@
         android:layout_marginTop="30dp"
         />
 
-    <ImageView
-        android:id="@+id/round_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/careem_container"
-        android:src="@drawable/arrow_round"
-        android:rotation="90"
-        android:scaleX="-1"
-        android:scaleY="-1"
-        android:layout_margin="35dp"
-        android:padding="5dp"
-        android:layout_alignParentLeft="true"
-
-        />
 
     <TextView
         android:id="@+id/voucher_code_desc"
@@ -65,41 +51,6 @@
         android:layout_marginStart="-20dp" />
 
 
-    <LinearLayout
-        android:id="@+id/careem_container"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/careem_voucher"
-        android:layout_alignParentLeft="true"
-        android:gravity="center"
-        >
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/copy"
-            android:padding="5dp"
-            />
-
-
-        <TextView
-            android:id="@+id/voucher_code_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="8dp"
-
-            android:layout_marginStart="8dp" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/careem"
-            android:padding="10dp"
-            />
-
-    </LinearLayout>
 
 
 

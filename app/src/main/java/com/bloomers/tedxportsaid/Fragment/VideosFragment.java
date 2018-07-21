@@ -1,8 +1,10 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -78,8 +80,16 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
 
         article_segment_recycler.setAdapter(new EmptyAdapter());
 
+        if (!MainActivity.isVideos){
+            isAtPortsiad = false;
+            portsaid_vid.setVisibility(View.GONE);
+            root.findViewById(R.id.seperator).setVisibility(View.GONE);
+
+        }
+
+
         if (videos == null && !searchRunning) {
-            load(progressBar, article_segment_recycler, tedxPortsaidChnnel);
+            load(progressBar, article_segment_recycler, MainActivity.isVideos ? tedxPortsaidChnnel :"UCAuUUnT6oDeKwE6v1NGQxug");
         } else {
             progressBar.setVisibility(View.GONE);
             adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
@@ -92,7 +102,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                 final int last = videos.size() - 1;
                 isRefreshing = true;
                 refreshLayout.setRefreshing(true);
-                new GetChannelVideosTask(getChannelVideos, new YouTubeChannel("UCAuUUnT6oDeKwE6v1NGQxug", "asdas"))
+                new GetChannelVideosTask(getChannelVideos, new YouTubeChannel(isAtPortsiad ? tedxPortsaidChnnel :"UCAuUUnT6oDeKwE6v1NGQxug", "asdas"))
                         .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
                             @Override
                             public void onGetVideos(List<YouTubeVideo> videos) {
@@ -120,6 +130,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
             searchRunning = true;
             new GetChannelVideosTask(getChannelVideos, new YouTubeChannel(channel, "asdas"))
                     .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
+                        @SuppressLint("StaticFieldLeak")
                         @Override
                         public void onGetVideos(List<YouTubeVideo> videos) {
                             refreshLayout.setRefreshing(false);
@@ -129,21 +140,27 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                                 VideosFragment.videos.addAll(videos);
 
                                 if (!getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved",false)){
-                                    try {
-                                        if (channel.equals(tedxPortsaidChnnel)){
-                                            for (YouTubeVideo tubeVideo :VideosFragment.videos){
-                                                try {
-                                                    YouTubeVideo.storeFilter(tubeVideo,getContext());
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
+                                    new AsyncTask<Object, Object, Object>() {
+                                        @Override
+                                        protected Object doInBackground(Object... objects) {
+                                            try {
+                                                if (channel.equals(tedxPortsaidChnnel)){
+                                                    for (YouTubeVideo tubeVideo :VideosFragment.videos){
+                                                        try {
+                                                            YouTubeVideo.storeFilter(tubeVideo,getContext());
+                                                        } catch (IOException e) {
+                                                            e.printStackTrace();
+                                                        }
+
+                                                    }
+                                                    getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).edit().putBoolean("isSaved",true).apply();
                                                 }
+                                            }catch (Exception e){
 
                                             }
-                                            getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).edit().putBoolean("isSaved",true).apply();
+                                            return null;
                                         }
-                                    }catch (Exception e){
-
-                                    }
+                                    }.execute();
                                 }
 
 
@@ -194,6 +211,9 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
     }
 
     private void change() {
+
+        article_segment_recycler.setAdapter(null);
+
         if (isAtPortsiad) {
             tedx_vid.setTextColor(Color.parseColor("#d6898989"));
             portsaid_vid.setTextColor(AppController.easyColor(getContext(), R.color.black));

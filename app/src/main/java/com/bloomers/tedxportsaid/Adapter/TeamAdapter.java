@@ -75,7 +75,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.SingleItemRowH
             TeamMember teamMember=  teamMembers.get(getAdapterPosition());
 
             member_name.setText(teamMember.getName());
-            GlideApp.with(mContext.get()).load(teamMember.getProfile_url()).transition(DrawableTransitionOptions.withCrossFade(300)).circleCrop().into(team_member);
+            GlideApp.with(mContext.get()).load("https://firebasestorage.googleapis.com"+teamMember.getProfile_url()).transition(DrawableTransitionOptions.withCrossFade(300)).circleCrop().into(team_member);
         }
 
     }

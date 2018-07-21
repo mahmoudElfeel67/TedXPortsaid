@@ -1,7 +1,9 @@
 package com.bloomers.tedxportsaid.Model;
 
-import java.util.ArrayList;
+import android.support.annotation.Keep;
 
+import java.util.ArrayList;
+@Keep
 public class Article {
 
 

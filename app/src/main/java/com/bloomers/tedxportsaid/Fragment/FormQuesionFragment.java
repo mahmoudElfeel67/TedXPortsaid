@@ -1,9 +1,6 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -50,7 +47,7 @@ public class FormQuesionFragment extends Fragment {
                 if (TextUtils.isEmpty(editText.getText().toString())) {
                     MainActivity.showCustomToast(getActivity(), "برجاء كتابه سؤالك اولا !", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
-                } else if (!isThereInternet()) {
+                } else if (!AppController.getInstance().isThereInternet(getActivity())) {
                     MainActivity.showCustomToast(getActivity(), "لا يوجد اتصال بالانترنت نرجو المحاوله مره اخري", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
                 }
@@ -76,13 +73,5 @@ public class FormQuesionFragment extends Fragment {
     }
 
 
-    private Boolean isThereInternet() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager == null) {
-            return false;
-        }
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return !(activeNetworkInfo == null || !activeNetworkInfo.isConnected());
-    }
 
 }

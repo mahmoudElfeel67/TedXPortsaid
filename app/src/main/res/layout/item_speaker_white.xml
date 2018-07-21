@@ -52,6 +52,7 @@
             android:background="@drawable/white_grad"
             android:layout_alignParentBottom="true"
             android:scaleY="-1"
+            android:id="@+id/shadow"
 
             />
 

@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,16 +23,12 @@ import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -41,12 +36,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 public class AppController extends MultiDexApplication {
 
     private static final AppController mInstance = new AppController();
@@ -218,65 +213,9 @@ public class AppController extends MultiDexApplication {
         }
     }
 
-    public Boolean ifShared(Activity activity, String StringBoolean) {
-        if (activity == null) {
-            return false;
-        }
-        SharedPreferences sharedPrefereces = activity.getSharedPreferences("TEDX", MODE_PRIVATE);
-        Boolean theBoolean = sharedPrefereces.getBoolean(StringBoolean, false);
-        if (!theBoolean) {
-            SharedPreferences.Editor editor = sharedPrefereces.edit();
-            editor.putBoolean(StringBoolean, true);
-            editor.apply();
-        }
-        return theBoolean;
-    }
-
-    public boolean isGooglePlayServicesAvailable(Activity activity) {
-        int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity);
-        if (code != ConnectionResult.SUCCESS) {
-            Dialog dlg = GoogleApiAvailability.getInstance().getErrorDialog(activity, code, 9001);
-            dlg.show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public void hideSoftKeyBoard(Activity context, View view) {
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        } else {
-            context.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        }
-    }
-
-    public void showKeyBoard(Activity activity) {
-        if (activity != null && activity.getSystemService(Context.INPUT_METHOD_SERVICE) != null) {
-            //noinspection ConstantConditions
-            ((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
-                 toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-        }
-    }
-
-    public boolean isReleaseON() {
-        return !BuildConfig.DEBUG;
-    }
-
-    public void scanFile(Context context, File f) {
-        Uri contentUri = Uri.fromFile(f);
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(contentUri);
-        context.sendBroadcast(mediaScanIntent);
-    }
-
     public void showErrorToast(FragmentActivity activity) {
         MainActivity.showCustomToast(activity,activity.getString(R.string.error_happend),null,false);
     }
-
 
     public void addLoadingBlock(Activity activity,ViewGroup viewGroup){
         final ViewGroup rootLayout;

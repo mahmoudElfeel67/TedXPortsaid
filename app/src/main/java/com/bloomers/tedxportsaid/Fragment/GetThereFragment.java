@@ -1,9 +1,6 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bloomers.tedxportsaid.Activity.MainActivity;
 import com.bloomers.tedxportsaid.Model.Coordinates;
-import com.bloomers.tedxportsaid.Model.VoucherCode;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,7 +33,6 @@ public class GetThereFragment extends Fragment {
 
     private MapView mMapView;
     private GoogleMap googleMap;
-    private TextView voucher_code_text;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -49,9 +43,7 @@ public class GetThereFragment extends Fragment {
         mMapView = root.findViewById(R.id.map_view);
 
         final TextView getThereDesc =root.findViewById(R.id.get_there_desc);
-        voucher_code_text = root.findViewById(R.id.voucher_code_text);
 
-        final TextView voucher_code_desc = root.findViewById(R.id.voucher_code_desc);
         mMapView.onCreate(savedInstanceState);
 
 
@@ -98,22 +90,7 @@ public class GetThereFragment extends Fragment {
         });
 
 
-        FirebaseDatabase.getInstance().getReference().child("voucher_code").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    VoucherCode voucherCode = dataSnapshot.getValue(VoucherCode.class);
-                    voucher_code_text.setText(voucherCode.getCode());
-                    voucher_code_desc.setText(voucherCode.getDesc());
-                }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         FirebaseDatabase.getInstance().getReference().child("getThereDesc").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -122,27 +99,9 @@ public class GetThereFragment extends Fragment {
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
                     getThereDesc.setText((CharSequence) dataSnapshot.getValue());
                 }
-
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        root.findViewById(R.id.careem_container).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("كود برنامج كريم", voucher_code_text.getText());
-                if (clipboard != null) {
-                    clipboard.setPrimaryClip(clip);
-                    MainActivity.showCustomToast(getActivity(), getString(R.string.careem_code_copied), null, true);
-                }
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
         return root;

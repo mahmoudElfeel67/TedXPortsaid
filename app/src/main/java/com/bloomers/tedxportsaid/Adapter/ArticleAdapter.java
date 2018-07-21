@@ -41,7 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
     private final WeakReference<AppCompatActivity> mContext;
     private final ArrayList<String> articles;
 
-    public ArticleAdapter(AppCompatActivity editActivity,ArrayList<String> arrayList) {
+    public ArticleAdapter(AppCompatActivity editActivity, ArrayList<String> arrayList) {
         this.mContext = new WeakReference<>(editActivity);
         this.articles = arrayList;
     }
@@ -56,6 +56,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
     @Override
     public void onBindViewHolder(@NonNull SingleItemRowHolder holder, int position) {
         holder.bind();
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull SingleItemRowHolder holder) {
+        super.onViewRecycled(holder);
+        holder.recycle();
     }
 
     @Override
@@ -80,9 +86,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
             cardView.setOnTouchListener(pressTouchListener);
 
         }
+
         String art;
-
-
 
 
         final pressTouchListener pressTouchListener = new pressTouchListener() {
@@ -101,15 +106,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
 
         @SuppressLint("StaticFieldLeak")
         void bind() {
-            art =  articles.get(getAdapterPosition());
+            art = articles.get(getAdapterPosition());
             GlideApp.with(mContext.get()).load(R.drawable.fav_ted).transition(DrawableTransitionOptions.withCrossFade(300)).into(circle_source);
             shadow.setVisibility(View.GONE);
+            spinner.setVisibility(View.VISIBLE);
             GlideApp.with(mContext.get()).clear(articleImage);
             articleText.setText("");
-            if (asyncTask!=null){
+            if (asyncTask != null) {
                 AppController.getInstance().cancelAsync(asyncTask);
             }
-            asyncTask =    new AsyncTask<Pair, Pair, Pair>() {
+            asyncTask = new AsyncTask<Pair, Pair, Pair>() {
                 @Override
                 protected Pair doInBackground(Pair... objects) {
 
@@ -119,7 +125,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                         String extracted;
                         String header;
 
-                        if (sharedPreferences.getString(url, "NNN").equals("NNN")  || sharedPreferences.getString(url + "title", "NNN").equals("NNN")) {
+                        if (sharedPreferences.getString(url, "NNN").equals("NNN") || sharedPreferences.getString(url + "title", "NNN").equals("NNN")) {
 
                             Document doc = Jsoup.connect(url).get();
                             header = doc.title();
@@ -144,7 +150,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                 @Override
                 protected void onPostExecute(Pair o) {
                     super.onPostExecute(o);
-                    
+
                     try {
                         GlideApp.with(mContext.get()).load(o.first).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(articleImage);
                         articleText.setText((CharSequence) o.second);
@@ -158,6 +164,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
 
         }
 
+        void recycle() {
+            if (asyncTask != null) {
+                AppController.getInstance().cancelAsync(asyncTask);
+            }
+        }
     }
 
 }

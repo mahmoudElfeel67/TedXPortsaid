@@ -105,7 +105,7 @@
         android:layout_marginBottom="65dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/question_mark"
+        android:src="@drawable/shuffle"
         app:fabSize="normal"
         tools:ignore="RtlHardcoded"/>
 

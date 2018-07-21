@@ -59,38 +59,43 @@ public class PartnersFragment extends Fragment {
 
     private void loadPartners() {
         if (AppController.getInstance().isThereInternet(getActivity())) {
-            FirebaseDatabase.getInstance().getReference().child("Partners").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                        ArrayList<Partner> arrayList = new ArrayList();
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            Partner speaker = dataSnapshot1.getValue(Partner.class);
-                            arrayList.add(speaker);
-                        }
-
-                        article_recycler.setAdapter(new PartnersAdapter((AppCompatActivity) getActivity(), arrayList));
-                        swipeRefreshLayout.setRefreshing(false);
-                        no_data.setVisibility(View.GONE);
-
-                    }else {
-                        swipeRefreshLayout.setRefreshing(false);
-                        no_data.setVisibility(View.VISIBLE);
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    swipeRefreshLayout.setRefreshing(false);
-                    no_data.setVisibility(View.VISIBLE);
-                }
-            });
+            read();
         } else {
             swipeRefreshLayout.setRefreshing(false);
             no_data.setVisibility(View.VISIBLE);
+            read();
         }
+    }
+
+    private void read() {
+        FirebaseDatabase.getInstance().getReference().child("Partners").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    ArrayList<Partner> arrayList = new ArrayList();
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Partner speaker = dataSnapshot1.getValue(Partner.class);
+                        arrayList.add(speaker);
+                    }
+
+                    article_recycler.setAdapter(new PartnersAdapter((AppCompatActivity) getActivity(), arrayList));
+                    swipeRefreshLayout.setRefreshing(false);
+                    no_data.setVisibility(View.GONE);
+
+                }else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    no_data.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                swipeRefreshLayout.setRefreshing(false);
+                no_data.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 }
