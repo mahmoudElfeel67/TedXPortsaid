@@ -77,10 +77,10 @@ public class AboutUsFragment extends Fragment {
     }
 
     private void grayOut(View view){
-        team.setTextColor(view.getId()==team.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));
-        partners.setTextColor(view.getId()==partners.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));
-        follow_us.setTextColor(view.getId()==follow_us.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));
-        developer.setTextColor(view.getId()==developer.getId() ?AppController.easyColor(getContext(),R.color.black):Color.parseColor("#d6898989"));
+        team.setTextColor(view.getId()==team.getId() ?AppController.easyColor(getContext(),R.color.red_color):Color.parseColor("#862f2d"));
+        partners.setTextColor(view.getId()==partners.getId() ?AppController.easyColor(getContext(),R.color.red_color):Color.parseColor("#862f2d"));
+        follow_us.setTextColor(view.getId()==follow_us.getId() ?AppController.easyColor(getContext(),R.color.red_color):Color.parseColor("#862f2d"));
+        developer.setTextColor(view.getId()==developer.getId() ?AppController.easyColor(getContext(),R.color.red_color):Color.parseColor("#862f2d"));
     }
 
     @OnClick({R.id.team, R.id.partners, R.id.follow_us, R.id.developer})

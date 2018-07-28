@@ -1,9 +1,6 @@
 package com.bloomers.tedxportsaidadmin;
 
 
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -21,13 +18,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
-import com.bloomers.tedxportsaidadmin.Activity.MainActivity;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
@@ -201,52 +194,7 @@ public class AppController extends Application {
         }
     }
 
-    public void showErrorToast(FragmentActivity activity) {
-        MainActivity.showCustomToast(activity,activity.getString(R.string.error_happend),null,false);
-    }
 
-    public void addLoadingBlock(Activity activity,ViewGroup viewGroup){
-        final ViewGroup rootLayout;
-
-        if (viewGroup == null) {
-            rootLayout = activity.findViewById(android.R.id.content);
-        } else {
-            rootLayout = viewGroup;
-        }
-
-        View blackopack = new View(activity);
-        blackopack.setBackgroundColor(easyColor(activity,R.color.white));
-        blackopack.setAlpha(0);
-        blackopack.setId(R.id.loading_view);
-        rootLayout.addView(blackopack);
-        ImageView imageView = new ImageView(activity);
-        imageView.setAlpha(0F);
-        imageView.setImageResource(R.drawable.xex1);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setId(R.id.loading_image_view);
-        blackopack.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-
-
-        FrameLayout.LayoutParams pa = new FrameLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight());
-        rootLayout.addView(imageView,pa);
-
-        PropertyValuesHolder scalex = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1F);
-        PropertyValuesHolder scaley = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1F);
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(imageView, scalex, scaley);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setRepeatMode(ValueAnimator.REVERSE);
-        animator.setDuration(2000);
-        animator.start();
-
-        imageView.animate().setDuration(1000).alpha(.90F).start();
-        blackopack.animate().setDuration(1000).alpha(.90F).start();
-
-    }
 
     public void removeLoadingScreen(Activity activity,ViewGroup viewGroup){
         final ViewGroup rootLayout;

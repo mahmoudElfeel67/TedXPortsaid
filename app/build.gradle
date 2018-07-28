@@ -7,8 +7,8 @@ android {
     defaultConfig {
         applicationId "com.bloomers.tedxportsaid"
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
+        targetSdkVersion 26
+        versionCode 4
         versionName "1.0"
         resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
         dexOptions {
@@ -24,7 +24,7 @@ android {
                 try {
                     keyAlias KEY_PASSWORD
                     keyPassword KEY_PASSWORD
-                    storeFile file('H:/AlaWad3k Res/kets/TEDxPortsaid.jks')
+                    storeFile file('D:/AlaWad3k Res/kets/TEDxPortsaid.jks')
                     storePassword KEY_PASSWORD
                 } catch (ignored) {
                     throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")

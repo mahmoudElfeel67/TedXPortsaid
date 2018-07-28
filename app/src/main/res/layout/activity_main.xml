@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/main_bacground_clolor"
     android:fitsSystemWindows="true"
     tools:context=".Activity.MainActivity"
-    tools:ignore="ContentDescription"
-    >
+    tools:ignore="ContentDescription">
 
 
     <ImageView
         android:id="@+id/portsaid_logo"
         android:layout_width="200dp"
         android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="70dp"
         android:paddingTop="13dp"
+        android:layout_marginLeft="10dp"
         android:src="@drawable/png_logo"
-        tools:ignore="ContentDescription"
-        android:layout_alignParentLeft="true"
-         />
+        tools:ignore="ContentDescription" />
 
-   <RelativeLayout
-       android:layout_alignParentRight="true"
-       android:layout_width="wrap_content"
-       android:layout_height="50dp">
-       <com.bloomers.tedxportsaid.CustomView.CountDownView
-           android:id="@+id/count_down"
-           android:visibility="gone"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginEnd="10dp"
-           android:layout_marginStart="10dp"
-           android:layout_centerVertical="true"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true">
 
-           />
-   </RelativeLayout>
+        <com.bloomers.tedxportsaid.CustomView.CountDownView
+            android:id="@+id/count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+
+            />
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -56,13 +55,20 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="44dp"
-            android:background="@color/frag_background"/>
+            android:layout_above="@id/bar" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
+            android:background="@drawable/drop_shadow" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
             android:background="@drawable/drop_shadow"
+            android:scaleY="-1"
+            android:layout_above="@id/bar"
             />
 
         <LinearLayout
@@ -71,25 +77,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/transparent"
-            android:orientation="vertical"
-            >
+            android:background="@color/main_bacground_clolor"
+            android:orientation="vertical">
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/drop_shadow"
-                android:scaleY="-1"
-                />
+
 
             <com.bloomers.tedxportsaid.CustomView.PagerSlidingTabStrip
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                app:pstsIndicatorColor="@color/colorAccent"
-                app:pstsIndicatorHeight="2dp"/>
-
+                android:layout_height="48dp"
+                app:pstsIndicatorColor="@color/red_color"
+                app:pstsIndicatorHeight="2dp" />
 
 
         </LinearLayout>
@@ -105,9 +104,10 @@
         android:layout_marginBottom="65dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:background="@color/red_color"
         android:src="@drawable/shuffle"
         app:fabSize="normal"
-        tools:ignore="RtlHardcoded"/>
+        tools:ignore="RtlHardcoded" />
 
 
     <ImageView
@@ -115,8 +115,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/red_stroke_white_fill"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 
     <ImageView
@@ -125,11 +124,9 @@
         android:layout_height="match_parent"
         android:alpha="0"
         android:scaleType="centerCrop"
-        android:src="@drawable/xex"
-         />
+        android:src="@drawable/portrait_pttern" />
 
-    <include layout="@layout/team_member_full"/>
-
+    <include layout="@layout/team_member_full" />
 
 
 </RelativeLayout>

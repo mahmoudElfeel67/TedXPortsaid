@@ -22,7 +22,7 @@ public class RandomThreadManager {
     public void addNumberChanger(final TextView number_picker, final Activity activity, final onDone onDone, final int limit) {
         increase = 0;
         stop = false;
-        count = 3000/120;
+        count = 4000/120;
 
         if(expiryThreadExpiryCheck!=null){
             return;
@@ -47,7 +47,7 @@ public class RandomThreadManager {
                             });
 
                         }
-                        Thread.sleep(120);
+                        Thread.sleep(60);
                         int min = 0;
                         int max = limit-1;
 

@@ -115,6 +115,9 @@ public class YouTubeVideo implements Serializable {
 	private boolean isLiveStream;
 
 
+	public String getDuration() {
+		return duration;
+	}
 
 	public YouTubeVideo(Video video) {
 		this.id = video.getId();
@@ -139,6 +142,9 @@ public class YouTubeVideo implements Serializable {
 					: (video.getSnippet().getDefaultLanguage());
 
 			this.description = video.getSnippet().getDescription();
+			if (video.getContentDetails() != null) {
+				duration =VideoDuration.toHumanReadableString(video.getContentDetails().getDuration());
+			}
 		}
 
 
@@ -157,6 +163,8 @@ public class YouTubeVideo implements Serializable {
 				this.dislikeCount = String.format(Locale.getDefault(), "%,d", video.getStatistics().getDislikeCount());
 		}
 	}
+
+
 
 	/**
 	 * Extracts the video ID from the given video URL.

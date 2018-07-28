@@ -141,7 +141,7 @@ public class CountDownView extends View {
         this.spannableString.clear();
         this.spannableString.clearSpans();
         this.spannableString.append(text);
-        this.spannableString.setSpan(new ForegroundColorSpan(AppController.easyColor(getContext(), R.color.colorPrimary)), 0, text.length(), 33);
+        this.spannableString.setSpan(new ForegroundColorSpan(AppController.easyColor(getContext(), R.color.red_color)), 0, text.length(), 33);
 
         int daIndex = text.indexOf(getContext().getString(R.string.day_ext));
         int hrIndex = text.indexOf(getContext().getString(R.string.hour_ext));

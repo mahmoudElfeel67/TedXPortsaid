@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ff2906</color>
-    <color name="colorPrimaryDark">#B71C1C</color>
-    <color name="colorAccent">#F44336</color>
+    <color name="colorPrimary">#ca302c</color>
+    <color name="colorPrimaryDark">#ca302c</color>
+    <color name="colorAccent">#ca302c</color>
     <color name="statusBarColor">#e62b25</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
 
-    <color name="gradient_startColor">#eb3c44</color>
-    <color name="gradient_centerColor">#ee4b52</color>
-    <color name="gradient_endColor">#f05b61</color>
+    <color name="gradient_startColor">#ca302c</color>
+    <color name="gradient_centerColor">#b62e2a</color>
+    <color name="gradient_endColor">#b73430</color>
     <color name="disalble">#c1c1c1</color>
-    <color name="grey_600">#757575</color>
     <color name="inactive_indicator">#4D000000</color>
+
+    <color name="main_bacground_clolor">#1d1d1d</color>
+    <color name="red_color">#ca302c</color>
+    <color name="non_active_red">#862f2d</color>
 
 
     <!--reds-->
@@ -55,7 +58,6 @@
     <!--grey-->
 
     <!--blue grey-->
-    <color name="frag_background">#fafafa</color>
 
 
 </resources>

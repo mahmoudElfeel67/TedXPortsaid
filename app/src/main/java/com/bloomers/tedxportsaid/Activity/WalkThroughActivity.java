@@ -1,28 +1,20 @@
 package com.bloomers.tedxportsaid.Activity;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 
 import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.CustomView.onboarder.AhoyOnboarderActivity;
 import com.bloomers.tedxportsaid.CustomView.onboarder.AhoyOnboarderCard;
-import com.bloomers.tedxportsaid.Fragment.VideosFragment;
 import com.bloomers.tedxportsaid.R;
-import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideos;
-import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
-import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInterface;
-import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
-import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.bloomers.tedxportsaid.Fragment.VideosFragment.tedxPortsaidChnnel;
 
 public class WalkThroughActivity extends AhoyOnboarderActivity {
 
@@ -31,46 +23,14 @@ public class WalkThroughActivity extends AhoyOnboarderActivity {
         super.onCreate(savedInstanceState);
 
         List<AhoyOnboarderCard> pages = new ArrayList<>();
-        pages.add(makePage());
-        pages.add(makePage());
-        pages.add(makePage());
+        pages.add(makePage(R.string.schedule,R.string.schedule_desc,R.drawable.schedule));
+        pages.add(makePage(R.string.speakers,R.string.schedule_speakers,R.drawable.speaker));
+        pages.add(makePage(R.string.videos,R.string.schedule_videos,R.drawable.videos));
 
         setFont(Typeface.createFromAsset(getAssets(),AppController.mediumFont));
         setOnboardPages(pages);
         showNavigationControls(true);
-        setFinishButtonTitle("تمام");
-
-        if (AppController.getInstance().isThereInternet(this)){
-            new GetChannelVideosTask(new GetChannelVideos(), new YouTubeChannel(tedxPortsaidChnnel, "asdas"))
-                    .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
-                        @Override
-                        public void onGetVideos(List<YouTubeVideo> videos) {
-                            if (videos != null) {
-                                VideosFragment.videos = new ArrayList<>();
-                                VideosFragment.videos.addAll(videos);
-                                if (!getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved",false)){
-                                    try {
-                                        if (tedxPortsaidChnnel.equals(tedxPortsaidChnnel)){
-                                            for (YouTubeVideo tubeVideo :VideosFragment.videos){
-                                                try {
-                                                    YouTubeVideo.storeFilter(tubeVideo,WalkThroughActivity.this);
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                }
-
-                                            }
-                                            getSharedPreferences("TEDX", Context.MODE_PRIVATE).edit().putBoolean("isSaved",true).apply();
-                                        }
-                                    }catch (Exception e){
-
-                                    }
-                                }
-                            }
-
-                        }
-                    }).executeInParallel();
-        }
-
+        setFinishButtonTitle(R.string.finish);
 
     }
 
@@ -80,10 +40,10 @@ public class WalkThroughActivity extends AhoyOnboarderActivity {
         AppController.getInstance().hideNavBar(this);
     }
 
-    private AhoyOnboarderCard makePage() {
-        AhoyOnboarderCard ahoyOnboarderCard = new AhoyOnboarderCard("بلا بلا بلا !", "بلا بلا بلااااا", R.drawable.speaker);
-        ahoyOnboarderCard.setTitleTextSize(22);
-        ahoyOnboarderCard.setDescriptionTextSize(13);
+    private AhoyOnboarderCard makePage(@StringRes  int title,@StringRes int desc, @DrawableRes int drawable) {
+        AhoyOnboarderCard ahoyOnboarderCard = new AhoyOnboarderCard(title, desc,drawable);
+        ahoyOnboarderCard.setTitleTextSize(21);
+        ahoyOnboarderCard.setDescriptionTextSize(14);
         if (getResources().getBoolean(R.bool.isTablet)) {
             ahoyOnboarderCard.setTitleTextSize(28);
             ahoyOnboarderCard.setDescriptionTextSize(16);

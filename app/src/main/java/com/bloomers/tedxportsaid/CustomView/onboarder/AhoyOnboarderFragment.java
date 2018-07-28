@@ -2,6 +2,7 @@ package com.bloomers.tedxportsaid.CustomView.onboarder;
 
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -18,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bloomers.tedxportsaid.AppController;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 
@@ -148,6 +150,7 @@ public class AhoyOnboarderFragment extends Fragment {
             }
 
             if (imageResId != 0) {
+                ivOnboarderImage.setColorFilter(AppController.easyColor(getContext(),R.color.red_color), PorterDuff.Mode.SRC_ATOP   );
                 GlideApp.with(getActivity()).load(imageResId).into(ivOnboarderImage);
             }
 

@@ -8,7 +8,6 @@ public class Schedule {
 
     private String date;
     private String session_name;
-    private String background;
 
     public String getDate() {
         return date;
@@ -18,7 +17,12 @@ public class Schedule {
         return session_name;
     }
 
-    public String getBackground() {
-        return background;
+    public Schedule() {
+    }
+
+    public Schedule(String date, String session_name) {
+
+        this.date = date;
+        this.session_name = session_name;
     }
 }

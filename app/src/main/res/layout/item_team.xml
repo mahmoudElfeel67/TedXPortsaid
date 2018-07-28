@@ -3,34 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginBottom="10dp"
+    android:layout_centerHorizontal="true"
 
     >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/line" />
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/red_rotated_thin_line" />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/red_rotated_thin_line"
-        android:scaleX="-1" />
-
-    <View
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:background="@drawable/white_circle"
-        android:scaleX="-1" />
 
     <ImageView
         android:id="@+id/team_member"
@@ -40,6 +18,7 @@
         android:layout_gravity="center"
         android:background="@drawable/red_stroke"
         android:padding="1dp"
+
 
 
         />
@@ -52,7 +31,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:background="@drawable/red_stroke_team_member"
         android:gravity="bottom|center_horizontal"
         android:lineSpacingExtra="-5dp"
         android:paddingBottom="10dp"

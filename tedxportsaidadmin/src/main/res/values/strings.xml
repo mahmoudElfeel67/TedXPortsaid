@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TedxPortsaid Admin</string>
     <string name="no_data">No Data</string>
-    <string name="error_happend">Error occured !</string>
     <string name="delete">Delete</string>
 </resources>

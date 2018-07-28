@@ -31,6 +31,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.leakcanary.LeakCanary;
+import com.thefinestartist.Base;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -74,7 +75,7 @@ public class AppController extends MultiDexApplication {
              .build());
 
         Timber.plant(new Timber.DebugTree());
-
+        Base.initialize(getApplicationContext());
 
     }
 
@@ -227,13 +228,13 @@ public class AppController extends MultiDexApplication {
         }
 
         View blackopack = new View(activity);
-        blackopack.setBackgroundColor(easyColor(activity,R.color.white));
+        blackopack.setBackgroundColor(easyColor(activity,R.color.main_bacground_clolor));
         blackopack.setAlpha(0);
         blackopack.setId(R.id.loading_view);
         rootLayout.addView(blackopack);
         ImageView imageView = new ImageView(activity);
         imageView.setAlpha(0F);
-        imageView.setImageResource(R.drawable.xex1);
+        imageView.setImageResource(R.drawable.portrait_pttern);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setId(R.id.loading_image_view);
         blackopack.setOnTouchListener(new View.OnTouchListener() {
@@ -255,7 +256,7 @@ public class AppController extends MultiDexApplication {
         animator.setDuration(2000);
         animator.start();
 
-        imageView.animate().setDuration(1000).alpha(.90F).start();
+        imageView.animate().setDuration(1000).alpha(.50F).start();
         blackopack.animate().setDuration(1000).alpha(.90F).start();
 
     }

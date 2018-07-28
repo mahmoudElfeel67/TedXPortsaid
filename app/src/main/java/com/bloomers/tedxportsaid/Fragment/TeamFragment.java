@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,23 +52,21 @@ public class TeamFragment extends Fragment {
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                // 7 is the sum of items in one repeated section
-                switch (position % 7) {
+
+                switch (position) {
                     // first three items span 3 columns each
                     case 0:
-                    case 1:
-                    case 2:
-                    case 3:
-                        return 3;
-                    // next four items span 2 columns each
-
-
-                    case 4:
-                    case 5:
-                    case 6:
-                        return 4;
+                    case 8:
+                    case 21:
+                    case 29:
+                    case 40:
+                    case 49:
+                        return 12;
                 }
-                throw new IllegalStateException("internal error");
+
+
+                return  3;
+
             }
         });
         article_recycler.setNestedScrollingEnabled(false);
@@ -87,26 +84,15 @@ public class TeamFragment extends Fragment {
 
 
 
-        ((TextView)root.findViewById(R.id.tedx)).setText(Html.fromHtml("<html>\n" +
-             "<body>\n" +
-             "\n" +
-             "<p><font color=\"red\">TEDx</font></p>\n" +
-             "<p><font color=\"black\">كذاوكذا وكذا وبلا بلا بلا</font></p>\n" +
-             "\n" +
-             "\n" +
-             "</body>\n" +
-             "</html>\n"));
-
-
-        ((TextView)root.findViewById(R.id.ted)).setText(Html.fromHtml("<html>\n" +
-             "<body>\n" +
-             "\n" +
-             "<p><font color=\"red\">TED</font></p>\n" +
-             "<p><font color=\"black\">كذاوكذا وكذا وبلا بلا بلا</font></p>\n" +
-             "\n" +
-             "\n" +
-             "</body>\n" +
-             "</html>\n"));
+        ((TextView)root.findViewById(R.id.ted)).setText("TED\n" +
+                "\n" +
+                "TED is a nonprofit devoted to spreading ideas, usually in the form of short, powerful talks (18 minutes or less). TED began in 1984 as a conference where Technology, Entertainment and Design converged, and today covers almost all topics — from science to business to global issues — in more than 100 languages. Meanwhile, independently run TEDx events help share ideas in communities around the world.\n" +
+                "\n" +
+                "\n" +
+                "TEDx\n" +
+                "\n" +
+                "A TEDx event is a local gathering where live TED-like talks and videos previously recorded at TED conferences are shared with the community. TEDx events are fully planned and coordinated independently, on a community-by-community basis. The content and design of each TEDx event is unique and developed independently, but all of them have features in common."
+                );
         return root;
     }
 
@@ -126,9 +112,19 @@ public class TeamFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot!=null&&dataSnapshot.getValue()!=null&&dataSnapshot.exists()){
                     ArrayList<TeamMember> arrayList = new ArrayList();
+                    arrayList.add(new TeamMember());
                     for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
-                        TeamMember speaker = dataSnapshot1.getValue(TeamMember.class);
-                        arrayList.add(speaker);
+                        TeamMember teamMember = dataSnapshot1.getValue(TeamMember.class);
+                        if (teamMember.getName().toLowerCase().equals("Ahmed Abd El-MA'Boud".toLowerCase())
+                                ||teamMember.getName().toLowerCase().equals("Shahdenda Shalaby".toLowerCase())
+                                ||teamMember.getName().toLowerCase().equals("OMNIA GABR".toLowerCase())
+                                ||teamMember.getName().toLowerCase().equals("Rana Maher Lamiey".toLowerCase())
+                                ||teamMember.getName().toLowerCase().equals("Shoroq Shams".toLowerCase())){
+                            arrayList.add(new TeamMember());
+                        }
+
+
+                        arrayList.add(teamMember);
                     }
 
                     article_recycler.setAdapter(new TeamAdapter((AppCompatActivity) getActivity(),clicked,arrayList));

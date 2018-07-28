@@ -45,10 +45,10 @@ public class FormQuesionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(editText.getText().toString())) {
-                    MainActivity.showCustomToast(getActivity(), "برجاء كتابه سؤالك اولا !", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
+                    MainActivity.showCustomToast(getActivity(), getString(R.string.wite_quesition), ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
                 } else if (!AppController.getInstance().isThereInternet(getActivity())) {
-                    MainActivity.showCustomToast(getActivity(), "لا يوجد اتصال بالانترنت نرجو المحاوله مره اخري", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
+                    MainActivity.showCustomToast(getActivity(), getString(R.string.no_intenret_form), ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
                 }
 
@@ -57,11 +57,11 @@ public class FormQuesionFragment extends Fragment {
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(key, editText.getText().toString());
 
-                FirebaseDatabase.getInstance().getReference().child("speaker_questions").child(speaker.getName()).updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                FirebaseDatabase.getInstance().getReference().child("speaker_questions").child(speaker.getName().replace(".","")).updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         AppController.getInstance().removeLoadingScreen(getActivity(), ((ViewGroup) root.findViewById(R.id.toast_lay)));
-                        MainActivity.showCustomToast(getActivity(), "تم ارسال سؤالك لفريق تيدكس بورسعيد !", ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
+                        MainActivity.showCustomToast(getActivity(), getString(R.string.qusetion_sent), ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
 
                     }
                 });

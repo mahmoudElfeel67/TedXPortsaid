@@ -75,10 +75,10 @@ public class ArticleSegmentAdapter extends RecyclerView.Adapter<ArticleSegmentAd
 
         void bind() {
             if (getAdapterPosition() == clicked) {
-                segment_name.setTextColor(Color.BLACK);
+                segment_name.setTextColor(Color.parseColor("#ca302c"));
                 segment_name.setTypeface(Typeface.createFromAsset(mContext.get().getAssets(), AppController.bigFont));
             } else {
-                segment_name.setTextColor(Color.parseColor("#ab585858"));
+                segment_name.setTextColor(Color.parseColor("#862f2d"));
                 segment_name.setTypeface(Typeface.createFromAsset(mContext.get().getAssets(), AppController.smallFont));
             }
 

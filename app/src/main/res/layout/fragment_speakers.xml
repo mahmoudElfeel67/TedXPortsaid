@@ -5,6 +5,16 @@
               android:layout_height="match_parent"
     >
 
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/portrait_pttern"
+        />
+
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -16,6 +26,9 @@
 
             />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
 
     <include layout="@layout/no_data"/>
 

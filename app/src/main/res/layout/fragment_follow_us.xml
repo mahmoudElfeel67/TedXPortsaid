@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:textSize="18sp"
+        android:textColor="@color/white"
         android:text="@string/follow_us_tedx"
         android:layout_margin="15dp"
         android:gravity="center"
@@ -39,7 +40,7 @@
             android:id="@+id/face_book"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/fb_logo"
+            android:src="@drawable/facebook"
 
 
             />
@@ -48,7 +49,7 @@
             android:id="@+id/instagram"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/instagram_logo"
+            android:src="@drawable/instagram"
             android:layout_marginLeft="2dp"
 
             />

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:id="@+id/ask_root"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ask_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bacground_clolor"
+    android:orientation="vertical">
+
+
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/portsaid_logo"
-
-
-
         >
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/bar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/transparent"
-            >
+            android:background="@color/transparent">
 
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -32,10 +31,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/ask_hint"
                     android:gravity="center"
-                    android:paddingRight="20dp"
+                    android:textColor="@color/white"
                     android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/ask_hint"
+
 
                     />
 
@@ -45,7 +46,6 @@
         </android.support.design.widget.AppBarLayout>
 
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ask_speakers_recycler"
             android:layout_width="match_parent"
@@ -53,14 +53,18 @@
             android:layout_below="@+id/bar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-            >
+            />
 
 
-        </android.support.v7.widget.RecyclerView>
     </android.support.design.widget.CoordinatorLayout>
 
+    <ImageView
 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/portrait_pttern"
 
-
+        />
 
 </RelativeLayout>

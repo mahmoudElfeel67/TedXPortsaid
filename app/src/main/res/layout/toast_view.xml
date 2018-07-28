@@ -22,7 +22,7 @@
         app:cardCornerRadius="25dp"
         app:cardElevation="4dp"
         android:elevation="4dp"
-        android:background="@drawable/xex"
+        app:cardBackgroundColor="@color/main_bacground_clolor"
         app:cardPreventCornerOverlap="false"
         tools:targetApi="lollipop">
 
@@ -32,9 +32,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+
 
             />
 
@@ -42,9 +43,9 @@
             android:id="@+id/exes"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:src="@drawable/xex"
+            android:src="@drawable/pattern"
             android:scaleType="centerCrop"
-            android:alpha=".50"
+            android:alpha=".20"
             />
 
 

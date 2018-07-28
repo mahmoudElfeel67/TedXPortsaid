@@ -2,73 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/lay"
-                tools:ignore="RtlHardcoded"
+    tools:ignore="RtlHardcoded"
     >
 
 
 
-    <View
-        android:id="@+id/bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/red_line"
-        android:scaleY="-1"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        />
-
-    <View
-        android:id="@+id/top_line"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/red_line"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="-60dp"
-        android:layout_marginBottom="120dp"
-        />
-
     <RelativeLayout
-        android:id="@+id/event_container"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="50dp"
-        >
+        android:layout_width="65dp"
+        android:layout_height="80dp"
+        android:id="@+id/container"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp">
 
         <View
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@drawable/white_circle"
-
-            />
-        <ImageView
-            android:id="@+id/event_time"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="2dp"
+            android:layout_height="100dp"
+            android:background="@color/red_color"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
 
 
-            />
 
-        <View
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@drawable/red_stroke"
             />
 
         <TextView
-            android:id="@+id/sch_desc"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:id="@+id/date"
+            android:textSize="15sp"
             android:gravity="center"
-            android:padding="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_red"
+            android:layout_centerVertical="true"
             />
 
 
+
+
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@color/red_color"
+        android:layout_toEndOf="@+id/container"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/container"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:paddingRight="20dp"
+        android:paddingLeft="20sp"
+        android:layout_marginStart="-5dp"
+        android:layout_marginLeft="-5dp" />
+
+
+
 
 
 </RelativeLayout>

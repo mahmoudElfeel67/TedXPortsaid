@@ -24,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class SpeakerFragment extends Fragment {
 
     public static SpeakerFragment newInstance() {
@@ -79,6 +81,7 @@ public class SpeakerFragment extends Fragment {
                     }
                     speakers = arrayList;
 
+
                     RecyclerView article_segment_recycler = root.findViewById(R.id.RecyclerSpeaker);
                     article_segment_recycler.setLayoutManager(new GridLayoutManagerEXT(getContext(), 2));
                     article_segment_recycler.setAdapter(new SpeakerAdapter((AppCompatActivity) getActivity(), arrayList));
@@ -86,6 +89,7 @@ public class SpeakerFragment extends Fragment {
                     no_data.setVisibility(View.GONE);
 
                 } else {
+                    Timber.e("DOESN EXIST");
                     no_data.setVisibility(View.VISIBLE);
                 }
 

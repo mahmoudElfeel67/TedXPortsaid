@@ -77,7 +77,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
         @BindView(R.id.article_text) TextView articleText;
         @BindView(R.id.spinner) SpinKitView spinner;
         @BindView(R.id.card) CardView cardView;
-        @BindView(R.id.shadow) View shadow;
         AsyncTask asyncTask;
 
         SingleItemRowHolder(@NonNull final View view) {
@@ -98,8 +97,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                         .iconDefaultColor(Color.WHITE)
                         .titleColor(Color.WHITE)
                         .urlColor(Color.WHITE)
-                        .statusBarColor(AppController.easyColor(mContext.get(), R.color.statusBarColor))
-                        .toolbarColor(AppController.easyColor(mContext.get(), R.color.colorAccent))
+                        .statusBarColor(AppController.easyColor(mContext.get(), R.color.main_bacground_clolor))
+                        .toolbarColor(AppController.easyColor(mContext.get(), R.color.main_bacground_clolor))
                         .show(art);
             }
         };
@@ -108,7 +107,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
         void bind() {
             art = articles.get(getAdapterPosition());
             GlideApp.with(mContext.get()).load(R.drawable.fav_ted).transition(DrawableTransitionOptions.withCrossFade(300)).into(circle_source);
-            shadow.setVisibility(View.GONE);
             spinner.setVisibility(View.VISIBLE);
             GlideApp.with(mContext.get()).clear(articleImage);
             articleText.setText("");
@@ -155,7 +153,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.SingleIt
                         GlideApp.with(mContext.get()).load(o.first).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(articleImage);
                         articleText.setText((CharSequence) o.second);
                         spinner.setVisibility(View.GONE);
-                        shadow.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

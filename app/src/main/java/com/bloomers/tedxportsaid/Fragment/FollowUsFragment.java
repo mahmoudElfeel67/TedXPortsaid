@@ -20,7 +20,7 @@ import butterknife.OnClick;
 
 public class FollowUsFragment extends Fragment {
 
-    @BindView(R.id.developer_image)  ImageView developer_image;
+    @BindView(R.id.developer_image) ImageView developer_image;
 
     public static FollowUsFragment newInstance() {
         return new FollowUsFragment();
@@ -30,16 +30,15 @@ public class FollowUsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_follow_us, container, false);
-        ButterKnife.bind(this,root);
+        ButterKnife.bind(this, root);
 
 
         return root;
     }
 
 
-
-    @OnClick({R.id.developer_image,R.id.face_book,R.id.instagram})
-    void OnClik(View view){
+    @OnClick({R.id.developer_image, R.id.face_book, R.id.instagram})
+    void OnClik(View view) {
         developer_image.animate().scaleX(0.95F).withEndAction(new Runnable() {
             @Override
             public void run() {
@@ -47,10 +46,10 @@ public class FollowUsFragment extends Fragment {
             }
         }).scaleY(0.95F).start();
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.face_book:
             case R.id.developer_image:
-                AppController.getInstance().launchFacebook(getActivity(),"page","588576854819880");
+                AppController.getInstance().launchFacebook(getActivity(), "page", "588576854819880");
                 break;
             case R.id.instagram:
                 if (AppController.getInstance().isAppInstalled("com.instagram.android", getContext())) {

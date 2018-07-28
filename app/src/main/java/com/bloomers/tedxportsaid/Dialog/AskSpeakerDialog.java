@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -65,6 +66,12 @@ public class AskSpeakerDialog extends DialogFragment {
         article_recycler.setLayoutManager(new GridLayoutManagerEXT(getContext(), 2));
         article_recycler.setAdapter(askSpeakerAdapter);
 
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
         return view;
     }

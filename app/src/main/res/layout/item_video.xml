@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:layout_marginLeft="1dp"
     android:layout_marginRight="1dp"
     android:layout_marginTop="3dp"
@@ -14,6 +14,7 @@
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@android:color/transparent"
     tools:targetApi="jelly_bean_mr1">
 
 
@@ -23,25 +24,49 @@
 
         <ImageView
             android:id="@+id/video_thumb"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
 
 
             />
 
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:background="@drawable/shadow_articles"
+
+            />
+
         <TextView
             android:id="@+id/video_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_gravity="end"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="@color/black"
-            android:layout_gravity="end"
-            android:layout_margin="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/video_thumb"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/video_thumb" />
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true" />
+
+
+
 
     </RelativeLayout>
 

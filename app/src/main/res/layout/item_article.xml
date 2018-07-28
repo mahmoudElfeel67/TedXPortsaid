@@ -9,10 +9,11 @@
     android:layout_marginLeft="1dp"
     android:layout_marginRight="1dp"
     android:layout_marginTop="3dp"
-    android:background="@color/white"
     android:minHeight="180dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="2dp"
+
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
     tools:targetApi="jelly_bean_mr1">
@@ -39,14 +40,12 @@
 
 
 
-    <View
-        android:id="@+id/shadow"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@drawable/white_grad"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:scaleY="-1"
-        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:background="@drawable/shadow_articles"
 
         />
 

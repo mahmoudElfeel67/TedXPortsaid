@@ -26,6 +26,7 @@
             fontPath="@string/smallFont"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:textColor="@color/white"
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="@string/developer"
@@ -43,7 +44,7 @@
                 android:id="@+id/face_book"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/fb_logo"
+                android:src="@drawable/facebook"
 
 
                 />
@@ -52,7 +53,7 @@
                 android:id="@+id/linked_in"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/linked_in"
+                android:src="@drawable/linkedin_logo"
 
 
                 />
@@ -71,7 +72,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-                android:src="@drawable/gmail_logo"
+                android:src="@drawable/gmail"
                 />
 
             <ImageView
@@ -80,7 +81,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
                 android:padding="2dp"
-                android:src="@drawable/googleplay_logo"
+                android:src="@drawable/google_play"
                 />
 
 

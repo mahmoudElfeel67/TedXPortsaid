@@ -1,9 +1,10 @@
 package com.bloomers.tedxportsaid.Adapter;
 
 
-import android.graphics.drawable.Drawable;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,18 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.Fragment.FormQuesionFragment;
 import com.bloomers.tedxportsaid.Model.Speaker;
 import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
-import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -64,14 +59,13 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
 
     class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.speaker_name)
-        TextView speaker_name;
 
         @BindView(R.id.speaker_image)
         ImageView speaker_image;
 
-        @BindView(R.id.shadow)
-                View shadow;
+        @BindView(R.id.fab)
+        FloatingActionButton fab;
+
 
         SingleItemRowHolder(@NonNull final View view) {
             super(view);
@@ -94,26 +88,9 @@ public class AskSpeakerAdapter extends RecyclerView.Adapter<AskSpeakerAdapter.Si
         }
 
         void bind() {
-            shadow.setVisibility(View.INVISIBLE);
-
-
+            fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ca302c")));
             Speaker speaker = arrayList.get(getAdapterPosition());
-
-            GlideApp.with(mContext.get()).load("https://firebasestorage.googleapis.com"+speaker.getProf_url()).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    if (HeavilyUsed.isContextSafe(mContext.get())){
-                        shadow.setVisibility(View.VISIBLE);
-                    }
-                    return false;
-                }
-            }).transition(DrawableTransitionOptions.withCrossFade(300)).centerCrop().into(speaker_image);
-            speaker_name.setText(speaker.getName() +" - "+speaker.getTopic());
+            GlideApp.with(mContext.get()).load("https://firebasestorage.googleapis.com"+speaker.getProf_url()).transition(DrawableTransitionOptions.withCrossFade(300)).into(speaker_image);
         }
 
     }

@@ -28,6 +28,7 @@ import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInte
 import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
 import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.EndlessOnScrollListener;
+import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
 import com.bloomers.tedxportsaid.Utitltes.other.LinearLayoutManagerEXT;
 import com.github.ybq.android.spinkit.SpinKitView;
 
@@ -47,15 +48,15 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
     public static List<YouTubeVideo> videos;
     private VideosAdapter adapter;
     public static GetChannelVideos getChannelVideos = new GetChannelVideos();
-    @BindView(R.id.refreshLayout)  SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.portsaid_vid)  TextView portsaid_vid;
-    @BindView(R.id.tedx_vid)  TextView tedx_vid;
+    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.portsaid_vid) TextView portsaid_vid;
+    @BindView(R.id.tedx_vid) TextView tedx_vid;
     private boolean searchRunning = false;
     private boolean isRefreshing = false;
     private static boolean isAtPortsiad = true;
-    @BindView(R.id.spin_kit)  SpinKitView progressBar;
-    @BindView(R.id.videosRecycler)  RecyclerView article_segment_recycler;
-   public  static final String tedxPortsaidChnnel  = "UC-4KnPMmZzwAzW7SbVATUZQ";
+    @BindView(R.id.spin_kit) SpinKitView progressBar;
+    @BindView(R.id.videosRecycler) RecyclerView article_segment_recycler;
+    public static final String tedxPortsaidChnnel = "UC36jv55EivdHUMs8uYZdRZQ";
 
     @SuppressWarnings("unchecked")
     @Override
@@ -80,7 +81,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
 
         article_segment_recycler.setAdapter(new EmptyAdapter());
 
-        if (!MainActivity.isVideos){
+        if (!MainActivity.isVideos) {
             isAtPortsiad = false;
             portsaid_vid.setVisibility(View.GONE);
             root.findViewById(R.id.seperator).setVisibility(View.GONE);
@@ -89,7 +90,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
 
 
         if (videos == null && !searchRunning) {
-            load(progressBar, article_segment_recycler, MainActivity.isVideos ? tedxPortsaidChnnel :"UCAuUUnT6oDeKwE6v1NGQxug");
+            load(progressBar, article_segment_recycler, MainActivity.isVideos ? tedxPortsaidChnnel : "UCAuUUnT6oDeKwE6v1NGQxug");
         } else {
             progressBar.setVisibility(View.GONE);
             adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
@@ -102,7 +103,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                 final int last = videos.size() - 1;
                 isRefreshing = true;
                 refreshLayout.setRefreshing(true);
-                new GetChannelVideosTask(getChannelVideos, new YouTubeChannel(isAtPortsiad ? tedxPortsaidChnnel :"UCAuUUnT6oDeKwE6v1NGQxug", "asdas"))
+                new GetChannelVideosTask(getChannelVideos, new YouTubeChannel(isAtPortsiad ? tedxPortsaidChnnel : "UCAuUUnT6oDeKwE6v1NGQxug", "asdas"))
                         .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
                             @Override
                             public void onGetVideos(List<YouTubeVideo> videos) {
@@ -126,36 +127,41 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
     }
 
     private void load(final SpinKitView progressBar, final RecyclerView article_segment_recycler, final String channel) {
-        if (AppController.getInstance().isThereInternet(getActivity())){
+        if (AppController.getInstance().isThereInternet(getActivity())) {
             searchRunning = true;
             new GetChannelVideosTask(getChannelVideos, new YouTubeChannel(channel, "asdas"))
                     .setGetChannelVideosTaskInterface(new GetChannelVideosTaskInterface() {
                         @SuppressLint("StaticFieldLeak")
                         @Override
                         public void onGetVideos(List<YouTubeVideo> videos) {
+
+                            if (!HeavilyUsed.isContextSafe(getActivity())){
+                                return;
+                            }
+
                             refreshLayout.setRefreshing(false);
                             searchRunning = false;
                             if (videos != null) {
                                 VideosFragment.videos = new ArrayList<>();
                                 VideosFragment.videos.addAll(videos);
 
-                                if (!getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved",false)){
+                                if (!getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved", false)) {
                                     new AsyncTask<Object, Object, Object>() {
                                         @Override
                                         protected Object doInBackground(Object... objects) {
                                             try {
-                                                if (channel.equals(tedxPortsaidChnnel)){
-                                                    for (YouTubeVideo tubeVideo :VideosFragment.videos){
+                                                if (channel.equals(tedxPortsaidChnnel)) {
+                                                    for (YouTubeVideo tubeVideo : VideosFragment.videos) {
                                                         try {
-                                                            YouTubeVideo.storeFilter(tubeVideo,getContext());
+                                                            YouTubeVideo.storeFilter(tubeVideo, getContext());
                                                         } catch (IOException e) {
                                                             e.printStackTrace();
                                                         }
 
                                                     }
-                                                    getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).edit().putBoolean("isSaved",true).apply();
+                                                    getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).edit().putBoolean("isSaved", true).apply();
                                                 }
-                                            }catch (Exception e){
+                                            } catch (Exception e) {
 
                                             }
                                             return null;
@@ -178,8 +184,11 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                         }
                     }).executeInParallel();
 
-        }else {
-            if (getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved",false)){
+        } else {
+            if (!HeavilyUsed.isContextSafe(getActivity())){
+                return;
+            }
+            if (getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved", false)) {
                 progressBar.setVisibility(View.GONE);
 
                 VideosFragment.videos = new ArrayList<>();
@@ -215,13 +224,13 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
         article_segment_recycler.setAdapter(null);
 
         if (isAtPortsiad) {
-            tedx_vid.setTextColor(Color.parseColor("#d6898989"));
-            portsaid_vid.setTextColor(AppController.easyColor(getContext(), R.color.black));
+            tedx_vid.setTextColor(Color.parseColor("#862f2d"));
+            portsaid_vid.setTextColor(AppController.easyColor(getContext(), R.color.red_color));
             getChannelVideos = new GetChannelVideos();
             load(progressBar, article_segment_recycler, tedxPortsaidChnnel);
         } else {
-            tedx_vid.setTextColor(AppController.easyColor(getContext(), R.color.black));
-            portsaid_vid.setTextColor(Color.parseColor("#d6898989"));
+            tedx_vid.setTextColor(AppController.easyColor(getContext(), R.color.red_color));
+            portsaid_vid.setTextColor(Color.parseColor("#862f2d"));
             getChannelVideos = new GetChannelVideos();
             load(progressBar, article_segment_recycler, "UCAuUUnT6oDeKwE6v1NGQxug");
         }

@@ -42,11 +42,11 @@ public class ScheduleFragment extends Fragment {
 
     private void change() {
         if (isAtTimeline){
-            get_there_text.setTextColor(Color.parseColor("#d6898989"));
-            schedule_text.setTextColor(AppController.easyColor(getContext(),R.color.black));
+            get_there_text.setTextColor(Color.parseColor("#862f2d"));
+            schedule_text.setTextColor(AppController.easyColor(getContext(),R.color.red_color));
         }else {
-            get_there_text.setTextColor(AppController.easyColor(getContext(),R.color.black));
-            schedule_text.setTextColor(Color.parseColor("#d6898989"));
+            get_there_text.setTextColor(AppController.easyColor(getContext(),R.color.red_color));
+            schedule_text.setTextColor(Color.parseColor("#862f2d"));
         }
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.setCustomAnimations(R.anim.fade_in,

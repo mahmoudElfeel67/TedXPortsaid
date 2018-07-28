@@ -49,6 +49,7 @@
             android:name=".Activity.MainActivity"
             android:theme="@style/noFullScreen"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="fullUser"
             >
 
         </activity>

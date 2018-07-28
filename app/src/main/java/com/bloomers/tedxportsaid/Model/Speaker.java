@@ -10,7 +10,7 @@ public class Speaker {
     private String name;
     private String topic;
 
-    public Speaker(){
+    public Speaker() {
 
     }
 
@@ -30,7 +30,7 @@ public class Speaker {
         return prof_url;
     }
 
-    public Speaker( String name, String topic,String description, String prof_url) {
+    public Speaker(String name, String topic, String description, String prof_url) {
         this.description = description;
         this.prof_url = prof_url;
         this.name = name;

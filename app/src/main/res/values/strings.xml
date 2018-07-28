@@ -8,8 +8,8 @@
     <string name="developer">App developed by Mahmoud Elfeel</string>
     <string name="Schedule">Schedule</string>
     <string name="how_to_get_there">Directions</string>
-    <string name="ask_hint">Ask the upcoming speakers for a chance to answer your question live !</string>
-    <string name="form_que_gint">Keep question in speaker session topic</string>
+    <string name="ask_hint">Ask the upcoming speakers for a chance to answer your question in a back-stage video !</string>
+    <string name="form_que_gint">Please Keep Question In Speaker\'s Specialty</string>
     <string name="form_edit_text_hint">Write question here…</string>
     <string name="ask">Ask</string>
     <string name="smallFont">Cairo-Light.ttf</string>
@@ -22,7 +22,6 @@
     <string name="watch">Watch</string>
     <string name="no_videos_randomize">No videos to choose from please check internet connection</string>
     <string name="no_articles_randomize">no articles to choose from please check internet connection</string>
-    <string name="careem_code_copied">careem\'s voucher code Copied!</string>
     <string name="articles">Articles</string>
     <string name="videos">Videos</string>
     <string name="speakers">Speakers</string>
@@ -42,4 +41,13 @@
     <string name="hour_ext">h</string>
     <string name="minute_ext">m</string>
     <string name="second_ext">s</string>
+    <string name="tedx_event">TEDxPortSaid Event</string>
+    <string name="wite_quesition">Please Write a Question first !</string>
+    <string name="no_intenret_form">No Internet connection please check and try again</string>
+    <string name="qusetion_sent">Your question has been sent to TEDxPortSaid Team !</string>
+    <string name="finish">Finish</string>
+    <string name="schedule_desc">Know all about the event exact timeline</string>
+    <string name="schedule_speakers">Explore the event\'s speakers and ask them for a chance to get your question answered !</string>
+    <string name="schedule_videos">Watch TED and TEDxPortSaid videos once they get updated !</string>
+    <string name="getThereDesc">TEDxPortSaid Event will take place at The Culture Entertainment Center in Port Said on the 3rd of August, 2018</string>
 </resources>

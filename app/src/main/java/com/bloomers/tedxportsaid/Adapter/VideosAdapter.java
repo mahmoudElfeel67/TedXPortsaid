@@ -62,6 +62,7 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
 
 
         @BindView(R.id.video_title) TextView video_title;
+        @BindView(R.id.duration) TextView duration;
         @BindView(R.id.video_thumb) ImageView video_thumb;
         @BindView(R.id.card) CardView card;
 
@@ -88,6 +89,7 @@ public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleIte
 
         void bind() {
             video_title.setText(videos.get(getAdapterPosition()).getTitle());
+            duration.setText(videos.get(getAdapterPosition()).getDuration());
             GlideApp.with(mContext.get()).load(videos.get(getAdapterPosition()).getThumbnailUrl()).transition(DrawableTransitionOptions.withCrossFade(300)).into(video_thumb);
         }
 

@@ -4,7 +4,7 @@
                 android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-                android:background="@color/frag_background"
+                android:background="@color/main_bacground_clolor"
     >
 
 
@@ -17,6 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:gravity="center"
+        android:textColor="@color/white"
         android:text="@string/form_que_gint"
 
         />
@@ -33,7 +34,10 @@
         android:hint="@string/form_edit_text_hint"
         android:background="@drawable/gradient_stroke"
         android:textSize="14sp"
-        android:inputType="text"/>
+        android:maxLength="150"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        />
 
 
 
@@ -57,5 +61,14 @@
 
             tools:targetApi="lollipop"/>
     </FrameLayout>
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/portrait_pttern"
+
+        />
 
 </RelativeLayout>

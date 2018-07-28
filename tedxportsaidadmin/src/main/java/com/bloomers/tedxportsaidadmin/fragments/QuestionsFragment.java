@@ -1,14 +1,16 @@
 package com.bloomers.tedxportsaidadmin.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,8 +34,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,6 +46,10 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
     String parent;
     QuestionsAdapter questionsAdapter;
     Button save;
+    Button number;
+    Button name;
+    private boolean saveEqt = false;
+
 
     public static QuestionsFragment newInstance(String parent) {
         QuestionsFragment questionsFragment = new QuestionsFragment();
@@ -56,7 +64,8 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         root = inflater.inflate(R.layout.fragment_questions, container, false);
-
+        number = root.findViewById(R.id.number);
+        name = root.findViewById(R.id.name);
         final RecyclerView questions_recycler = root.findViewById(R.id.questions_recycler);
 
         questions_recycler.setLayoutManager(new LinearLayoutManagerEXT(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -64,12 +73,15 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                DataSnapshot snapshot = dataSnapshot.child(parent);
+                DataSnapshot snapshot = dataSnapshot.child(parent.replace(".",""));
 
                 for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
                     quesitions.add(new question(dataSnapshot1.getKey(), (String) dataSnapshot1.getValue()));
 
                 }
+
+                number.setText(String.valueOf(quesitions.size()) + " Questions");
+                name.setText(parent);
 
                 questions_recycler.setItemAnimator(new DefaultItemAnimator());
                 questionsAdapter = new QuestionsAdapter(getActivity(), quesitions);
@@ -78,7 +90,7 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
                 new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(questions_recycler);
 
 
-                if (!dataSnapshot.hasChild(parent)) {
+                if (!dataSnapshot.hasChild(parent.replace(".",""))) {
                     root.findViewById(R.id.no_data).setVisibility(View.VISIBLE);
                 }
 
@@ -104,29 +116,26 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
             }
         });
 
+        root.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+
         return root;
     }
 
     private void saveNow() {
-        if (quesitions.size()==0){
+        if (quesitions.size() == 0) {
             MainActivity.showCustomToast(getActivity(), "No Questions To save !", null, false);
-        }else {
-            StringBuilder data = new StringBuilder();
-
-            for (int i = 0; i < quesitions.size(); i++) {
-                data.append(formQuestion(quesitions.get(i).getQuestion(), i));
-            }
-
-            try {
-                writeToFile(data.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } else {
+            writeToFile();
         }
     }
 
 
-    public static boolean isStoragePermissionGranted(@NonNull Activity context, int permissionNum) {
+    public boolean isStoragePermissionGranted(@NonNull Activity context, int permissionNum) {
         if (Build.VERSION.SDK_INT >= 23) {
             if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -134,7 +143,7 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
             } else {
 
                 if (permissionNum != 55154) {
-                    ActivityCompat.requestPermissions(context, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, permissionNum);
+                    requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, permissionNum);
 
                 }
                 return false;
@@ -145,33 +154,62 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
 
         }
     }
-
     private String formQuestion(String question, int postion) {
         return postion + ".   " + question;
     }
 
 
-    private void writeToFile(String data) throws IOException {
-        FileOutputStream fileOutputStream = null;
+    private void writeToFile() {
         try {
             String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TEDxQuestions";
-            if (!new File(file_path).exists()){
+            if (!new File(file_path).exists()) {
                 new File(file_path).mkdir();
             }
-            fileOutputStream = new FileOutputStream(new File( file_path,parent + " " + "Questions" + ".txt"));
-            fileOutputStream.write(data.getBytes());
+            File save = new File(file_path, parent + " " + "Questions" + ".doc");
+
+            FileWriter fileWriter = new FileWriter(save);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+
+            for (int i = 0; i < quesitions.size(); i++) {
+                bufferedWriter.newLine();
+                bufferedWriter.write(formQuestion(quesitions.get(i).getQuestion(), i));
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+
+
+            scanFile(getContext(),save);
 
             MainActivity.showCustomToast(getActivity(), "Questions Saved please check TEDxQuestions folder", null, true);
         } catch (IOException e) {
 
             MainActivity.showCustomToast(getActivity(), "Questions Save failed", null, false);
             Log.e("Exception", "File write failed: " + e.toString());
-        }finally {
-            if(fileOutputStream!=null){
-                fileOutputStream.close();
-            }
+        } finally {
+
         }
     }
+
+
+    public void scanFile(Context context, File f) {
+        Uri contentUri = Uri.fromFile(f);
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(contentUri);
+        context.sendBroadcast(mediaScanIntent);
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (saveEqt) {
+            saveEqt = false;
+            saveNow();
+        }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -179,8 +217,7 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
 
         if (grantResults.length > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                saveNow();
-
+                saveEqt = true;
 
             } else {
                 MainActivity.showCustomToast(getActivity(), "Please accept permissions", null, false);

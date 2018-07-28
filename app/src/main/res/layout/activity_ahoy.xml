@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/parent_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                tools:context=".CustomView.onboarder.AhoyOnboarderActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bacground_clolor"
+    tools:context=".CustomView.onboarder.AhoyOnboarderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,29 +17,28 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="55"
-            >
+            android:layout_weight="55">
 
 
             <ImageView
                 android:id="@+id/background_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:ignore="ContentDescription"
-                android:src="@drawable/rectangle_half_circle"
                 android:layout_marginBottom="70dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rectangle_half_circle"
+                tools:ignore="ContentDescription"
 
 
                 />
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:layout_marginRight="-5dp"
-                android:layout_marginLeft="-5dp"
-                android:background="@drawable/circle_red"
                 android:layout_alignParentBottom="true"
-
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="-5dp"
+                android:background="@drawable/main_color_circle"
 
 
                 />
@@ -48,9 +47,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                tools:ignore="ContentDescription"
-                android:src="@drawable/xex"
+                android:src="@drawable/portrait_pttern"
                 android:tint="@color/white"
+                tools:ignore="ContentDescription"
+
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/portrait_pttern"
+                android:tint="@color/white"
+                tools:ignore="ContentDescription"
 
                 />
 
@@ -61,9 +69,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="25"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
-            android:layout_weight="25"
 
 
             />
@@ -83,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:id="@+id/btn_skip"
@@ -91,11 +99,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/rounded_button"
+            android:elevation="3dp"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:elevation="3dp"
             android:visibility="gone"
-            tools:targetApi="lollipop"/>
+            tools:targetApi="lollipop" />
 
         <FrameLayout
             android:id="@+id/navigation_layout"
@@ -112,7 +120,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="start"
                 android:src="@drawable/previous"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/ivNext"
@@ -120,7 +128,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:src="@drawable/next"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription" />
 
         </FrameLayout>
 
@@ -137,6 +145,6 @@
         android:overScrollMode="never"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:paddingTop="20dp"/>
+        android:paddingTop="20dp" />
 
 </RelativeLayout>

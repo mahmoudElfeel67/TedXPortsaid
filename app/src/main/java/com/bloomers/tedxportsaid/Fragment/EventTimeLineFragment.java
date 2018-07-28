@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -77,7 +76,7 @@ public class EventTimeLineFragment extends Fragment {
 
                     RecyclerView article_segment_recycler = root.findViewById(R.id.schedle_recycler);
                     article_segment_recycler.setLayoutManager(new LinearLayoutManagerEXT(getContext(), LinearLayoutManager.VERTICAL, false));
-                    article_segment_recycler.setAdapter(new ScheduleAdapter((AppCompatActivity) getActivity(), arrayList));
+                    article_segment_recycler.setAdapter(new ScheduleAdapter(arrayList));
                     swipeRefreshLayout.setRefreshing(false);
                     no_data.setVisibility(View.GONE);
                 } else {

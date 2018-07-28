@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
@@ -229,6 +230,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         tab.setBackground(null);
         tab.setClickable(false);
         tab.setEnabled(false);
+        tab.setColorFilter(Color.parseColor("#ca302c"), PorterDuff.Mode.SRC_ATOP);
         linearLayout.addView(tab);
 
 
@@ -236,7 +238,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ints.dp2px(20,getContext())));
         textView.setText(s);
         linearLayout.addView(textView);
-        textView.setTextColor(Color.parseColor("#e5585858"));
+        textView.setTextColor(Color.parseColor("#ca302c"));
         textView.setTextSize(10);
         textView.setGravity(Gravity.CENTER);
         textView.setClickable(false);

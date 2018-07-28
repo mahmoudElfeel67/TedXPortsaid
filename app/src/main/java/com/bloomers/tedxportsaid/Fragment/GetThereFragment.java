@@ -1,13 +1,13 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bloomers.tedxportsaid.Model.Coordinates;
 import com.bloomers.tedxportsaid.R;
@@ -19,6 +19,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +43,6 @@ public class GetThereFragment extends Fragment {
 
         mMapView = root.findViewById(R.id.map_view);
 
-        final TextView getThereDesc =root.findViewById(R.id.get_there_desc);
 
         mMapView.onCreate(savedInstanceState);
 
@@ -66,8 +66,21 @@ public class GetThereFragment extends Fragment {
                                 public void onMapReady(GoogleMap mMap) {
                                     googleMap = mMap;
 
+                                    try {
+                                        // Customise the styling of the base map using a JSON object defined
+                                        // in a raw resource file.
+                                        boolean success = googleMap.setMapStyle(
+                                                MapStyleOptions.loadRawResourceStyle(
+                                                        GetThereFragment.this.getContext(), R.raw.map));
+
+
+                                    } catch (Resources.NotFoundException e) {
+                                    }
+
+
+
                                     LatLng venue = new LatLng(coordinates.getLat(), coordinates.getLongd());
-                                    googleMap.addMarker(new MarkerOptions().position(venue).title("إيفينت تيدكس"));
+                                    googleMap.addMarker(new MarkerOptions().position(venue).title(getString(R.string.tedx_event)));
 
                                     CameraPosition cameraPosition = new CameraPosition.Builder().target(venue).zoom(15).build();
                                     googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -91,18 +104,6 @@ public class GetThereFragment extends Fragment {
 
 
 
-
-
-        FirebaseDatabase.getInstance().getReference().child("getThereDesc").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    getThereDesc.setText((CharSequence) dataSnapshot.getValue());
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
 
         return root;
     }

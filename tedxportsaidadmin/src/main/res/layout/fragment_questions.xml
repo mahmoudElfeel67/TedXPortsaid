@@ -8,6 +8,42 @@
     <include layout="@layout/no_data" />
 
 
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="10dp"
+       android:gravity="center"
+       >
+
+       <Button
+           android:id="@+id/name"
+           android:layout_width="wrap_content"
+           android:layout_height="50dp"
+           android:gravity="center"
+           android:background="@drawable/gradient_btn_main"
+           android:textColor="@color/white"
+           android:paddingRight="20dp"
+           android:paddingLeft="20dp"
+
+           />
+
+       <Button
+           android:id="@+id/number"
+           android:layout_width="wrap_content"
+           android:layout_height="50dp"
+           android:gravity="center"
+           android:background="@drawable/gradient_btn_main"
+           android:layout_marginStart="@dimen/padd_10"
+           android:textColor="@color/white"
+           android:paddingRight="20dp"
+           android:paddingLeft="20dp"
+
+           />
+   </LinearLayout>
+
+
+
+
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"
@@ -19,7 +55,6 @@
 
 
     <View
-        android:id="@+id/seperator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="10dp"
