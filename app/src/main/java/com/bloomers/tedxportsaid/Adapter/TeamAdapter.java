@@ -64,10 +64,10 @@ public class TeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             // first three items span 3 columns each
             case 0:
             case 8:
-            case 21:
-            case 29:
-            case 40:
-            case 49:
+            case 22:
+            case 30:
+            case 41:
+            case 50:
                 return 50;
         }
         return super.getItemViewType(position);
@@ -131,16 +131,16 @@ public class TeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 case 8:
                     team_major.setText("MARKETING & MEDIA");
                     break;
-                case 21:
+                case 22:
                     team_major.setText("TALKS".toUpperCase());
                     break;
-                case 29:
+                case 30:
                     team_major.setText("Logistics".toUpperCase());
                     break;
-                case 40:
+                case 41:
                     team_major.setText("HR".toUpperCase());
                     break;
-                case 49:
+                case 50:
                     team_major.setText("FR".toUpperCase());
                     break;
             }

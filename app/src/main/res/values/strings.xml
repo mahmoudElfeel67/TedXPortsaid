@@ -50,4 +50,5 @@
     <string name="schedule_speakers">Explore the event\'s speakers and ask them for a chance to get your question answered !</string>
     <string name="schedule_videos">Watch TED and TEDxPortSaid videos once they get updated !</string>
     <string name="getThereDesc">TEDxPortSaid Event will take place at The Culture Entertainment Center in Port Said on the 3rd of August, 2018</string>
+    <string name="full_question">Please write a full question</string>
 </resources>

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <ImageView
 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/portrait_pttern"
 
+        />
 
     <LinearLayout
         android:id="@+id/text_cont"
@@ -25,17 +31,8 @@
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/red_color"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
 
-        <View
-            android:id="@+id/seperator"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="3dp"
-            android:background="#d6898989"
-            />
 
         <TextView
             android:id="@+id/tedx_vid"
@@ -45,20 +42,17 @@
             android:gravity="center"
             android:text="@string/tedx_vid"
             android:textColor="@color/red_color"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
 
 
     </LinearLayout>
 
 
-
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
-        android:layout_below="@+id/text_cont"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/text_cont">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/videosRecycler"
@@ -69,13 +63,12 @@
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.github.ybq.android.spinkit.SpinKitView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/spin_kit"
         style="@style/SpinKitView.Large.CubeGrid"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
-        app:SpinKit_Color="@color/colorAccent"/>
+        app:SpinKit_Color="@color/colorAccent" />
 
 </RelativeLayout>

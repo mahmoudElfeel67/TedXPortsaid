@@ -62,7 +62,10 @@ public class SpeakerAdapter extends RecyclerView.Adapter<SpeakerAdapter.SingleIt
 
         @OnClick(R.id.speaker_image)
         public void onClick() {
-            HeavilyUsed.callSaveDialog(mContext.get(), SpeakerDescription.newInstance(arrayList.get(getAdapterPosition())), null);
+            if (arrayList.get(getAdapterPosition())!=null){
+                HeavilyUsed.callSaveDialog(mContext.get(), SpeakerDescription.newInstance(arrayList.get(getAdapterPosition())), null);
+
+            }
         }
 
         void bind() {

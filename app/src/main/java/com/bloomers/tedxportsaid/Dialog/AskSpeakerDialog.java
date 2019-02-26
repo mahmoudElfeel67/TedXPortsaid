@@ -26,7 +26,7 @@ public class AskSpeakerDialog extends DialogFragment {
 
     public static AskSpeakerDialog newInstance(ArrayList<Speaker> speaker){
         AskSpeakerDialog askSpeakerDialog = new AskSpeakerDialog();
-        askSpeakerDialog.speakers = speaker;
+        askSpeakerDialog.speakers = new ArrayList<>(speaker);
         return askSpeakerDialog;
     }
 

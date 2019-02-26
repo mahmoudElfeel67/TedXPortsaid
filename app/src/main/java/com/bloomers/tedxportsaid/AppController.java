@@ -76,6 +76,8 @@ public class AppController extends MultiDexApplication {
 
         Timber.plant(new Timber.DebugTree());
         Base.initialize(getApplicationContext());
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().getReference().keepSynced(true);
 
     }
 
@@ -135,8 +137,7 @@ public class AppController extends MultiDexApplication {
 
         if (!othersImplemented) {
             othersImplemented = true;
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            FirebaseDatabase.getInstance().getReference().keepSynced(true);
+
             SharedPreferences sharedPrefereces = activity.getSharedPreferences("TEDX", MODE_PRIVATE);
             sharedPrefereces.edit().putInt("times_opened", sharedPrefereces.getInt("times_opened", 0) + 1).apply();
 

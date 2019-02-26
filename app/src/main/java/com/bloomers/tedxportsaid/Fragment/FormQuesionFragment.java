@@ -50,6 +50,9 @@ public class FormQuesionFragment extends Fragment {
                 } else if (!AppController.getInstance().isThereInternet(getActivity())) {
                     MainActivity.showCustomToast(getActivity(), getString(R.string.no_intenret_form), ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
                     return;
+                }else if (editText.getText().toString().length() < 7){
+                    MainActivity.showCustomToast(getActivity(), getString(R.string.full_question), ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
+                    return;
                 }
 
                 String key = FirebaseDatabase.getInstance().getReference().child("speaker_questions").push().getKey();
@@ -62,6 +65,7 @@ public class FormQuesionFragment extends Fragment {
                     public void onSuccess(Void aVoid) {
                         AppController.getInstance().removeLoadingScreen(getActivity(), ((ViewGroup) root.findViewById(R.id.toast_lay)));
                         MainActivity.showCustomToast(getActivity(), getString(R.string.qusetion_sent), ((ViewGroup) root.findViewById(R.id.toast_lay)), true);
+                        editText.setText("");
 
                     }
                 });

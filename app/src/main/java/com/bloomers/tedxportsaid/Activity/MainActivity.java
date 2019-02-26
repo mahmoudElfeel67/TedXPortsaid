@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.team_bg) ImageView team_bg;
     @BindView(R.id.team_image) ImageView team_image;
     @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.team_info) TextView team_info;
     @BindView(R.id.display_container) LinearLayout display_container;
     @BindView(R.id.count_down) CountDownView countDownView;
     private int[] originalPos;
@@ -220,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot != null && dataSnapshot.exists()) {
                         isVideos = (boolean) dataSnapshot.getValue();
                     }
-
                     setViewPagerAdapter();
 
                 }
@@ -287,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseDatabase.getInstance().getReference().child("event_date").addListenerForSingleValueEvent(new ValueEventListener() {
+        /*FirebaseDatabase.getInstance().getReference().child("event_date").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null && dataSnapshot.exists()) {
@@ -299,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
                     if (System.currentTimeMillis() > c2.getTimeInMillis()) {
                         countDownView.setStartDuration(eventTime(eventDate));
                         countDownView.start();
+
                         countDownView.setVisibility(View.VISIBLE);
 
 
@@ -324,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         display_container.setPivotX(0);
         display_container.setPivotY(0);
@@ -427,9 +426,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 2:
-                        fab.setVisibility(View.VISIBLE);
-                        fab.animate().scaleX(1).scaleY(1).setInterpolator(new FastOutSlowInInterpolator()).start();
-                        fab.setImageResource(R.drawable.ask);
+                        fab.animate().scaleX(0).scaleY(0).withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                fab.setVisibility(View.GONE);
+                            }
+                        }).setInterpolator(new FastOutSlowInInterpolator()).start();
                         break;
                     case 3:
                         fab.animate().scaleX(0).scaleY(0).withEndAction(new Runnable() {
@@ -457,6 +459,9 @@ public class MainActivity extends AppCompatActivity {
             pager.setCurrentItem(fragmentArrayList.size() - 1);
         }
         tab.setViewPager(pager);
+
+
+
     }
 
     /*private void creatMemebers() {
@@ -500,53 +505,67 @@ public class MainActivity extends AppCompatActivity {
         createMember(19,"Ziad ElMahlawy", marketingMember, "“If you’re not making someone else’s life better, than you are wasting your time. Your life will become better by making other people’s lives better.” – Will Smith\n" +
                 "I am a marketing-passionate who has a marketing agency I developed myself from online and self learning, I began with TED talks and other educational sites so I have a big loyality to TED.\n" +
                 "As a result my dream was shaped to join TEDx team and help to spread main purpose of TED.", R.raw.ziadelmahlawy);
-
+        createMember(20,"Aalaa Elsayed", "Marketing Member", "A believer.. she‘s unlimited dreamer!\n" +
+                "\n" +
+                "Believe that you should be the chance you need to see in the world!\n" +
+                "\n" +
+                "Dreaming of deliver an useful message and put her fingerprint into the world!\n" +
+                "\n" +
+                "Believe in women impoverishment and dream of world peace!\n" +
+                "\n" +
+                "Joined Inspire women , E-Youth and MOIC at 2014-2015 to be a part of her world and community improvements, she feels it’s one of her personal responsibilities!\n" +
+                "\n" +
+                "Graduated from Languages and Translation Field and studied on many life-full fields as Decouration and free writing! \n" +
+                "Interesting on Traveling and reading and Violin ..\n" +
+                "\n" +
+                "Why TEDx?!\n" +
+                "Cause she’s simply believe that Everyone is fighting a battle, Every one has a great story to be told !", R.raw.alaa_elsayed);
 
 
         //TALKS 21
-        createMember(20,"Shahdenda Shalaby", talksMember, "Moved from working in a Multi International Co. to Banking field with a Diploma in Art and Science of Neuro Linguistic Programming, INLPTA IN, March 2018. \n" +
+        createMember(21,"Shahdenda Shalaby", talksMember, "Moved from working in a Multi International Co. to Banking field with a Diploma in Art and Science of Neuro Linguistic Programming, INLPTA IN, March 2018. \n" +
                 "A Certified Life Coach/ NLP Practitioner, INLPTA to be in December, 2018.\n" +
                 "Passionate about human development & self actualization, Aspiring to be a motivational speaker and a writer raising human awareness and consciousness and empowering one another to prosper & evolve.", R.raw.shanhndashalaby);
-        createMember(21,"ZENA SAMY", talksMember, "20 years old, interested in humans right, gender equality and giving session about women empowerment and how to defend herself against harassment and rape.", R.raw.zenasamy);
-        createMember(22,"NOURAN ABu ELGOUD", talksMember, "Senior student in the Faculty of Pharmacy. joined development organizations since 2013, and she is the president of AYB-PSU franchise. She also participated in the student union of Port Said University.", R.raw.nouranabuelgoud);
-        createMember(23,"REEM GABR", talksMember, "A 21 years old woman that want to put her fingerprint in the world. She studies English and had 2 different job experiences as a teacher and a sales representative. She Volunteered as a committee head at Interact Club. She has a passion towards writing and learning. Interested in nature and in increasing the sense of humanity.", R.raw.reemgabr);
-        createMember(24,"MOHANAD AHMED", talksMember, "A pharmaceutical student, a volunteer in tactic club and AIESEC. He believes in volunteer work because helping people makes life full of experience, as our existence on earth is very short, so make it worth.", R.raw.mohanedahmed);
-        createMember(25,"ARWA ELGHADBAN", talksMember, "Strongly believe in TEDx not only because it has the power to add to personal lives, but to gather the people around various ideas that are discussed, shared and thought of openly. I believe in this process’s ability to create a powerful societal base essential for social change.", R.raw.arwaelghadban);
-        createMember(26,"Salama SHAAban", talksMember, "24 years old. She studied Business Administration at Faculty of Commerce - English section and started her career in First Abu Dhabi bank. She's a former member of AIESEC and joined TEDx because of her passion in the volunteer field. She has experience in event organization and interested in Violin, Modern Arts and Design", R.raw.salmashaban);
+        createMember(22,"ZENA SAMY", talksMember, "20 years old, interested in humans right, gender equality and giving session about women empowerment and how to defend herself against harassment and rape.", R.raw.zenasamy);
+        createMember(23,"NOURAN ABu ELGOUD", talksMember, "Senior student in the Faculty of Pharmacy. joined development organizations since 2013, and she is the president of AYB-PSU franchise. She also participated in the student union of Port Said University.", R.raw.nouranabuelgoud);
+        createMember(24,"REEM GABR", talksMember, "A 21 years old woman that want to put her fingerprint in the world. She studies English and had 2 different job experiences as a teacher and a sales representative. She Volunteered as a committee head at Interact Club. She has a passion towards writing and learning. Interested in nature and in increasing the sense of humanity.", R.raw.reemgabr);
+        createMember(25,"MOHANAD AHMED", talksMember, "A pharmaceutical student, a volunteer in tactic club and AIESEC. He believes in volunteer work because helping people makes life full of experience, as our existence on earth is very short, so make it worth.", R.raw.mohanedahmed);
+        createMember(26,"ARWA ELGHADBAN", talksMember, "Strongly believe in TEDx not only because it has the power to add to personal lives, but to gather the people around various ideas that are discussed, shared and thought of openly. I believe in this process’s ability to create a powerful societal base essential for social change.", R.raw.arwaelghadban);
+        createMember(27,"Salama SHAAban", talksMember, "24 years old. She studied Business Administration at Faculty of Commerce - English section and started her career in First Abu Dhabi bank. She's a former member of AIESEC and joined TEDx because of her passion in the volunteer field. She has experience in event organization and interested in Violin, Modern Arts and Design", R.raw.salmashaban);
 
 
         //Logistics 30
-        createMember(27,"OMNIA GABR", "Logistics Head", "I have joined TEDx 5 years ago and from that day my mindset had been totally changed. I realized the possibility of changing the world with few words but it’s mandatory to have faith in what you are doing.", R.raw.omniagabr);
-        createMember(28,"HADEER OSAMA", "Logistics Vice Head", "Joined TEDx in 2012. I believe that each one has a great story to tell, to listen to and to learn from, because we don’t have the ability to live everyone’s experience but we can learn from them by listening to their stories. ", R.raw.hadeerosama);
-        createMember(29,"Menna Dorgham", logisticsMember, "21 years old, an arabic calligrapher and arabesque artist. I believe in the power of the word and its impact", R.raw.mennadorgham);
-        createMember(30,"Abd Elrahman", logisticsMember, "23 years old, I graduated from Faculty of Commerce - English section - Accounting department in 2016. I work as a project coordinator at Berlitz company.", R.raw.abdelrahman);
-        createMember(31,"Doaa hassan", logisticsMember, "I’m working in Unifreight global logistics forwarding agency as operation and documentation team leader. I like sharing experience with my colleagues and interested in gaining more information about science, business and global issues.", R.raw.doaahassan);
-        createMember(32,"Noha Gamal", logisticsMember, "20 years old. Student at Faculty Of Arts - English Department. and a former member of Student Union.", R.raw.nohagamal);
-        createMember(33,"NADA ELTRBily", logisticsMember, "24 years old, she works as a medical representative. Since 2012, she has participated in many volunteer and developmental organizations, have learned a lot and gained much experience.", R.raw.nadaeltrbily);
-        createMember(34,"Mohamed Hassabala", logisticsMember, "21 years old. I have worked in Alkoshk Bookstore for 6 months.", R.raw.mohamedhassbala);
-        createMember(35,"Nadeen m elsbaa", logisticsMember, "A senior medical student. My hobbies are drawing and crafting. I've volunteered in different fields and organizations.", R.raw.naddenelsabaa);
-        createMember(36,"Ezz eissia", logisticsMember, "20 years old, studying Petroleum at T.A.S school.\n" +
+        createMember(28,"OMNIA GABR", "Logistics Head", "I have joined TEDx 5 years ago and from that day my mindset had been totally changed. I realized the possibility of changing the world with few words but it’s mandatory to have faith in what you are doing.", R.raw.omniagabr);
+        createMember(29,"HADEER OSAMA", "Logistics Vice Head", "Joined TEDx in 2012. I believe that each one has a great story to tell, to listen to and to learn from, because we don’t have the ability to live everyone’s experience but we can learn from them by listening to their stories. ", R.raw.hadeerosama);
+        createMember(30,"Menna Dorgham", logisticsMember, "21 years old, an arabic calligrapher and arabesque artist. I believe in the power of the word and its impact", R.raw.mennadorgham);
+        createMember(31,"Abd Elrahman", logisticsMember, "23 years old, I graduated from Faculty of Commerce - English section - Accounting department in 2016. I work as a project coordinator at Berlitz company.", R.raw.abdelrahman);
+        createMember(32,"Doaa hassan", logisticsMember, "I’m working in Unifreight global logistics forwarding agency as operation and documentation team leader. I like sharing experience with my colleagues and interested in gaining more information about science, business and global issues.", R.raw.doaahassan);
+        createMember(33,"Noha Gamal", logisticsMember, "20 years old. Student at Faculty Of Arts - English Department. and a former member of Student Union.", R.raw.nohagamal);
+        createMember(34,"NADA ELTRBily", logisticsMember, "24 years old, she works as a medical representative. Since 2012, she has participated in many volunteer and developmental organizations, have learned a lot and gained much experience.", R.raw.nadaeltrbily);
+        createMember(35,"Mohamed Hassabala", logisticsMember, "21 years old. I have worked in Alkoshk Bookstore for 6 months.", R.raw.mohamedhassbala);
+        createMember(36,"Nadeen m elsbaa", logisticsMember, "A senior medical student. My hobbies are drawing and crafting. I've volunteered in different fields and organizations.", R.raw.naddenelsabaa);
+        createMember(37,"Ezz eissia", logisticsMember, "20 years old, studying Petroleum at T.A.S school.\n" +
                 "I've spent the last 3 years in volunteer work and gained a lot of experience. My ultimate ambition is to Leave my name with a big impact.", R.raw.ezzeissa);
 
 
         //HR 40
-        createMember(37,"Rana Maher Lamiey", hrMember, "25 years old, I Graduated from Faculty of Science. Volunteer work allow me to discover my capabilities. I believe in the power of word, a simple word can change people's lives, that's why I joined TEDx.", R.raw.ranamaherlamiey);
-        createMember(38,"Shrouk Ayman", hrMember, "21 years old, she's studying Business Administration at Faculty of Commerce - English section. She has worked in HR field in different multinational companies and also in volunteer work.", R.raw.shroukaymman);
-        createMember(39,"Alaa Naguib", hrMember, "", R.raw.alaanaguib);
-        createMember(40,"Rovan Adel", hrMember, "A student at faculty of commerce English section. I am a very ambitious, competetive and enthusiastic. I am interested in self learning\n" +
+        createMember(38,"Rana Maher Lamiey", hrMember, "25 years old, I Graduated from Faculty of Science. Volunteer work allow me to discover my capabilities. I believe in the power of word, a simple word can change people's lives, that's why I joined TEDx.", R.raw.ranamaherlamiey);
+        createMember(39,"Shrouk Ayman", hrMember, "21 years old, she's studying Business Administration at Faculty of Commerce - English section. She has worked in HR field in different multinational companies and also in volunteer work.", R.raw.shroukaymman);
+        createMember(40,"Alaa Naguib", hrMember, "", R.raw.alaanaguib);
+        createMember(41,"Rovan Adel", hrMember, "A student at faculty of commerce English section. I am a very ambitious, competetive and enthusiastic. I am interested in self learning\n" +
                 "I am proud to be involved in such entity that aims to exchange successful ideas.", R.raw.rovanadel);
-        createMember(41,"NADA HASSAN", hrMember, "22 years old, she studies pharmacy, Believing that the best way of learning is hand-on experience, she started to work as a pharmacist and train at pharmaceutical companies.", R.raw.nadahassan);
-        createMember(42,"Ahmed adel", hrMember, "A mechanical engineer with background in science, researches, rockets and plane engines. And he dreams of working at NASA.", R.raw.ahmedadel);
-        createMember(43,"REEM MEDHAT", hrMember, "18 year-old dreamer, and an Engineering student. She loves science and reading especially inspirational books.", R.raw.reemmehat);
-        createMember(44,"Shahd Mohamed Belal",hrMember,"I’m 20 years old. This will be the first time to working in a team. I hope to do my best to depvelop my self and to be a member of this great organization",R.raw.shadbelalelwehidy);
+        createMember(42,"NADA HASSAN", hrMember, "22 years old, she studies pharmacy, Believing that the best way of learning is hand-on experience, she started to work as a pharmacist and train at pharmaceutical companies.", R.raw.nadahassan);
+        createMember(43,"Ahmed adel", hrMember, "A mechanical engineer with background in science, researches, rockets and plane engines. And he dreams of working at NASA.", R.raw.ahmedadel);
+        createMember(44,"REEM MEDHAT", hrMember, "18 year-old dreamer, and an Engineering student. She loves science and reading especially inspirational books.", R.raw.reemmehat);
+        createMember(45,"Shahd Mohamed Belal",hrMember,"I’m 20 years old. This will be the first time to working in a team. I hope to do my best to depvelop my self and to be a member of this great organization",R.raw.shadbelalelwehidy);
 
         //FR 49
-        createMember(45,"Shoroq Shams", frmember, "A fresh graduate accountant from faculty of Commerce, English section.I believe in volunteer work so I have 4 years Experience of volunteering activities , Strongly believe in TEDx cause it adds a lot to people's lives", R.raw.shoroqshams);
-        createMember(46,"Menna Badreya", frmember, "A senior at faculty of Arts, English department. I mostly care about family, friends and starving for excellence. My motto is \"only the strongest will survive\" I'm interested in marketing, sales and anything related to business. I love learning languages and hope to travel abroad.", R.raw.mennabadreya);
-        createMember(47,"Gamal Maged", frmember, "An ambitious business student who has been looking to improving himself for three years by working in FR teams and NGOs. Also interested in photography and playing the guitar\n" +
+        createMember(46,"Shoroq Shams", frmember, "A fresh graduate accountant from faculty of Commerce, English section.I believe in volunteer work so I have 4 years Experience of volunteering activities , Strongly believe in TEDx cause it adds a lot to people's lives", R.raw.shoroqshams);
+        createMember(47,"Menna Badreya", frmember, "A senior at faculty of Arts, English department. I mostly care about family, friends and starving for excellence. My motto is \"only the strongest will survive\" I'm interested in marketing, sales and anything related to business. I love learning languages and hope to travel abroad.", R.raw.mennabadreya);
+        createMember(48,"Gamal Maged", frmember, "An ambitious business student who has been looking to improving himself for three years by working in FR teams and NGOs. Also interested in photography and playing the guitar\n" +
                 "Joining TEDx would give me an opportunity to reach full potential and to meet new people.", R.raw.gamalmaged);
-        createMember(48,"Reem Mohamed", frmember, "I am 21 years old , studying chemical engineering , Passionate in helping people and volunteering. I have been volunteer for 5 years and I intend to continue until the world become a better place.\n", R.raw.reemmohamed);
-        createMember(49,"Ahmed Ramadan", frmember, "I am 24 years old, Working as a Power Electrician for Suez Canal Authority, Ship Transit Department. Graduated from the faculty of Commerce - English section, Accounting Department. A Sophomore at the faculty of Science and applied mathematics department. I am passionate about mathematical sciences, finance, economics and music. Interested in how things work and spreading the scientific awareness to help our country become a developed one.", R.raw.ahmedramadan);
+        createMember(49,"Reem Mohamed", frmember, "I am 21 years old , studying chemical engineering , Passionate in helping people and volunteering. I have been volunteer for 5 years and I intend to continue until the world become a better place.\n", R.raw.reemmohamed);
+        createMember(50,"Ahmed Ramadan", frmember, "I am 24 years old, Working as a Power Electrician for Suez Canal Authority, Ship Transit Department. Graduated from the faculty of Commerce - English section, Accounting Department. A Sophomore at the faculty of Science and applied mathematics department. I am passionate about mathematical sciences, finance, economics and music. Interested in how things work and spreading the scientific awareness to help our country become a developed one.", R.raw.ahmedramadan);
 
     }
 
@@ -655,8 +674,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.count_down)
     void onClick(View view) {
-
-
         switch (view.getId()) {
             case R.id.count_down:
                 String day;
@@ -713,7 +730,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})

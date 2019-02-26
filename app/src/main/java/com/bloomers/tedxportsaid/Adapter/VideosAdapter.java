@@ -29,11 +29,13 @@ import butterknife.ButterKnife;
 public class VideosAdapter  extends RecyclerView.Adapter<VideosAdapter.SingleItemRowHolder> {
 
     private final WeakReference<AppCompatActivity> mContext;
-    private ArrayList<YouTubeVideo> videos;
+    private ArrayList<YouTubeVideo> videos = new ArrayList<>();
 
     public VideosAdapter(AppCompatActivity editActivity, List<YouTubeVideo> videos) {
         this.mContext = new WeakReference<>(editActivity);
-        this.videos = new ArrayList<>(videos);
+        if (videos!=null){
+            this.videos = new ArrayList<>(videos);
+        }
     }
 
     public void setVideos(ArrayList<YouTubeVideo> videos) {

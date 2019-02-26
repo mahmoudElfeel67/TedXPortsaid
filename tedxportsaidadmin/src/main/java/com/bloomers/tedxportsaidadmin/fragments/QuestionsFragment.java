@@ -76,7 +76,14 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
                 DataSnapshot snapshot = dataSnapshot.child(parent.replace(".",""));
 
                 for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                    quesitions.add(new question(dataSnapshot1.getKey(), (String) dataSnapshot1.getValue()));
+
+
+                    if (filterCurse((String) dataSnapshot1.getValue())){
+                        quesitions.add(new question(dataSnapshot1.getKey(), (String) dataSnapshot1.getValue()));
+                    }
+
+
+
 
                 }
 
@@ -124,6 +131,42 @@ public class QuestionsFragment extends Fragment implements RecyclerItemTouchHelp
         });
 
         return root;
+    }
+
+
+    private Boolean filterCurse(String string){
+        ArrayList<String> curses = new ArrayList();
+        curses.add("سكس");
+        curses.add("كسم");
+        curses.add("كسمك");
+        curses.add("كسمكو");
+        curses.add("متناك");
+        curses.add("منيكه");
+        curses.add("منيكة");
+        curses.add("بضان");
+        curses.add("خول");
+        curses.add("شرموطة");
+        curses.add("شرموطة");
+        curses.add("شرمطه");
+        curses.add("شرمطه");
+        curses.add("بزاز");
+        curses.add("بضان");
+        curses.add("علق");
+        curses.add("زبر");
+        curses.add("عرص");
+        curses.add("معرص");
+        curses.add("شرموط");
+        curses.add("علوقيه");
+        curses.add("علوقية");
+        curses.add("لبوه" );
+
+        for (String curse : curses){
+             if (string.contains(curse)){
+                 return  false;
+             }
+        }
+
+        return true;
     }
 
     private void saveNow() {

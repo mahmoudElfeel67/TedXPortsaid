@@ -84,8 +84,6 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
         if (!MainActivity.isVideos) {
             isAtPortsiad = false;
             portsaid_vid.setVisibility(View.GONE);
-            root.findViewById(R.id.seperator).setVisibility(View.GONE);
-
         }
 
 
@@ -135,7 +133,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void onGetVideos(List<YouTubeVideo> videos) {
 
-                            if (!HeavilyUsed.isContextSafe(getActivity())){
+                            if (!HeavilyUsed.isContextSafe(getActivity())) {
                                 return;
                             }
 
@@ -185,7 +183,7 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
                     }).executeInParallel();
 
         } else {
-            if (!HeavilyUsed.isContextSafe(getActivity())){
+            if (!HeavilyUsed.isContextSafe(getActivity())) {
                 return;
             }
             if (getActivity().getSharedPreferences("TEDX", Context.MODE_PRIVATE).getBoolean("isSaved", false)) {

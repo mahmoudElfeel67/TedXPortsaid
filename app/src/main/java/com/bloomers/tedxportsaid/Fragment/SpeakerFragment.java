@@ -89,7 +89,6 @@ public class SpeakerFragment extends Fragment {
                     no_data.setVisibility(View.GONE);
 
                 } else {
-                    Timber.e("DOESN EXIST");
                     no_data.setVisibility(View.VISIBLE);
                 }
 

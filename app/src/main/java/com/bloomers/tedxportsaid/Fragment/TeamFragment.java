@@ -1,6 +1,7 @@
 package com.bloomers.tedxportsaid.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ public class TeamFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private SpinKitView spin_kit;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -57,10 +59,10 @@ public class TeamFragment extends Fragment {
                     // first three items span 3 columns each
                     case 0:
                     case 8:
-                    case 21:
-                    case 29:
-                    case 40:
-                    case 49:
+                    case 22:
+                    case 30:
+                    case 41:
+                    case 50:
                         return 12;
                 }
 
@@ -113,6 +115,8 @@ public class TeamFragment extends Fragment {
                 if (dataSnapshot!=null&&dataSnapshot.getValue()!=null&&dataSnapshot.exists()){
                     ArrayList<TeamMember> arrayList = new ArrayList();
                     arrayList.add(new TeamMember());
+                    int ziad = 0;
+                    int index = 0;
                     for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
                         TeamMember teamMember = dataSnapshot1.getValue(TeamMember.class);
                         if (teamMember.getName().toLowerCase().equals("Ahmed Abd El-MA'Boud".toLowerCase())
@@ -124,8 +128,23 @@ public class TeamFragment extends Fragment {
                         }
 
 
+
                         arrayList.add(teamMember);
+
                     }
+
+                    for (TeamMember member :arrayList){
+
+                        if (member.getName()!=null&&member.getName().toLowerCase().equals("Ziad ElMahlawy".toLowerCase())){
+                            ziad = index;
+                        }
+                        index++;
+
+                    }
+
+                    TeamMember teamMember = arrayList.get(arrayList.size()-1);
+                    arrayList.remove(teamMember);
+                    arrayList.add(ziad,teamMember);
 
                     article_recycler.setAdapter(new TeamAdapter((AppCompatActivity) getActivity(),clicked,arrayList));
                     swipeRefreshLayout.setRefreshing(false);

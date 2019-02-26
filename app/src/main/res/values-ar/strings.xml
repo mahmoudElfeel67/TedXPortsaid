@@ -52,4 +52,5 @@
     <string name="schedule_videos">شوف كل فيديوهات TED و TEDxPortSaid اول باول !</string>
     <string name="getThereDesc"> ستقام تفاعليه TEDxPortSaid في المركز الثقافي الترفيهي ببورسعيد من بدايه الساعه التاسعه والنصف صباحا يوم 3 أغسطس 2018</string>
     <string name="qusetion_sent">تم إرسال سؤالك لفريق تيدكس بورسعيد !</string>
+    <string name="full_question">الرجاء كتابه سؤال كامل</string>
 </resources>
