@@ -29,7 +29,7 @@ import com.google.api.services.youtube.YouTube;
 /**
  * Represents YouTube API service.
  */
-class YouTubeAPI {
+public class YouTubeAPI {
 
 	/**
 	 * Returns a new instance of {@link YouTube}.

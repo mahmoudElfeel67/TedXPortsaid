@@ -41,7 +41,7 @@ public abstract class GetYouTubeVideos {
 	/**
 	 * Sets user's query. [optional]
 	 */
-    void setQuery(String query) {
+    public void setQuery(String query) {
 	}
 
 

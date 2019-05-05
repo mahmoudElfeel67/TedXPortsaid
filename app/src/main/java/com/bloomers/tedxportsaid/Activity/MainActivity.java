@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -50,6 +51,10 @@ import com.bloomers.tedxportsaid.Model.Speaker;
 import com.bloomers.tedxportsaid.Model.TeamMember;
 import com.bloomers.tedxportsaid.Model.event_date;
 import com.bloomers.tedxportsaid.R;
+import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.Test.GetPlaylistTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.Test.GetVideosPlayListTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.Test.YouTubePlaylist;
 import com.bloomers.tedxportsaid.Utitltes.ints;
 import com.bloomers.tedxportsaid.Utitltes.other.GlideApp;
 import com.bloomers.tedxportsaid.Utitltes.other.HeavilyUsed;
@@ -74,6 +79,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
     private int current_position = 0;
     private event_date eventDate;
-    public static boolean isVideos = false;
+    public static boolean isVideos = true;
 
 
     private void createMember(final int number, final String name, final String team, final String desc, @RawRes final int drawable) {
@@ -211,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         pager = findViewById(R.id.pager);
-        if (AppController.getInstance().isThereInternet(this)) {
+        /*if (AppController.getInstance().isThereInternet(this)) {
             FirebaseDatabase.getInstance().getReference().child("isThereVideos").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -219,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot != null && dataSnapshot.exists()) {
                         isVideos = (boolean) dataSnapshot.getValue();
                     }
-                    setViewPagerAdapter();
+
 
                 }
 
@@ -230,7 +236,9 @@ public class MainActivity extends AppCompatActivity {
             });
         } else {
             setViewPagerAdapter();
-        }
+        }*/
+
+        setViewPagerAdapter();
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -350,6 +358,10 @@ public class MainActivity extends AppCompatActivity {
 
         //createSpeakers();
       //  creatMemebers();
+
+
+
+
 
     }
 

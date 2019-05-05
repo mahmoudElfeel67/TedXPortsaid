@@ -25,6 +25,9 @@ import com.bloomers.tedxportsaid.R;
 import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideos;
 import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTask;
 import com.bloomers.tedxportsaid.Service.YoutubeService.GetChannelVideosTaskInterface;
+import com.bloomers.tedxportsaid.Service.YoutubeService.Test.GetPlaylistTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.Test.GetVideosPlayListTask;
+import com.bloomers.tedxportsaid.Service.YoutubeService.Test.YouTubePlaylist;
 import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeChannel;
 import com.bloomers.tedxportsaid.Service.YoutubeService.YouTubeVideo;
 import com.bloomers.tedxportsaid.Utitltes.EndlessOnScrollListener;
@@ -38,6 +41,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class VideosFragment extends Fragment implements View.OnClickListener {
 
@@ -88,7 +92,14 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
 
 
         if (videos == null && !searchRunning) {
-            load(progressBar, article_segment_recycler, MainActivity.isVideos ? tedxPortsaidChnnel : "UCAuUUnT6oDeKwE6v1NGQxug");
+            new GetVideosPlayListTask(new GetVideosPlayListTask.OnVideosLoaded() {
+                @Override public void OnLoaded(List<YouTubeVideo> list) {
+                    progressBar.setVisibility(View.GONE);
+                    VideosFragment.videos = list;
+                    adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
+                    article_segment_recycler.setAdapter(adapter);
+                }
+            }).executeInParallel();
         } else {
             progressBar.setVisibility(View.GONE);
             adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
@@ -225,7 +236,16 @@ public class VideosFragment extends Fragment implements View.OnClickListener {
             tedx_vid.setTextColor(Color.parseColor("#862f2d"));
             portsaid_vid.setTextColor(AppController.easyColor(getContext(), R.color.red_color));
             getChannelVideos = new GetChannelVideos();
-            load(progressBar, article_segment_recycler, tedxPortsaidChnnel);
+
+
+            new GetVideosPlayListTask(new GetVideosPlayListTask.OnVideosLoaded() {
+                @Override public void OnLoaded(List<YouTubeVideo> list) {
+                    VideosFragment.videos = list;
+                    adapter = new VideosAdapter((AppCompatActivity) getActivity(), VideosFragment.videos);
+                    article_segment_recycler.setAdapter(adapter);
+                }
+            }).executeInParallel();
+
         } else {
             tedx_vid.setTextColor(AppController.easyColor(getContext(), R.color.red_color));
             portsaid_vid.setTextColor(Color.parseColor("#862f2d"));
